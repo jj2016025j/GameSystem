@@ -46,17 +46,17 @@ public class Inventory
         }
     }
 
-    public static void BuyItem(Player player, Business business, Item item, int quantity)
+    public static void BuyItem(Player player, Player self, Item item, int quantity)
     {
         int totalPrice = item.Price * quantity;
 
-        if (!business.Inventory.items.ContainsKey(item))
+        if (!self.Inventory.items.ContainsKey(item))
         {
             Console.WriteLine("物品已售罄!");
             return;
         }
 
-        if (business.Inventory.items[item] < quantity)
+        if (self.Inventory.items[item] < quantity)
         {
             Console.WriteLine("物品數量不足!");
             return;
@@ -70,14 +70,14 @@ public class Inventory
 
         // Perform the transaction
         player.Inventory.Gold -= totalPrice;
-        business.Inventory.Gold += totalPrice;
+        self.Inventory.Gold += totalPrice;
         player.Inventory.AddItem(item, quantity);
-        business.Inventory.items[item] -= quantity;
+        self.Inventory.items[item] -= quantity;
 
         Console.WriteLine($"{item.Name} 購買成功!");
     }
 
-    public static void SellItem(Player player, Business business, Item item, int quantity)
+    public static void SellItem(Player player, Player self, Item item, int quantity)
     {
         int sellingPrice = item.Price * quantity;
 
@@ -87,7 +87,7 @@ public class Inventory
             return;
         }
 
-        if (business.Inventory.Gold < sellingPrice)
+        if (self.Inventory.Gold < sellingPrice)
         {
             Console.WriteLine("店家沒有足夠的金幣購買您的物品!");
             return;
@@ -96,15 +96,15 @@ public class Inventory
         // Perform the transaction
         player.Inventory.RemoveItem(item, quantity);
         player.Inventory.Gold += sellingPrice;
-        business.Inventory.Gold -= sellingPrice;
+        self.Inventory.Gold -= sellingPrice;
 
-        if (business.Inventory.items.ContainsKey(item))
+        if (self.Inventory.items.ContainsKey(item))
         {
-            business.Inventory.items[item] += quantity;
+            self.Inventory.items[item] += quantity;
         }
         else
         {
-            business.Inventory.items[item] = quantity;
+            self.Inventory.items[item] = quantity;
         }
 
         Console.WriteLine($"{item.Name} 已成功賣出!");
@@ -119,8 +119,9 @@ public class Inventory
         return false;
     }
 
-    public void DisplayInventory()
+    public void DisplayInventory(Player player)
     {
+        Console.WriteLine($"玩家剩餘金幣: {player.Inventory.Gold}");
         Console.WriteLine("Inventory:");
         foreach (var entry in items)
         {

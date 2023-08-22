@@ -1,4 +1,4 @@
 public interface ICollectable : IName
 {
-    void Collect(Player player);
+    void Collect(Player Alice);
 }

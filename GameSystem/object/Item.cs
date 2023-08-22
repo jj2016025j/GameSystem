@@ -9,15 +9,15 @@ public class Item : IName, ICollectable
         Price = price;
     }
 
-    public virtual void UseItem(Player player)
+    public virtual void UseItem(Player Alice)
     {
         // 定義物品的使用效果，如恢復生命、增加攻擊力等。
-        Console.WriteLine($"{player.Name} Used {Name}");
+        Console.WriteLine($"{Alice.Name} Used {Name}");
     }
 
-    public void Collect(Player player)
+    public void Collect(Player Alice)
     {
-        Console.WriteLine($"{player.Name} collected a "+ Name + "!");
-        player.Inventory.AddItem(this);
+        Console.WriteLine($"{Alice.Name} collected a "+ Name + "!");
+        Alice.Inventory.AddItem(this);
     }
 }

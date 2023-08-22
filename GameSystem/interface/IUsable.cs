@@ -1,4 +1,4 @@
 public interface IUsable : IName
 {
-    void UseItem(Player player);
+    void UseItem(Player Alice);
 }

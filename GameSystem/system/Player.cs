@@ -1,11 +1,13 @@
+using System.Numerics;
+
 public class Player
 {
     public string Name { get; private set; }
     public Inventory Inventory { get; private set; }
     public PlayerStats PlayerStats { get; private set; }
-    private List<Skill> skills = new List<Skill>();
+    private List<ISkill> skills = new List<ISkill>();
 
-    public Player(string name,int gold = 0)
+    public Player(string name, int gold = 0)
     {
         Name = name;
         Inventory = new Inventory(gold);
@@ -17,9 +19,51 @@ public class Player
         collectable.Collect(this);
     }
 
-    public void UseItem(IUsable usable)
+    public void AddItemsToInventory(Item item = null, int quantity = 1, Dictionary<Item, int> itemsToAdd = null)
     {
-        usable.UseItem(this);
+        if (item != null)
+        {
+            Inventory.AddItem(item, quantity);
+        }
+        if (itemsToAdd != null)
+        {
+            foreach (var entry in itemsToAdd)
+            {
+                Inventory.AddItem(entry.Key, entry.Value);
+            }
+
+        }
+    }
+
+    public void RemoveItemsFromInventory(Item item = null, int quantity = 1, Dictionary<Item, int> itemsToRemove = null)
+    {
+        if (item != null)
+        {
+            Inventory.RemoveItem(item, quantity);
+        }
+        if (itemsToRemove != null)
+        {
+            foreach (var entry in itemsToRemove)
+            {
+                Inventory.RemoveItem(entry.Key, entry.Value);
+            }
+
+        }
+    }
+
+    public void DisplayInventory()
+    {
+        Inventory.DisplayInventory(this);
+    }
+
+    public void UseItem(Item item)
+    {
+        Inventory.UseItem(this, item);
+    }
+
+    public void DisplayStats()
+    {
+        PlayerStats.DisplayStats();
     }
 
     public void InteractWith(IInteractable interactable)
@@ -42,9 +86,15 @@ public class Player
     public void UnlearnSkill(ISkill skill)
     {
         skills.Remove(skill);
+        Console.WriteLine($"²¾°£{skill}§Þ¯à");
     }
 
-    public void UseSkill<T>() where T : Skill
+    public ISkill GetSkillByName(string skillName)
+    {
+        return skills.FirstOrDefault(s => s.Name == skillName);
+    }
+
+    public void UseSkill<T>() where T : ISkill
     {
         var skill = skills.OfType<T>().FirstOrDefault();
         if (skill != null)
@@ -57,11 +107,6 @@ public class Player
         }
     }
 
-    public ISkill GetSkillByName(string skillName)
-    {
-        return skills.FirstOrDefault(s => s.Name == skillName);
-    }
-
     public void UseSkill(string skillName)
     {
         ISkill skill = skills.FirstOrDefault(s => s.Name == skillName);
@@ -71,7 +116,7 @@ public class Player
         }
         else
         {
-            Console.WriteLine($"The player hasn't learned the {skillName} skill.");
+            Console.WriteLine($"The Alice hasn't learned the {skillName} skill.");
         }
     }
 }

@@ -1,21 +1,26 @@
-public abstract class ISkill
+public interface ISkill
 {
-    public abstract void Execute(Player player);
+    string Name { get; }
+    public void Execute(Player Alice);
 }
 
 public class Cooking : ISkill
 {
-    public override void Execute(Player player)
+    public string Name => nameof(Business);
+
+    public void Execute(Player Alice)
     {
-        Console.WriteLine($"{player.Name} is cooking...");
+        Console.WriteLine($"{Alice.Name} is cooking...");
     }
 }
 
 public class Trading : ISkill
 {
-    public override void Execute(Player player)
+    public string Name => nameof(Business);
+
+    public void Execute(Player Alice)
     {
-        Console.WriteLine($"{player.Name} is trading...");
+        Console.WriteLine($"{Alice.Name} is trading...");
     }
 }
 
