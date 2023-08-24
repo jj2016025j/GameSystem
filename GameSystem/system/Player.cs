@@ -1,5 +1,3 @@
-using System.Numerics;
-
 public class Player
 {
     public string Name { get; private set; }
@@ -19,7 +17,7 @@ public class Player
         collectable.Collect(this);
     }
 
-    public void AddItemsToInventory(Item item = null, int quantity = 1, Dictionary<Item, int> itemsToAdd = null)
+    public void AddItemsToInventory(Item? item = null, int quantity = 1, Dictionary<Item, int> itemsToAdd = null)
     {
         if (item != null)
         {
@@ -35,7 +33,7 @@ public class Player
         }
     }
 
-    public void RemoveItemsFromInventory(Item item = null, int quantity = 1, Dictionary<Item, int> itemsToRemove = null)
+    public void RemoveItemsFromInventory(Item? item = null, int quantity = 1, Dictionary<Item, int> itemsToRemove = null)
     {
         if (item != null)
         {
@@ -63,7 +61,7 @@ public class Player
 
     public void DisplayStats()
     {
-        PlayerStats.DisplayStats();
+        PlayerStats.DisplayStats(this);
     }
 
     public void InteractWith(IInteractable interactable)
@@ -79,14 +77,14 @@ public class Player
         }
         else
         {
-            Console.WriteLine($"Player has already learned the {skill.Name} skill.");
+            Program.TypeTextWithThreadSleep($"玩家已經學會了 {skill.Name} 技能。");
         }
     }
 
     public void UnlearnSkill(ISkill skill)
     {
         skills.Remove(skill);
-        Console.WriteLine($"移除{skill}技能");
+        Program.TypeTextWithThreadSleep($"移除{skill}技能");
     }
 
     public ISkill GetSkillByName(string skillName)
@@ -103,7 +101,7 @@ public class Player
         }
         else
         {
-            Console.WriteLine($"{Name} has not learned this skill and cannot use it.");
+            Program.TypeTextWithThreadSleep($"{Name} 沒有學會這個技能，無法使用它。");
         }
     }
 
@@ -116,7 +114,13 @@ public class Player
         }
         else
         {
-            Console.WriteLine($"The Alice hasn't learned the {skillName} skill.");
+            Program.TypeTextWithThreadSleep($"{this} 尚未學習 {skillName} 技能。");
         }
+    }
+
+    public void DailyChanges()
+    {
+        PlayerStats.DailyChanges(this);
+        DisplayInventory();
     }
 }

@@ -6,21 +6,21 @@ public interface ISkill
 
 public class Cooking : ISkill
 {
-    public string Name => nameof(Business);
+    public string Name => nameof(Cooking);
 
     public void Execute(Player Alice)
     {
-        Console.WriteLine($"{Alice.Name} is cooking...");
+        Program.TypeTextWithThreadSleep($"{Alice.Name} 正在做菜...");
     }
 }
 
 public class Trading : ISkill
 {
-    public string Name => nameof(Business);
+    public string Name => nameof(Trading);
 
     public void Execute(Player Alice)
     {
-        Console.WriteLine($"{Alice.Name} is trading...");
+        Program.TypeTextWithThreadSleep($"{Alice.Name} 正在交易...");
     }
 }
 

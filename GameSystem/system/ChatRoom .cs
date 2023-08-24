@@ -11,7 +11,7 @@ public class ChatRoom
 
     public void DisplayMessage(Message message)
     {
-        Console.WriteLine($"[{message.Timestamp.ToShortTimeString()}] {message.Sender}: {message.Content}");
+        Program.TypeTextWithThreadSleep($"[{message.Timestamp.ToShortTimeString()}] {message.Sender}: {message.Content}");
     }
 
     public void DisplayAllMessages()

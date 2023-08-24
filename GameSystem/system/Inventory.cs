@@ -42,7 +42,7 @@ public class Inventory
         }
         else
         {
-            Console.WriteLine($"No {item.Name} left to use.");
+            Program.TypeTextWithThreadSleep($"沒有可用的 {item.Name}");
         }
     }
 
@@ -52,19 +52,19 @@ public class Inventory
 
         if (!self.Inventory.items.ContainsKey(item))
         {
-            Console.WriteLine("物品已售罄!");
+            Program.TypeTextWithThreadSleep($"物品已售罄!");
             return;
         }
 
         if (self.Inventory.items[item] < quantity)
         {
-            Console.WriteLine("物品數量不足!");
+            Program.TypeTextWithThreadSleep($"物品數量不足!");
             return;
         }
 
         if (player.Inventory.Gold < totalPrice)
         {
-            Console.WriteLine("金幣不足!");
+            Program.TypeTextWithThreadSleep($"金幣不足!");
             return;
         }
 
@@ -74,7 +74,7 @@ public class Inventory
         player.Inventory.AddItem(item, quantity);
         self.Inventory.items[item] -= quantity;
 
-        Console.WriteLine($"{item.Name} 購買成功!");
+        Program.TypeTextWithThreadSleep($"{item.Name} 購買成功!");
     }
 
     public static void SellItem(Player player, Player self, Item item, int quantity)
@@ -83,13 +83,13 @@ public class Inventory
 
         if (!player.Inventory.HasItem(item, quantity))
         {
-            Console.WriteLine("您沒有足夠的物品來賣!");
+            Program.TypeTextWithThreadSleep($"您沒有足夠的物品來賣!");
             return;
         }
 
         if (self.Inventory.Gold < sellingPrice)
         {
-            Console.WriteLine("店家沒有足夠的金幣購買您的物品!");
+            Program.TypeTextWithThreadSleep($"店家沒有足夠的金幣購買您的物品!");
             return;
         }
 
@@ -107,7 +107,7 @@ public class Inventory
             self.Inventory.items[item] = quantity;
         }
 
-        Console.WriteLine($"{item.Name} 已成功賣出!");
+        Program.TypeTextWithThreadSleep($"{item.Name} 已成功賣出!");
     }
 
     public bool HasItem(Item item, int quantity)
@@ -121,18 +121,18 @@ public class Inventory
 
     public void DisplayInventory(Player player)
     {
-        Console.WriteLine($"玩家剩餘金幣: {player.Inventory.Gold}");
-        Console.WriteLine("Inventory:");
+        Program.TypeTextWithThreadSleep($"{player.Name}剩餘金幣: {player.Inventory.Gold}");
+        Program.TypeTextWithThreadSleep($"存貨:");
         foreach (var entry in items)
         {
-            Console.WriteLine($"{entry.Key.Name} (x{entry.Value})");
+            Program.TypeTextWithThreadSleep($"{entry.Key.Name} (x{entry.Value})");
         }
-        Console.WriteLine("\n");
+        Program.TypeTextWithThreadSleep($"\n");
     }
 
     public void GetItemCount(Item item)
     {
         int count = items.ContainsKey(item) ? items[item] : 0;
-        Console.WriteLine($"玩家背包中劍的數量: {count}");  // "玩家剩餘金幣:"
+        Program.TypeTextWithThreadSleep($"{item.Name} (x{count})");  // "玩家剩餘金幣:"
     }
 }

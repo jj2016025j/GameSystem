@@ -18,12 +18,12 @@ public class Door : IInteractable
     private void Open()
     {
         isOpen = true;
-        Console.WriteLine("Door opened.");
+        Program.TypeTextWithThreadSleep($"門打開了。");
     }
 
     private void Close()
     {
         isOpen = false;
-        Console.WriteLine("Door closed.");
+        Program.TypeTextWithThreadSleep($"門關上了。");
     }
 }

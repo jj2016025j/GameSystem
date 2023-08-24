@@ -4,7 +4,7 @@ public class Business : ISkill
     
     public void Execute(Player player)
     {
-        Console.WriteLine($"{player.Name} is Shopping...");
+        Program.TypeTextWithThreadSleep($"{player.Name} is Shopping...");
     }
 
     public void BuyItem(Player player, Player self, Item item, int quantity = 1)

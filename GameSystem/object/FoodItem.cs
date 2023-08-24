@@ -11,6 +11,6 @@ public class FoodItem : Item, IUsable
     public override void UseItem(Player Alice)
     {
         Alice.PlayerStats.Hunger += hungerRestoreValue; // 這裡需要確保 Player 類別有一個 Hunger 屬性，並且可以修改
-        Console.WriteLine($"{Alice.Name} Used {Name}");
+        Program.TypeTextWithThreadSleep($"{Alice.Name} 食用了 {Name}");
     }
 }

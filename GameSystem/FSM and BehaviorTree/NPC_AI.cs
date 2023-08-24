@@ -9,17 +9,36 @@ public class NPC_AI //: MonoBehaviour
     /*private void Start()
     {
         fsm = new FSM(this);
-        fsm.AddState("Resting", new RestState());
-        fsm.AddState("Exploring", new ExploreState());
-        fsm.AddState("Working", new WorkState());
-        fsm.AddState("Interacting", new InteractState());
+        fsm.AddState($"Resting", new RestState());
+        fsm.AddState($"Exploring", new ExploreState());
+        fsm.AddState($"Working", new WorkState());
+        fsm.AddState($"Interacting", new InteractState());
 
         // Example: Start with exploring state
-        fsm.SetState("Exploring");
+        fsm.SetState($"Exploring");
     }
 
     private void Update()
     {
         fsm.Update();
     }*/
+    enum BehaviorOptions
+    {
+        Gathering,
+        SellingThings,
+        BuyingFood,
+        EatingFood,
+        MakingFood,
+        Learning
+    }
+
+    enum JudgmentStatus
+    {
+        LowBloodLevel,
+        Lowsaturation,
+        Toolittlemoney,
+        Nofood,
+        PoorMood,
+        Lackofphysicalstrength
+    }
 }

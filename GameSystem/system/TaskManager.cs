@@ -11,7 +11,7 @@ public class TaskManager
     {
         foreach (var task in tasks)
         {
-            Console.WriteLine($"Description: {task.Description}, Status: {task.Status}");
+            Program.TypeTextWithThreadSleep($"´y­z: {task.Description}, ª¬ºA: {task.Status}");
         }
     }
 }
