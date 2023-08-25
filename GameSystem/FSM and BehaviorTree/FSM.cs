@@ -1,6 +1,6 @@
 public class FSM
 {
-    private Dictionary<string, FSMState> states = new Dictionary<string, FSMState>();
+    /*private Dictionary<string, FSMState> states = new Dictionary<string, FSMState>();
     private FSMState currentState;
 
     public FSM() { }
@@ -27,5 +27,5 @@ public class FSM
         {
             currentState.Update();
         }
-    }
+    }*/
 }

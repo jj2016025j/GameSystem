@@ -1,15 +1,21 @@
-public class Player
+using System.Numerics;
+
+public class Player : IBusiness
 {
     public string Name { get; private set; }
     public Inventory Inventory { get; private set; }
     public PlayerStats PlayerStats { get; private set; }
-    private List<ISkill> skills = new List<ISkill>();
+    public NPC_AI NPC_AI { get; private set; }
+    private List<ISkill> Skills = new List<ISkill>();
+    public List<Player> Friends { get; set; } = new List<Player>();
+    public List<Player> Acquaintances { get; set; } = new List<Player>();
 
     public Player(string name, int gold = 0)
     {
         Name = name;
         Inventory = new Inventory(gold);
         PlayerStats = new PlayerStats();
+        NPC_AI = new NPC_AI();
     }
 
     public void Collect(ICollectable collectable)
@@ -17,28 +23,13 @@ public class Player
         collectable.Collect(this);
     }
 
-    public void AddItemsToInventory(Item? item = null, int quantity = 1, Dictionary<Item, int> itemsToAdd = null)
+    public void AddItemsToInventory(Dictionary<Item, int> itemsToAdd)
     {
-        if (item != null)
-        {
-            Inventory.AddItem(item, quantity);
-        }
-        if (itemsToAdd != null)
-        {
-            foreach (var entry in itemsToAdd)
-            {
-                Inventory.AddItem(entry.Key, entry.Value);
-            }
-
-        }
+        Inventory.AddItems(itemsToAdd);
     }
 
-    public void RemoveItemsFromInventory(Item? item = null, int quantity = 1, Dictionary<Item, int> itemsToRemove = null)
+    public void RemoveItemsFromInventory(Dictionary<Item, int> itemsToRemove)
     {
-        if (item != null)
-        {
-            Inventory.RemoveItem(item, quantity);
-        }
         if (itemsToRemove != null)
         {
             foreach (var entry in itemsToRemove)
@@ -49,19 +40,9 @@ public class Player
         }
     }
 
-    public void DisplayInventory()
-    {
-        Inventory.DisplayInventory(this);
-    }
-
     public void UseItem(Item item)
     {
         Inventory.UseItem(this, item);
-    }
-
-    public void DisplayStats()
-    {
-        PlayerStats.DisplayStats(this);
     }
 
     public void InteractWith(IInteractable interactable)
@@ -71,9 +52,9 @@ public class Player
 
     public void LearnSkill(ISkill skill)
     {
-        if (!skills.Contains(skill))
+        if (!Skills.Contains(skill))
         {
-            skills.Add(skill);
+            Skills.Add(skill);
         }
         else
         {
@@ -83,18 +64,20 @@ public class Player
 
     public void UnlearnSkill(ISkill skill)
     {
-        skills.Remove(skill);
+        Skills.Remove(skill);
         Program.TypeTextWithThreadSleep($"²¾°£{skill}§Þ¯à");
     }
 
     public ISkill GetSkillByName(string skillName)
     {
-        return skills.FirstOrDefault(s => s.Name == skillName);
+        var iSkill = Skills.FirstOrDefault(s => s.Name == skillName);
+        //if (iSkill != null)
+        return iSkill;
     }
 
     public void UseSkill<T>() where T : ISkill
     {
-        var skill = skills.OfType<T>().FirstOrDefault();
+        var skill = Skills.OfType<T>().FirstOrDefault();
         if (skill != null)
         {
             skill.Execute(this);
@@ -107,7 +90,7 @@ public class Player
 
     public void UseSkill(string skillName)
     {
-        ISkill skill = skills.FirstOrDefault(s => s.Name == skillName);
+        ISkill skill = Skills.FirstOrDefault(s => s.Name == skillName);
         if (skill != null)
         {
             skill.Execute(this);
@@ -118,9 +101,45 @@ public class Player
         }
     }
 
+    public List<Player> FindPeopleWithBusinessSkill()
+    {
+        var peopleWithBusiness = new List<Player>();
+
+        foreach (var friend in Friends)
+        {
+            peopleWithBusiness.Add(friend);
+        }
+        foreach (var acquaintance in Acquaintances)
+        {
+            peopleWithBusiness.Add(acquaintance);
+        }
+        return peopleWithBusiness;
+    }
+
+    public bool BuyItem(Player buyer, Player seller, Item item, int quantity = 1)
+    {
+        return Inventory.BuyItem(buyer, seller, item, quantity);
+    }
+
+    public bool SellItem(Player seller, Player buyer, Item item, int quantity = 1)
+    {
+        return Inventory.SellItem(seller, buyer, item, quantity);
+    }
+
     public void DailyChanges()
     {
         PlayerStats.DailyChanges(this);
+        NPC_AI.DecideAction(this);
         DisplayInventory();
+    }
+
+    public void DisplayInventory()
+    {
+        Inventory.DisplayInventory(this);
+    }
+
+    public void DisplayStats()
+    {
+        PlayerStats.DisplayStats(this);
     }
 }

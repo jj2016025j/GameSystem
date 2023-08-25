@@ -1,8 +1,8 @@
 public class ExploreState : FSMState
 {
-    private BehaviorTree bt;
+    /*private BehaviorTree bt;
 
-    /*public override void Enter()
+    public override void Enter()
     {
         bt = new BehaviorTree(new Selector(
             new MoveToRandomLocation(),
@@ -10,7 +10,7 @@ public class ExploreState : FSMState
             new Wait(),
             new ReturnToOriginalPosition()
         ));
-    }*/
+    }
 
     public override void Update()
     {
@@ -20,5 +20,5 @@ public class ExploreState : FSMState
     public override void Exit()
     {
         // Cleanup or reset behaviors if needed
-    }
+    }*/
 }

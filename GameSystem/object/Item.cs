@@ -11,13 +11,12 @@ public class Item : IName, ICollectable
 
     public virtual void UseItem(Player Alice)
     {
-        // 定義物品的使用效果，如恢復生命、增加攻擊力等。
         Program.TypeTextWithThreadSleep($"{Alice.Name} 使用了 {Name}");
     }
 
     public void Collect(Player Alice)
     {
         Program.TypeTextWithThreadSleep($"{Alice.Name} 蒐集了 "+ Name + "!");
-        Alice.Inventory.AddItem(this);
+        Alice.Inventory.AddItems(new Dictionary<Item, int> { { this, 1 } });
     }
 }

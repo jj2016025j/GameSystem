@@ -3,7 +3,7 @@ using static System.Net.Mime.MediaTypeNames;
 public static class Program
 {
     public static Global Global = new Global();
-    static int _TimeScale = 1;
+    static int _TimeScale = 5;
     static Timer? _timer;
     static bool _continueRunning = true;
 
@@ -15,7 +15,7 @@ public static class Program
 
     static void DailyChanges(object state)
     {
-        Program.TypeTextWithThreadSleep($"經過了一天... " + DateTime.Now + "\n");
+        Program.TypeTextWithThreadSleep($"\n經過了一天... " + DateTime.Now + "\n");
 
         Global.CallMethods($"DailyChanges");
         // 根據其他條件更改其他數值...
@@ -26,11 +26,10 @@ public static class Program
         TypeTextWithThreadSleep($"正在進行初始化...");
 
         // 單位
-        Player Alice = new Player($"愛麗絲", 1000000);
-        Global.AddObjects(Alice);
         Player John = new Player($"約翰");
+        //Player Alice = new Player($"愛麗絲", 1000000);
+        //Global.AddObjects(Alice);
         Global.AddObjects(John);
-        Business business = new Business();
 
         // 物品
         Item sword = new Item($"劍", 500);
@@ -38,8 +37,8 @@ public static class Program
         Item Wheat = new Item($"小麥", 3);
         Herb herb = new Herb($"治癒草藥", 100);
         Mineral mineral = new Mineral($"治癒礦石", 100);
-        FoodItem food = new FoodItem($"食物", 30, 30);
-        var itemsToAddShop = new Dictionary<Item, int>
+        Food food = new Food($"食物", 30, 50);
+        var items = new Dictionary<Item, int>
         {
             { sword, 1000 },
             { potion, 1000 },
@@ -48,6 +47,7 @@ public static class Program
             { mineral, 1000 },
             { Wheat, 10000 },
         };
+        //Alice.Inventory.AddItems(items);
 
         Thing thing = new Thing();
 
@@ -68,51 +68,54 @@ public static class Program
     {
         lock (dailyChangesLock)
         {
-                _timer = new Timer(DailyChanges, null, TimeSpan.Zero, TimeSpan.FromSeconds(_TimeScale));
+            _timer = new Timer(DailyChanges, null, TimeSpan.Zero, TimeSpan.FromSeconds(_TimeScale));
 
-                while (_continueRunning)
+            while (_continueRunning)
+            {
+                if (Console.ReadKey().KeyChar == 'q')
                 {
-                    if (Console.ReadKey().KeyChar == 'q')
-                    {
-                        _continueRunning = false;
-                    }
+                    _continueRunning = false;
                 }
+            }
 
-                _timer.Dispose();  // 結束後確保釋放Timer資源
-                /// <summary>
-                /// This class represents a basic calculator.備用線程
-                /// </summary>
-                /*if (_continueRunning)
+            _timer.Dispose();  // 結束後確保釋放Timer資源
+            /// <summary>
+            /// This class represents a basic calculator.備用線程
+            /// </summary>
+            /*if (_continueRunning)
+            {
+                Program.TypeTextWithThreadSleep($"Press 'q' to quit.");
+                while (true)
                 {
-                    Program.TypeTextWithThreadSleep($"Press 'q' to quit.");
-                    while (true)
+                    DailyChanges();
+
+                    if (Console.KeyAvailable && Console.ReadKey().KeyChar == 'q')
                     {
-                        DailyChanges();
-
-                        if (Console.KeyAvailable && Console.ReadKey().KeyChar == 'q')
-                        {
-                            break;
-                        }
-
-                        Thread.Sleep(1000); // Sleep for 1 second
+                        break;
                     }
-                }*/
+
+                    Thread.Sleep(1000); // Sleep for 1 second
+                }
+            }*/
         }
     }
 
     private static object lockObject = new object();
 
+    public static bool test { get; private set; }
+
     public static void TypeTextWithThreadSleep(string text)
     {
         lock (lockObject)
         {
+            if (test)
                 foreach (char c in text)
                 {
                     Console.Write(c);
                     Thread.Sleep(10);  //延遲50毫秒
                 }
-                /*Console.Write(text);*/
-                Console.Write($"\n");
+                Console.Write(text);
+            Console.Write($"\n");
         }
     }
 
@@ -121,14 +124,13 @@ public static class Program
         // 單位
         Player Alice = new Player($"愛麗絲", 1000);
         Player John = new Player($"約翰");
-        Business business = new Business();
 
         // 物品
         Item sword = new Item($"劍", 50);
         Item potion = new Item($"生命藥水", 10);
         Herb herb = new Herb($"治癒草藥", 100);
         Mineral mineral = new Mineral($"治癒礦石", 100);
-        FoodItem food = new FoodItem($"食物", 10, 30);
+        Food food = new Food($"食物", 10, 30);
         Thing thing = new Thing();
         var itemsToAddShop = new Dictionary<Item, int>
         {
@@ -139,30 +141,13 @@ public static class Program
 
         // 任務系統
         Task task1 = new Task($"收集10個蘋果");
-        Task task2 = new Task($"擊敗5個小妖");
+        Task task2 = new Task($"擊敗5隻小怪");
         TaskManager manager = new TaskManager();
 
-        // 交易系統
-        Alice.UseSkill($"商業");
-        Alice.LearnSkill(business);
-        var Alicebusiness = Alice.GetSkillByName($"商業") as Business;
-        if (Alice.GetSkillByName($"商業") as Business != null)
-        {
-            Alicebusiness?.BuyItem(John, Alice, sword);
-        }
-        else
-        {
-            Program.TypeTextWithThreadSleep($"該玩家無法交易");
-        }
-        Alice.UnlearnSkill(business);
-        Alice.AddItemsToInventory(null, 0, itemsToAddShop);
-        Alicebusiness?.BuyItem(John, Alice, sword);
-        Alicebusiness?.BuyItem(John, Alice, food);
+        Alice.AddItemsToInventory(itemsToAddShop);
         Alice.DisplayInventory();
 
         // 背包系統
-        Alice.AddItemsToInventory(potion, 3);
-        Alice.AddItemsToInventory(sword);
         Alice.UseItem(potion);
         Alice.DisplayInventory();
 
@@ -173,12 +158,10 @@ public static class Program
         // 物品使用系統
         Alice.DisplayInventory();
         Alice.DisplayStats();
-        Alice.AddItemsToInventory(food);
         Alice.UseItem(food);
         Alice.DisplayInventory();
 
         // 狀態改變
-        Alice.PlayerStats.MoodChange(thing);
         Alice.DisplayStats();
 
         manager.AddTask(task1);

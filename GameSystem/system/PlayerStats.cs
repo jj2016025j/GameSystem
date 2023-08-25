@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Numerics;
 using System.Reflection;
 using System.Text;
 using System.Timers;
@@ -10,18 +11,68 @@ public class PlayerStats
     enum Stats
     {
         Live,
+        Sleep,
         Dead,
         Disappeared
     }
 
     // Example values
     private int _health = 100;
+    public int Health
+    {
+        get => _health;
+        set
+        {
+            _health = Math.Max(0, Math.Min(100, value));
+            if (_health == 0)
+            {
+                Death();
+            }
+        }
+    }
     private int _saturation = 100;
+    public int Saturation
+    {
+        get => _saturation;
+        set
+        {
+            _saturation = Math.Max(0, Math.Min(100, value));
+            if (_saturation == 0)
+            {
+                Health -= 20;
+            }
+        }
+    }
     private int _mood = 100;
+    public int Mood
+    {
+        get => _mood;
+        set
+        {
+            _mood = Math.Max(0, Math.Min(100, value));
+            if (_mood == 0)
+            {
+                stats = Stats.Disappeared;
+            }
+        }
+    }
     private int _physicalStrength = 100;
+    public int PhysicalStrength
+    {
+        get => _physicalStrength;
+        set
+        {
+            _physicalStrength = Math.Max(0, Math.Min(100, value));
+            if (_physicalStrength == 0)
+            {
+                stats = Stats.Sleep;
+            }
+        }
+    }
 
     // Boolean flags
-    public bool LowBloodLevel { get; private set; }
+    public bool IsSleeping { get; private set; }
+    public bool LowHealth { get; private set; }
     public bool Lowsaturation { get; private set; }
     public bool PoorMood { get; private set; }
     public bool Lackofphysicalstrength { get; private set; }
@@ -36,85 +87,52 @@ public class PlayerStats
 
     private Stats stats;
 
-    private readonly int moodChangeValue = 50;
+    private readonly int moodChangeValue = 5;
 
     public PlayerStats()
     {
-        Hunger = 50;  // 初始飢餓度設為50
+        Saturation = 50;  // 初始飢餓度設為50
         Health = 100; // 初始血量設為100
         Mood = 50;    // 初始心情設為50
         stats = Stats.Live;
     }
 
-    // 為了節省空間，我只示範了其中三個屬性，其餘的可以按照同樣的模式加入
-    public int Hunger
+    public void HealthChange(Player player, int value=50)
     {
-        get => _saturation;
-        set
-        {
-            _saturation = Math.Max(0, Math.Min(100, value));
-            if (_saturation == 0)
-            {
-                Health -= 20;
-            }
-        }
+        Health += value;
+        Program.TypeTextWithThreadSleep($"{player.Name} 血量恢復了~!");
     }
 
-    public int Health
+    public void EatFood(Player player, Food food)
     {
-        get => _health;
-        set
-        {
-            _health = Math.Max(0, Math.Min(100, value));
-            if (_health == 0)
-            {
-                Death();
-            }
-        }
+        food.EatFood(player);
+        Program.TypeTextWithThreadSleep($"{player.Name} 吃了 {food}!");
     }
 
-    public int Mood
+    public void TakeBreak(Player player, int value=100)
     {
-        get => _mood;
-        set
-        {
-            _mood = Math.Max(0, Math.Min(100, value));
-            if (_mood == 0)
-            {
-                stats = Stats.Disappeared;
-            }
-        }
+        PhysicalStrength += 100;
+        Program.TypeTextWithThreadSleep($"{player.Name} 休息一天變的精神充沛");
     }
 
-    // ...您可以繼續加入攻擊力、防禦力、速度等屬性...
-
-    public void DecideAction()
+    public void DepletePower(Player player, int value=10)
     {
-        CheckConditions();  // Firstly, check the conditions
-
-        if (LowBloodLevel)
-        {
-            // Take action related to low blood level 找背包裡有沒有藥水 沒有就去買或自己做
-            Program.TypeTextWithThreadSleep($"Warning! Low blood level detected!");
-            return;
-        }
-
-        if (Lowsaturation)
-        {
-            // Take action related to low saturation
-            Program.TypeTextWithThreadSleep($"Warning! You are too saturated!");
-        }
-
-        // ... and so on for each condition
+        PhysicalStrength -= value;
+        Program.TypeTextWithThreadSleep($"{player.Name} 正在消耗體力...");
     }
 
-    public void CheckConditions()
+    public void MoodChange(Player player, Thing thing)
     {
-        // Assuming these are the thresholds you want, adjust as needed
-        LowBloodLevel = _health < 20; // if health is less than 20%
-        Lowsaturation = _saturation < 20;
-        PoorMood = _mood < 20;
-        Lackofphysicalstrength = _physicalStrength < 20;
+        if (thing.isGood)
+        {
+            Mood += moodChangeValue;
+            Program.TypeTextWithThreadSleep($"{player.Name} 心情變好了~!");
+        }
+        else if (!thing.isGood)
+        {
+            Mood -= moodChangeValue;
+            Program.TypeTextWithThreadSleep($"{player.Name} 心情變差...");
+        }
     }
 
     public void Death()
@@ -127,59 +145,64 @@ public class PlayerStats
     {
         if (stats == Stats.Live)
         {
-            Hunger -= 10;
-            MoodChange(new Thing());
+            Saturation -= 10;
+            Program.TypeTextWithThreadSleep($"{player.Name} 飽足感-10 => {Saturation}");
+            MoodChange(player, new Thing());
             // 根據其他條件更改其他數值...
         }
         DisplayStats(player);
     }
 
-    public void MoodChange(Thing thing)
+    //For Other
+    public void CheckConditions()
     {
-        if (thing.isGood)
-        {
-            Mood += moodChangeValue;
-        }
-        else if (!thing.isGood)
-        {
-            Mood -= moodChangeValue;
-        }
+        // Assuming these are the thresholds you want, adjust as needed
+        LowHealth = _health < 40; // if health is less than 20%
+        Lowsaturation = _saturation < 30;
+        PoorMood = _mood < 20;
+        Lackofphysicalstrength = _physicalStrength < 20;
     }
 
+    //For Test
     public void DisplayStats(Player player)
     {
         switch (stats)
         {
             case Stats.Live:
-                StringBuilder statsBuilder = new StringBuilder($"{player.Name} 狀態:\n");
-
-                // 使用反射獲取所有私有字段
-                FieldInfo[] fields = typeof(PlayerStats).GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
-
-                foreach (var field in fields)
+                if (Program.test)
                 {
-                    // 如果字段名以'_'開頭（按照私有字段命名慣例），則打印它
-                    if (field.Name.StartsWith($"_") && field.FieldType == typeof(int))
+                    StringBuilder statsBuilder = new StringBuilder($"{player.Name} 狀態:\n");
+
+                    // 使用反射獲取所有私有字段
+                    FieldInfo[] fields = typeof(PlayerStats).GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+
+                    foreach (var field in fields)
                     {
-                        // 從字段名中去除'_'並獲取值
-                        string statName = field.Name.Substring(1);
-                        int value = (int)field.GetValue(this);
+                        // 如果字段名以'_'開頭（按照私有字段命名慣例），則打印它
+                        if (field.Name.StartsWith($"_") && field.FieldType == typeof(int))
+                        {
+                            // 從字段名中去除'_'並獲取值
+                            string statName = field.Name.Substring(1);
+                            int value = (int)field.GetValue(this);
 
-                        statsBuilder.AppendLine($"{statName}: {value}");
+                            statsBuilder.AppendLine($"{statName}: {value}");
+                        }
                     }
+
+                    Program.TypeTextWithThreadSleep($"{statsBuilder.ToString()} \n");
                 }
-
-                Program.TypeTextWithThreadSleep($"{statsBuilder.ToString()} \n");
                 break;
+            case Stats.Sleep:
 
+                break;
             case Stats.Dead:
-                Program.TypeTextWithThreadSleep($"玩家 {player.Name} 死亡...\n");
+                Program.TypeTextWithThreadSleep($"玩家 {player.Name} 死亡...");
                 stats = Stats.Disappeared;
                 break;
 
             case Stats.Disappeared:
                 if (Mood != 0)
-                    Program.TypeTextWithThreadSleep($"玩家 {player.Name} 被埋進消波塊...\n");
+                    Program.TypeTextWithThreadSleep($"玩家 {player.Name} 被埋進消波塊...");
                 else
                     Program.TypeTextWithThreadSleep($"{player.Name} 自殺了...");
                 Program.Global.RemoveObjects(player);
@@ -198,101 +221,5 @@ public class PlayerStats
                 $"攻擊力：{_attackPower}\n" +
                 $"防禦力：{_defensePower}\n" +
                 $"速度：{_speed}"*/;
-    }
-
-    public int BloodLevel { get; set; }
-    public int Food { get; set; }
-    public int Saturation { get; set; }
-    public int PhysicalStrength { get; set; }
-    public int Mood2 { get; set; }
-    public int Money { get; set; }
-
-    public void DecideAction2()
-    {
-        if (BloodLevel < 20)
-        {
-            Heal(); // 假定存在一個治療的方法
-            return;
-        }
-
-        if (Food <= 0)
-        {
-            if (Money > 10)
-            {
-                BuyFood();
-                return;
-            }
-            else
-            {
-                SearchForFood();
-                return;
-            }
-        }
-
-        if (Saturation < 20)
-        {
-            Eat();
-            return;
-        }
-
-        if (PhysicalStrength < 20)
-        {
-            Rest();
-            return;
-        }
-
-        if (Mood < 20)
-        {
-            Relax();
-            return;
-        }
-
-        if (Money <= 0)
-        {
-            Work();
-            return;
-        }
-    }
-
-    public void Heal()
-    {
-        Program.TypeTextWithThreadSleep($"正在治療...");
-        // 加入治療的邏輯
-    }
-
-    public void BuyFood()
-    {
-        Program.TypeTextWithThreadSleep($"購買食物...");
-        // 加入購買食物的邏輯
-    }
-
-    public void SearchForFood()
-    {
-        Program.TypeTextWithThreadSleep($"尋找食物...");
-        // 加入尋找食物的邏輯
-    }
-
-    public void Eat()
-    {
-        Program.TypeTextWithThreadSleep($"吃食物...");
-        // 加入吃食物的邏輯
-    }
-
-    public void Rest()
-    {
-        Program.TypeTextWithThreadSleep($"休息...");
-        // 加入休息的邏輯
-    }
-
-    public void Relax()
-    {
-        Program.TypeTextWithThreadSleep($"放鬆...");
-        // 加入放鬆的邏輯
-    }
-
-    public void Work()
-    {
-        Program.TypeTextWithThreadSleep($"工作賺錢...");
-        // 加入工作的邏輯
     }
 }
