@@ -6,6 +6,7 @@ public class Inventory
     public int Gold { get; set; }
 
     private Dictionary<Item, int> items;
+    private List<Item> item;//³Æ¥Î
 
     public Inventory(int gold = 0)
     {
@@ -118,7 +119,7 @@ public class Inventory
         return true;
     }
 
-    public bool HasItem(Item item, int quantity)
+    public bool HasItem(Item item, int quantity = 1)
     {
         if (items.ContainsKey(item))
         {

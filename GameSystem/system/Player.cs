@@ -1,3 +1,4 @@
+using GameSystem.CareerRelated;
 using System.Numerics;
 
 public class Player : IBusiness
@@ -40,9 +41,27 @@ public class Player : IBusiness
         }
     }
 
+    public void HasItem(Item item, int quantity = 1)
+    {
+        Inventory.HasItem(item, quantity);
+    }
+
     public void UseItem(Item item)
     {
         Inventory.UseItem(this, item);
+    }
+
+    public void Plant(Farm farm, Seed Seed)
+    {
+        if(Inventory.UseItem(this, Seed))
+        {
+            farm.Plant(Seed, new Soil());
+        }
+    }
+
+    public void Harvest(Farm farm, Seed Seed)
+    {
+        farm.HarvestAll(this);
     }
 
     public void InteractWith(IInteractable interactable)

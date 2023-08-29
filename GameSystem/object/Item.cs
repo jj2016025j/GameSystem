@@ -1,7 +1,7 @@
-public class Item : IName, ICollectable
+public class Item : IName, ICollectable, IPrice
 {
     public string Name { get; set; }
-    public int Price { get; private set; }
+    public int Price { get; set; }
 
     public Item(string name,  int price)
     {
