@@ -19,11 +19,6 @@ public class Player : IBusiness
         NPC_AI = new NPC_AI();
     }
 
-    public void Collect(ICollectable collectable)
-    {
-        collectable.Collect(this);
-    }
-
     public void AddItemsToInventory(Dictionary<Item, int> itemsToAdd)
     {
         Inventory.AddItems(itemsToAdd);
@@ -49,6 +44,11 @@ public class Player : IBusiness
     public void UseItem(Item item)
     {
         Inventory.UseItem(this, item);
+    }
+
+    public void Collect(ICollectable collectable)
+    {
+        collectable.Collect(this);
     }
 
     public void Plant(Farm farm, Seed Seed)
@@ -77,14 +77,14 @@ public class Player : IBusiness
         }
         else
         {
-            Program.TypeTextWithThreadSleep($"ª±®a¤w¸g¾Ç·|¤F {skill.Name} §Þ¯à¡C");
+            Program.TypeTextWithThreadSleep($"ï¿½ï¿½ï¿½aï¿½wï¿½gï¿½Ç·|ï¿½F {skill.Name} ï¿½Þ¯ï¿½C");
         }
     }
 
     public void UnlearnSkill(ISkill skill)
     {
         Skills.Remove(skill);
-        Program.TypeTextWithThreadSleep($"²¾°£{skill}§Þ¯à");
+        Program.TypeTextWithThreadSleep($"ï¿½ï¿½ï¿½ï¿½{skill}ï¿½Þ¯ï¿½");
     }
 
     public ISkill GetSkillByName(string skillName)
@@ -103,7 +103,7 @@ public class Player : IBusiness
         }
         else
         {
-            Program.TypeTextWithThreadSleep($"{Name} ¨S¦³¾Ç·|³o­Ó§Þ¯à¡AµLªk¨Ï¥Î¥¦¡C");
+            Program.TypeTextWithThreadSleep($"{Name} ï¿½Sï¿½ï¿½ï¿½Ç·|ï¿½oï¿½Ó§Þ¯ï¿½Aï¿½Lï¿½kï¿½Ï¥Î¥ï¿½ï¿½C");
         }
     }
 
@@ -116,10 +116,11 @@ public class Player : IBusiness
         }
         else
         {
-            Program.TypeTextWithThreadSleep($"{this} ©|¥¼¾Ç²ß {skillName} §Þ¯à¡C");
+            Program.TypeTextWithThreadSleep($"{this} ï¿½|ï¿½ï¿½ï¿½Ç²ï¿½ {skillName} ï¿½Þ¯ï¿½C");
         }
     }
 
+//delete
     public List<Player> FindPeopleWithBusinessSkill()
     {
         var peopleWithBusiness = new List<Player>();

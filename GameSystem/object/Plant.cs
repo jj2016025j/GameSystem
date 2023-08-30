@@ -17,10 +17,16 @@ namespace GameSystem.CareerRelated
 
     public class Plant
     {
+        public Soil? soil; 
         Random Random = new Random();
         public string Name { get; set; }
         public GrowthStage GrowthStage { get; set; }
         public Seed OriginSeed { get; private set; }
+
+        //種植天數
+        public int GrowingDays { get; private set; } = 0;
+        //成長至下一階段需要天數
+        public int GrowingHours { get;} = 3;
 
         public bool IsMature => GrowthStage == GrowthStage.Mature;
         public bool IsRipe => GrowthStage == GrowthStage.Ripe;
@@ -32,7 +38,7 @@ namespace GameSystem.CareerRelated
             OriginSeed = seed;
         }
 
-        public void Grow(Soil soil)
+        public void Grow()
         {
             if (soil.Nutrition < OriginSeed.NutritionConsumed || soil.Water < OriginSeed.WaterConsumed)
             {
@@ -43,16 +49,20 @@ namespace GameSystem.CareerRelated
             switch (GrowthStage)
             {
                 case GrowthStage.Seed:
+                if(GrowingDays>=GrowingHours)
                     GrowthStage = GrowthStage.Seedling;
                     break;
                 case GrowthStage.Seedling:
-                    GrowthStage = GrowthStage.Mature;
+                                    if(GrowingDays>=GrowingHours*2)
+GrowthStage = GrowthStage.Mature;
                     break;
                 case GrowthStage.Mature:
-                    GrowthStage = GrowthStage.Ripe;
+                                    if(GrowingDays>=GrowingHours*3)
+GrowthStage = GrowthStage.Ripe;
                     break;
                 case GrowthStage.Ripe:
-                    GrowthStage = GrowthStage.Withered;
+                                    if(GrowingDays>=GrowingHours*5)
+GrowthStage = GrowthStage.Withered;
                     break;
             }
 
@@ -60,11 +70,10 @@ namespace GameSystem.CareerRelated
             soil.Water -= OriginSeed.WaterConsumed;
         }
 
-        public void AddToInventory(Player player, Dictionary<Item, int> items)
-        {
-            player.Inventory.AddItems(items);
+        public void DailyChanges(){
+            GrowingDays++;
+            Grow(soil);
         }
-
         public (Item, Seed)? Harvest(Farm farm, Player player)
         {
             if (GrowthStage == GrowthStage.Withered)
@@ -80,7 +89,7 @@ namespace GameSystem.CareerRelated
                 int ItemQuantity = Random.Next(1, 3);
                 var harvestedSeed = new Seed($"{Name} Seed", Name, OriginSeed.NutritionConsumed, OriginSeed.WaterConsumed);
                 int SeedQuantity = Random.Next(1, 3);
-                AddToInventory(player, new Dictionary<Item, int> { { harvestedItem, ItemQuantity }, { harvestedSeed, SeedQuantity } });
+                player.Inventory.AddItems( new Dictionary<Item, int> { { harvestedItem, ItemQuantity }, { harvestedSeed, SeedQuantity } });
                 Console.WriteLine($"Harvested {Name} and got a {harvestedSeed.Name}.");
                 return (harvestedItem, harvestedSeed);
             }

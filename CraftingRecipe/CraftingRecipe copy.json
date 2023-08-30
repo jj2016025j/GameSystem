@@ -1,0 +1,52 @@
+[
+  {
+    "Result": {
+      "Type": "Food",
+      "Name": "Bread",
+      "Attributes": {
+        "Heal": 10
+      }
+    },
+    "Ingredients": [
+      {
+        "Name": "Wheat",
+        "Count": 3
+      }
+    ]
+  },
+  {
+    "Result": {
+      "Type": "Tool",
+      "Name": "Wooden Axe",
+      "Attributes": {
+        "Damage": 5,
+        "Durability": 50
+      }
+    },
+    "Ingredients": [
+      {
+        "Name": "Wood",
+        "Count": 3
+      },
+      {
+        "Name": "Stick",
+        "Count": 2
+      }
+    ]
+  },
+  {
+    "Result": {
+      "Type": "Armor",
+      "Name": "Leather Helmet",
+      "Attributes": {
+        "Defense": 2
+      }
+    },
+    "Ingredients": [
+      {
+        "Name": "Leather",
+        "Count": 5
+      }
+    ]
+  }
+]

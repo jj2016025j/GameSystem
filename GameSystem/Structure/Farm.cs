@@ -10,6 +10,7 @@ namespace GameSystem.CareerRelated
     // 定義農場
     public class Farm
     {
+        //soil list  no Plant, Soil
         private List<(Plant, Soil)> GardenPlots { get; } = new List<(Plant, Soil)>();
 
         public void Plant(Seed seed, Soil soil)

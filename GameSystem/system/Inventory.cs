@@ -6,7 +6,7 @@ public class Inventory
     public int Gold { get; set; }
 
     private Dictionary<Item, int> items;
-    private List<Item> item;//³Æ¥Î
+    private List<Item> item;//ï¿½Æ¥ï¿½
 
     public Inventory(int gold = 0)
     {
@@ -51,7 +51,7 @@ public class Inventory
         }
         else
         {
-            Program.TypeTextWithThreadSleep($"{player.Name} ¨S¦³¥i¥Îªº {item.Name}");
+            Program.TypeTextWithThreadSleep($"{player.Name} ï¿½Sï¿½ï¿½ï¿½iï¿½Îªï¿½ {item.Name}");
             return false;
         }
     }
@@ -62,19 +62,19 @@ public class Inventory
 
         if (!seller.Inventory.items.ContainsKey(item))
         {
-            Program.TypeTextWithThreadSleep($"{seller.Name} ª««~¤w°âÁj!");
+            Program.TypeTextWithThreadSleep($"{seller.Name} ï¿½ï¿½ï¿½~ï¿½wï¿½ï¿½ï¿½j!");
             return false;
         }
 
         if (seller.Inventory.items[item] < quantity)
         {
-            Program.TypeTextWithThreadSleep($"{seller.Name} ª««~¼Æ¶q¤£¨¬!");
+            Program.TypeTextWithThreadSleep($"{seller.Name} ï¿½ï¿½ï¿½~ï¿½Æ¶qï¿½ï¿½ï¿½ï¿½!");
             return false;
         }
 
         if (buyer.Inventory.Gold < totalPrice)
         {
-            Program.TypeTextWithThreadSleep($"{buyer.Name} ª÷¹ô¤£¨¬!");
+            Program.TypeTextWithThreadSleep($"{buyer.Name} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!");
             return false;
         }
 
@@ -83,7 +83,7 @@ public class Inventory
         seller.Inventory.Gold += totalPrice;
         buyer.Inventory.AddItems(new Dictionary<Item, int> { { item, quantity } });
         seller.Inventory.items[item] -= quantity;
-        Program.TypeTextWithThreadSleep($"{buyer.Name} ¦V {seller.Name} ÁÊ¶R {item.Name} ¦¨¥\!");
+        Program.TypeTextWithThreadSleep($"{buyer.Name} ï¿½V {seller.Name} ï¿½Ê¶R {item.Name} ï¿½ï¿½ï¿½\!");
         return true;
     }
 
@@ -93,13 +93,13 @@ public class Inventory
 
         if (!seller.Inventory.HasItem(item, quantity))
         {
-            Program.TypeTextWithThreadSleep($"{seller.Name} ¨S¦³¨¬°÷ªºª««~¨Ó½æ!");
+            Program.TypeTextWithThreadSleep($"{seller.Name} ï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~ï¿½Ó½ï¿½!");
             return false;
         }
 
         if (buyer.Inventory.Gold < sellingPrice)
         {
-            Program.TypeTextWithThreadSleep($"{buyer.Name} ¨S¦³¨¬°÷ªºª÷¹ôÁÊ¶R {seller.Name} ªºª««~!");
+            Program.TypeTextWithThreadSleep($"{buyer.Name} ï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶R {seller.Name} ï¿½ï¿½ï¿½ï¿½ï¿½~!");
             return false;
         }
 
@@ -115,10 +115,29 @@ public class Inventory
         {
             buyer.Inventory.items[item] = quantity;
         }
-        Program.TypeTextWithThreadSleep($" {seller.Name} ¤w¦¨¥\½æ¥X {item.Name} µ¹ {buyer.Name}!");
+        Program.TypeTextWithThreadSleep($" {seller.Name} ï¿½wï¿½ï¿½ï¿½\ï¿½ï¿½X {item.Name} ï¿½ï¿½ {buyer.Name}!");
+        return true;
+    }
+        public bool HasRequiredMaterials(Dictionary<Item, int> materials)
+    {
+        foreach (var material in materials)
+        {
+            if (!items.ContainsKey(material.Key) || items[material.Key] < material.Value)
+            {
+                return false;
+            }
+        }
+
         return true;
     }
 
+    public void RemoveMaterials(Dictionary<Item, int> materials)
+    {
+        foreach (var material in materials)
+        {
+            items[material.Key] -= material.Value;
+        }
+    }
     public bool HasItem(Item item, int quantity = 1)
     {
         if (items.ContainsKey(item))
@@ -150,8 +169,8 @@ public class Inventory
     {
         if (Program.test)
         {
-            Program.TypeTextWithThreadSleep($"{player.Name} ³Ñ¾lª÷¹ô: {player.Inventory.Gold}");
-            Program.TypeTextWithThreadSleep($"¦s³f:");
+            Program.TypeTextWithThreadSleep($"{player.Name} ï¿½Ñ¾lï¿½ï¿½ï¿½ï¿½: {player.Inventory.Gold}");
+            Program.TypeTextWithThreadSleep($"ï¿½sï¿½f:");
             foreach (var item in items)
             {
                 Program.TypeTextWithThreadSleep($"{item.Key.Name} (x{item.Value})");
@@ -163,6 +182,6 @@ public class Inventory
     public void GetItemCount(Item item)
     {
         int count = items.ContainsKey(item) ? items[item] : 0;
-        Program.TypeTextWithThreadSleep($"{item.Name} (x{count})");  // "ª±®a³Ñ¾lª÷¹ô:"
+        Program.TypeTextWithThreadSleep($"{item.Name} (x{count})");  // "ï¿½ï¿½ï¿½aï¿½Ñ¾lï¿½ï¿½ï¿½ï¿½:"
     }
 }

@@ -8,6 +8,7 @@ namespace GameSystem.CareerRelated
 {
     public class Soil
     {
+        public Plant? plant;
         public int Nutrition { get; set; }
         public int Water { get; set; }
     }
