@@ -68,22 +68,6 @@ class Player{
 
     // 其它方法依此类推...
 
-    learnSkill(skill) {
-      if (!this.skills.includes(skill)) {
-          this.skills.push(skill);
-      } else {
-          console.log(`${this.name}已经学会了技能 ${skill.name}`);
-      }
-    };
-
-    unlearnSkill(skill) {
-      let index = this.skills.indexOf(skill);
-      if (index !== -1) {
-          this.skills.splice(index, 1);
-          console.log(`技能 ${skill} 被遗忘了`);
-      }
-    };
-
     getSkillByName(skillName) {
       return this.skills.find(s => s.name === skillName);
     };
