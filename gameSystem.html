@@ -7,19 +7,21 @@
     <link rel="stylesheet" href="gameSystem.css">
 </head>
 <body>
-    <div class="game-container">
+    <div class="player-container">
         <!-- Player Info -->
         <div class="player-info">
-            <div class="title">Player Info</div>
-            <p>Name: Alice</p>
-            <p>Health: 100/100</p>
-            <p>Mana: 100/100</p>
+            <h2 class="title">玩家資訊：</h2>
+            <ul class="list">
+                <li>Name: Alice</li>
+                <li>Health: 100/100</li>
+                <li>Mana: 100/100</li>
+            </ul>
         </div>
 
         <!-- Backpack -->
         <div class="backpack">
-            <div class="title">Backpack</div>
-            <ul>
+            <h2 class="title">物品列表：</h2>
+            <ul class="list">
                 <li>Sword</li>
                 <li>Shield</li>
                 <li>Potion</li>
@@ -28,8 +30,8 @@
 
         <!-- Skills -->
         <div class="skills">
-            <div class="title">Skills</div>
-            <ul>
+            <h2 class="title">技能列表：</h2>
+            <ul class="list">
                 <li>Fireball</li>
                 <li>Heal</li>
                 <li>Stealth</li>
@@ -39,18 +41,20 @@
 
     <!-- Chat -->
     <div class="chat">
-        <div class="title">Chat Room</div>
-        <textarea rows="10" style="width: 100%;" readonly>說了一些話... 
-又說了一些話...</textarea>
-        <br><br>
-        <input type="text" style="width: 80%;" placeholder="Type your message...">
-        <button>Send</button>
+        <div class="chatRoom">
+            <h2 class="title">Chat Room</h2>
+            <textarea rows="10" readonly>說了一些話... 
+    又說了一些話...</textarea>
+            <br><br>
+            <input type="text" placeholder="Type your message...">
+            <button>Send</button>
+        </div>
     </div>
 
     <div class="container">
         <!-- 地圖列表 -->
         <section id="maps" class="maps">
-            <h2 class="h2title">地圖列表：</h2>
+            <h2 class="title">地圖列表：</h2>
             <ul class="list">
                 <li data-description="探索古老的森林">古林</li>
                 <li data-description="在這裡與海洋生物共游">珊瑚海</li>
@@ -63,7 +67,7 @@
         
         <!-- 物件列表 -->
         <section id="objects" class="objects">
-            <h2 class="h2title">可互動物件列表：</h2>
+            <h2 class="title">可互動物件列表：</h2>
             <ul class="list">
                 <li data-description="可能包含金幣、武器、藥水等">寶箱</li>
                 <li data-description="可以取水或許願">井</li>
@@ -78,7 +82,7 @@
 
         <!-- 互動生物列表 -->
         <section id="creature"  class="creature">
-            <h2 class="h2title">可互動生物列表：</h2>
+            <h2 class="title">可互動生物列表：</h2>
             <ul class="list">
                 <li data-description="給予魔法能量或資訊">森林精靈</li>
                 <li data-description="例如鹿、兔子，可以狩獵或馴養">野生動物</li>
@@ -88,7 +92,7 @@
         </section>
         <!-- NPC列表 -->
         <section id="npcs" class="npcs">
-            <h2 class="h2title">NPC列表：</h2>
+            <h2 class="title">NPC列表：</h2>
             <ul class="list">
                 <li data-description="提供資訊或任務">村莊長老</li>
                 <li data-description="提供住宿和補給">旅館老闆</li>
@@ -101,7 +105,7 @@
 
         <!-- 商店列表 -->
         <section id="shops" class="shops">
-            <h2 class="h2title">商店列表：</h2>
+            <h2 class="title">商店列表：</h2>
             <ul class="list">
                 <li data-description="買賣武器">武器店</li>
                 <li data-description="買賣藥水、藥草">藥草店</li>

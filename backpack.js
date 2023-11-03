@@ -9,16 +9,29 @@
     addItem(item) {
       this.items.push(item);
     }
+
+    useItem(this, item){
+      if(removeItem(item)){
+        console.log("used "+item.name)
+      }
+    }
   
     // 從背包中移除物品
     removeItem(item) {
       const index = this.items.indexOf(item);
       if (index > -1) {
           this.items.splice(index, 1);
+          return true;
       }
     }
   }
-  
+
+  class item{
+    constructor() {
+      this.name = "test name";
+    }
+  }
+
   class Skills {
     constructor() {
       this.skillList = [];

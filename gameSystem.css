@@ -1,64 +1,44 @@
 body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;    
     font-family: Arial, sans-serif;
     background-color: #f2f2f2;
-    padding: 20px;
 }
 
-.game-container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.player-info, .backpack, .skills {
+.player-container, .container, .chat {
     width: 30%;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     background-color: #fff;
 }
 
-.chat {
+textarea {
     width: 100%;
+}
+
+input{
+    width: 79%;
+}
+
+.player-info, .backpack, .skills, .chatRoom, .maps, .objects, .creature, .npcs, .shops {
+    max-width: 100%;
     padding: 20px;
-    margin-top: 20px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     background-color: #fff;
 }
 
 .title {
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-.container {
-    max-width: 100%;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: space-between;
-}
-
-.h2title {
     background-color: #eccf8f;
     color: white;
+    font-weight: bold;
+    margin-bottom: 20px;
     padding: 10px;
-}
-
-.maps, .objects, .creature, .npcs, .shops{
-    width: 30%;
-    padding: 20px;
 }
 
 .list, .map-list, .interactive-object-list, .interactive-creature-list, .npc-list, .shop-list{
@@ -76,5 +56,18 @@ transition: background-color 0.3s;
 
 .list li:hover, .map-list li:hover, .interactive-object-list li:hover, .interactive-creature-list li:hover, .npc-list li:hover, .shop-list li:hover {
 background-color: #f0f0f0;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
 

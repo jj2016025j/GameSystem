@@ -8,8 +8,8 @@ public class Player : IBusiness
     public PlayerStats PlayerStats { get; private set; }
     public NPC_AI NPC_AI { get; private set; }
     private List<ISkill> Skills = new List<ISkill>();
-    public List<Player> Friends { get; set; } = new List<Player>();
-    public List<Player> Acquaintances { get; set; } = new List<Player>();
+    public List<Player> Friends { get; set; } = new List<Player>();//X
+    public List<Player> Acquaintances { get; set; } = new List<Player>();//X
 
     public Player(string name, int gold = 0)
     {

@@ -1,9 +1,10 @@
 class Player{
     constructor(name) {
       this.name = name;
+      this.status = new Status();
       this.backpack = new Backpack();
       this.skills = new Skills();
-      this.status = new Status();
+      this.target = []
   
       // 這裡將各種功能系統作為組合引入
       this.chatSystem = new ChatSystem(this);
@@ -23,13 +24,17 @@ class Player{
   
     // 玩家使用物品，從背包中移除
     useItem(item) {
-      this.backpack.removeItem(item);
+      this.backpack.useItem(this, item);
       // console.log("interactive with bag")
     }
-  
+
     acquireSkill(skill) {
       this.skills.addSkill(skill);
       // console.log("interactive with skill")
+    }
+
+    attack(target){
+      target.getHurt(10)
     }
   
     getHurt(amount) {
@@ -47,5 +52,50 @@ class Player{
     sendMessage(message) {
       this.chatSystem.send(message);
     }
+
+    
+    addItemsToInventory(itemsToAdd) {
+      this.inventory.addItems(itemsToAdd);
+    };
+
+    removeItemsFromInventory(itemsToRemove) {
+      if (itemsToRemove) {
+          for (let entry of Object.entries(itemsToRemove)) {
+              this.inventory.removeItem(entry[0], entry[1]);
+          }
+      }
+    };
+
+    // 其它方法依此类推...
+
+    learnSkill(skill) {
+      if (!this.skills.includes(skill)) {
+          this.skills.push(skill);
+      } else {
+          console.log(`${this.name}已经学会了技能 ${skill.name}`);
+      }
+    };
+
+    unlearnSkill(skill) {
+      let index = this.skills.indexOf(skill);
+      if (index !== -1) {
+          this.skills.splice(index, 1);
+          console.log(`技能 ${skill} 被遗忘了`);
+      }
+    };
+
+    getSkillByName(skillName) {
+      return this.skills.find(s => s.name === skillName);
+    };
+
+    // JavaScript不支持泛型方法，所以这里我们用skillName代替
+    useSkill(skillName) {
+      let skill = this.getSkillByName(skillName);
+      if (skill) {
+          skill.execute(this);
+      } else {
+          console.log(`${this.name} 没有学会技能 ${skillName}`);
+      }
+    };
   }
   
