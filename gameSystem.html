@@ -12,10 +12,12 @@
         <div class="player-info">
             <h2 class="title">玩家資訊：</h2>
             <ul class="list">
-                <li>Name: Alice</li>
-                <li>Health: 100/100</li>
-                <li>Mana: 100/100</li>
+                <li>Name: <span id="player-name">Alice</span></li>
+                <li>Health: <span id="player-health">100</span></li>
+                <li>Mana: <span id="player-mana">50</span></li>
+                <li id="playTime"></li>
             </ul>
+            <button onclick="saveGameToLocal()">Save Game</button>
         </div>
 
         <!-- Backpack -->
@@ -119,6 +121,10 @@
 
     </div>
     <script src="gameSystem.js"></script>
+    <script src="game.js"></script>
+    <script src="backpack.js"></script>
+    <script src="player.js"></script>
+    <script src="test.js"></script>
     <script>
         // You can add interactive features or event listeners to your items here
     document.addEventListener('DOMContentLoaded', (event) => {
