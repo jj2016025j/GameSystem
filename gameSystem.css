@@ -71,3 +71,9 @@ button:hover {
     background-color: #0056b3;
 }
 
+/* 当物品被选中时的样式 */
+.list li.selected {
+    background-color: rgb(255, 126, 165); /* 选中项的背景颜色 */
+    color: #ffffff; /* 选中项的文本颜色 */
+    /* 添加其他样式以改善可视化效果 */
+}

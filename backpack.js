@@ -1,34 +1,26 @@
 // 定義背包類別
 class Backpack {
-    constructor(name) {
-      this.name = name
+    constructor(user) {
+      this.user = user
       this.money = 0; // 初始化為0
       this.items = {}; // 初始化為空的物品列表 存储物品和数量
     }
 
-    // addItems(itemsToAdd) {
-    //   for (const [item, quantity] of Object.entries(itemsToAdd)) {
-    //     if (this.items[item]) {
-    //       this.items[item] += quantity;
-    //     } else {
-    //       this.items[item] = quantity;
-    //     }
-    //   }
-    // }   
+  
     addItems(itemsToAdd) {
-      for (const [item, quantity] of Object.entries(itemsToAdd)) {
-        if (quantity < 0) {
+      for (const [item, itemData] of Object.entries(itemsToAdd)) {
+        if (itemData.quantity < 0) {
           return false; // Indicate that the operation was not successful
         }
-        this.items[item] = (this.items[item] || 0) + quantity;
+        this.items[item] = (this.items[item] || 0) + itemData.quantity;
       }
       return true; // Indicate that the operation was successful
     }
 
     removeItems(itemsToRemove) {
-      for (const [item, quantity] of Object.entries(itemsToRemove)) {
-        if (this.items[item] && this.items[item] >= quantity) {
-          this.items[item] -= quantity;
+      for (const [item, itemData] of Object.entries(itemsToRemove)) {
+        if (this.items[item] && this.items[item] >= itemData) {
+          this.items[item] -= itemData;
           if (this.items[item] === 0) {
             delete this.items[item];
           }
@@ -41,16 +33,18 @@ class Backpack {
     
     useItems(itemsToUse) {
       // 首先检查是否所有物品都足够
-      for (const [item, quantity] of Object.entries(itemsToUse)) {
-        if (!this.items[item] || this.items[item] < quantity) {
+      for (const [item, itemData] of Object.entries(itemsToUse)) {
+        if (!this.items[item] || this.items[item] < itemData.quantity) {
           // 如果任何一个物品不足，立即返回失败
           return false;
         }
       }
     
       // 然后执行实际的物品使用
-      for (const [item, quantity] of Object.entries(itemsToUse)) {
-        this.items[item] -= quantity;
+      for (const [item, itemData] of Object.entries(itemsToUse)) {
+        let _item = new Item(itemData.name, itemData.value, itemData.description, itemData.quantity);
+        _item.Effects(this.user.states)
+        this.items[item] -= itemData.quantity;
         if (this.items[item] === 0) {
           delete this.items[item];
         }

@@ -1,8 +1,8 @@
 class Player{
     constructor(name) {
       this.name = name;
-      this.status = new Status();
-      this.backpack = new Backpack(this.name);
+      this.states = new States(this);
+      this.backpack = new Backpack(this);
       this.skills = new Skills();
       this.target = []
   
@@ -46,17 +46,16 @@ class Player{
       return target.getHurt(10)
     }
   
-    getHurt(amount) {
-      return this.status.reduceHealth(amount);
+    GetHurt(amount) {
+      return this.states.TakeDamage(amount);
     }
   
-    heal(amount) {
-      return this.status.restoreHealth(amount);
+    Heal(amount) {
+      return this.states.Healing(amount);
     }
   
-    eatFood(player, food) {
-      food.eatFood(player);
-      console.log(`${player} 吃了 ${food}！`);
+    eatFood(food) {
+      food.Effects(this.states);
     }
 
     interactWithItem(item) {
@@ -71,32 +70,16 @@ class Player{
       this.Backpack.addItems(itemsToAdd);
     };
 
-    plant(seed) {
-      // 简化逻辑：立即种植并记录时间
-      console.log(`${this.name} 正在种植 ${seed}`);
-      if (!this.plantedSeeds) {
-          this.plantedSeeds = {};
-      }
-      const currentTime = new Date().getTime();
-      this.plantedSeeds[seed] = currentTime;
+    plant(seed,farmland) {
+      farmland.plant(seed)
     }
 
-    harvest() {
-        console.log(`${this.name} 正在收割`);
-        // 假设所有作物都是立即成熟的
-        for (let seed in this.plantedSeeds) {
-            console.log(`${this.name} 收获了 ${seed}`);
-        }
-        this.plantedSeeds = {}; // 清空种植记录
+    harvest(farmland) {
+      farmland.harvest()
     }
 
     interactWithObject(object) {
-      // 與物件互動的方法
-      console.log(`${this.name} 正在与 ${object} 互动`);
-      // 示例：如果互动的是宝箱，尝试打开
-      if (object.type === "chest") {
-          object.open(this);
-      }
+      object.interactWithObject(this)
   }
 
     getSkillByName(skillName) {
@@ -115,4 +98,9 @@ class Player{
           console.log(`${this.name} 没有学会技能 ${skillName}`);
       }
     };
+
+    //計算冷卻
+    updateCooldowns() {
+      this.skills.forEach(skill => skill.updateCooldown());
+    }
   }

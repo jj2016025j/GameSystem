@@ -1,122 +1,97 @@
+//extends 繼承
+class Skills {
+  constructor() {
+    this.skillList = [];
+  }
 
-class item{
-    constructor() {
-      this.name = "test name";
-      this.description = "test description";
+  addSkill(skill) {
+    this.skillList.push(skill);
+  }
+
+  useSkill(skill) {
+    if (!this.skillList.includes(skill)) {
+        console.log(`${this.name}使用了技能 ${skill.name}`);
     }
   }
 
-  class Skills {
-    constructor() {
-      this.skillList = [];
+  learnSkill(skill) {
+    if (!this.skillList.includes(skill)) {
+        this.skillList.push(skill);
+    } else {
+        console.log(`${this.name}已经学会了技能 ${skill.name}`);
     }
-  
-    addSkill(skill) {
-      this.skillList.push(skill);
-    }
-  
-    useSkill(skill) {
-      if (!this.skillList.includes(skill)) {
-          console.log(`${this.name}使用了技能 ${skill.name}`);
-      }
-    }
+  };
 
-    learnSkill(skill) {
-      if (!this.skillList.includes(skill)) {
-          this.skillList.push(skill);
-      } else {
-          console.log(`${this.name}已经学会了技能 ${skill.name}`);
-      }
-    };
+  unlearnSkill(skill) {
+    let index = this.skillList.indexOf(skill);
+    if (index !== -1) {
+        this.skillList.splice(index, 1);
+        console.log(`技能 ${skill} 被遗忘了`);
+    }
+  };
+}
 
-    unlearnSkill(skill) {
-      let index = this.skillList.indexOf(skill);
-      if (index !== -1) {
-          this.skillList.splice(index, 1);
-          console.log(`技能 ${skill} 被遗忘了`);
-      }
-    };
+class ChatSystem {
+  constructor(player) {
+    this.player = player;
   }
-  
-  class Status {
-    constructor() {
-      this.health = 100; // 假設初始生命值為100
-      this.mana = 100;  // 假設初始魔法值為100
-      // 可以加入更多狀態，例如攻擊力、防禦力等
-    }
-  
-    reduceHealth(amount) {
-      this.health -= amount;
-    }
-  
-    restoreHealth(amount) {
-      this.health += amount;
-    }
-  
-    // ... 更多狀態的方法
+
+  send(message) {
+    console.log(message)
   }
-  
-  class ChatSystem {
-    constructor(player) {
+
+  send(sender, message) {
+    console.log(`${sender.name}: ${message}`);
+    // 实际的聊天系统会有复杂的逻辑来发送消息到服务器或者直接到其他玩家
+  }
+  // ... 其他聊天相關方法
+}
+
+// Define the supporting classes
+
+class ObjectInteraction {
+  constructor(player) {
+    this.player = player;
+  }
+  // ... other methods
+}
+
+class ShopSystem {
+  constructor(player) {
+    this.player = player;
+  }
+  // ... other methods
+}
+
+class EventSystem {
+  constructor(player) {
       this.player = player;
-    }
-  
-    send(message) {
-      console.log(message)
-    }
+  }
+  // ... other methods
+}
 
-    send(sender, message) {
-      console.log(`${sender.name}: ${message}`);
-      // 实际的聊天系统会有复杂的逻辑来发送消息到服务器或者直接到其他玩家
-    }
-    // ... 其他聊天相關方法
-  }
-  
-  // Define the supporting classes
-  
-  class ObjectInteraction {
-    constructor(player) {
+class QuestSystem {
+  constructor(player) {
       this.player = player;
-    }
-    // ... other methods
   }
-  
-  class ShopSystem {
-    constructor(player) {
+  // ... other methods
+}
+
+class NotificationSystem {
+  constructor(player) {
       this.player = player;
-    }
-    // ... other methods
   }
-  
-  class EventSystem {
-    constructor(player) {
-        this.player = player;
-    }
-    // ... other methods
+  // ... other methods
+}
+
+class InventorySystem {
+  constructor(player) {
+      this.player = player;
   }
-  
-  class QuestSystem {
-    constructor(player) {
-        this.player = player;
-    }
-    // ... other methods
-  }
-  
-  class NotificationSystem {
-    constructor(player) {
-        this.player = player;
-    }
-    // ... other methods
-  }
-  
-  class InventorySystem {
-    constructor(player) {
-        this.player = player;
-    }
-    // ... other methods
-  }
-  
-  // (Backpack, Skills, Status, ChatSystem, Player ... remain the same)
+  // ... other methods
+}
+
+// (Backpack, Skills, Status, ChatSystem, Player ... remain the same)
 // 假设你的 Backpack 类定义已经存在
 
 function testBackpackAddItemsSuccess() {
@@ -391,51 +366,163 @@ function logTestResult(testName, condition) {
         console.log(`%c${testName} 失败！`, "color: red");
     }
 }
+
+
+
 // 在测试中也包含失败的情况
-// testBackpackAddItemsSuccess();
-// testBackpackRemoveItemsSuccess();
-// testBackpackRemoveItemsFailure();
-// testBackpackUseItemsSuccess();
-// testBackpackUseItemsFailure();
-// testBackpackBuyItemsSuccess();
-// testBackpackBuyItemsFailure();
-// testBackpackSellItemsSuccess();
-// testBackpackSellItemsFailure();
+testBackpackAddItemsSuccess();
+testBackpackRemoveItemsSuccess();
+testBackpackRemoveItemsFailure();
+testBackpackUseItemsSuccess();
+testBackpackUseItemsFailure();
+testBackpackBuyItemsSuccess();
+testBackpackBuyItemsFailure();
+testBackpackSellItemsSuccess();
+testBackpackSellItemsFailure();
 
-// testPlayerAcquireItemSuccess();
-// testPlayerAcquireItemFailure();
-// testPlayerRemoveItemsSuccess();
-// testPlayerRemoveItemsFailure();
-// testPlayerUseItemSuccess();
-// testPlayerUseItemFailure();
-// testPlayerBuyItemsSuccess();
-// testPlayerBuyItemsFailure();
-// testPlayerSellItemsSuccess();
-// testPlayerSellItemsFailure();
+testPlayerAcquireItemSuccess();
+testPlayerAcquireItemFailure();
+testPlayerRemoveItemsSuccess();
+testPlayerRemoveItemsFailure();
+testPlayerUseItemSuccess();
+testPlayerUseItemFailure();
+testPlayerBuyItemsSuccess();
+testPlayerBuyItemsFailure();
+testPlayerSellItemsSuccess();
+testPlayerSellItemsFailure();
 
-let playerA = new Player("Alice");
-playerA.acquireItems("Sword");
-playerA.acquireSkill("Fireball");
-playerA.getHurt(20);
-playerA.heal(10);
-// playerA.sendMessage("Hello!");
 
 // console.log(playerA); // To see the player object's status after the interactions
 
 //something happening...
-
-
-function player() {
-    // 創建兩名玩家
-    const player1 = new Player("玩家1");
-    const player2 = new Player("玩家2");
-
-    // 測試功能
-    player1.acquireItems(["錢","蘋果"])
-    player1.plant("小麥");
-    player1.harvest();
-    player1.interactWithObject("寶箱");
-    player1.useSkill("火球術");
-    player1.buyItem(player2, "蘋果", 5);
-    player1.sellItem(player2, "魔法藥水", 3);
+const items = {
+  "Apple": {
+    "name": "Apple",
+    "value": 5, // 假设的价值
+    "description": "A juicy red apple.",
+    "quantity": 10 // 假设用户有10个苹果
+  },
+  "Poison": {
+    "name": "Poison",
+    "value": 15, // 假设的价值
+    "description": "A dangerous poison.",
+    "quantity": 2 // 假设用户有2份毒药
+  },
+  "MagicPotion": {
+    "name": "Magic Potion",
+    "value": 25, // 假设的价值
+    "description": "Restores 50 points of mana.",
+    "quantity": 5 // 假设用户有5瓶魔法药水
+  },
+  "LifePotion": {
+    "name": "Life Potion",
+    "value": 30, // 假设的价值
+    "description": "Restores 50 points of health.",
+    "quantity": 3 // 假设用户有3瓶生命药水
+  },
+  "ExperiencePotion": {
+    "name": "Experience Potion",
+    "value": 40, // 假设的价值
+    "description": "Grants 50 experience points.",
+    "quantity": 4 // 假设用户有4瓶经验药水
+  },
+  "StrengthPotion": {
+    "name": "Strength Potion",
+    "value": 35, // 假设的价值
+    "description": "Increases strength by 50.",
+    "quantity": 1 // 假设用户有1瓶力量药水
+  }
 }
+
+class FarmLand{
+  constructor(name) {
+    this.name = name;
+    this.plantedSeeds = {};
+  }
+  plant(seed){
+    // 简化逻辑：立即种植并记录时间
+    console.log(`${this.name} 正在被种植 ${seed}`);
+    if (!this.plantedSeeds) {
+        this.plantedSeeds = {};
+    }
+    const currentTime = new Date().getTime();
+    this.plantedSeeds[seed] = currentTime;
+  }
+
+  harvest() {
+    console.log(`${this.name} 正在被收割`);
+    // 假设所有作物都是立即成熟的
+    for (let seed in this.plantedSeeds) {
+        console.log(`從${this.name} 收获了 ${seed}`);
+    }
+    this.plantedSeeds = {}; // 清空种植记录
+  }
+}
+
+class GameObject{
+  constructor(name, description) {
+    this.name = name;
+    this.description = description
+  }
+  interactWithObject(user) {
+    console.log(`${user} 正在与 ${this.name} 互动`);
+  }
+}
+
+let playerA = new Player("芙寧娜");
+// playerA.acquireItems("Sword");
+// playerA.acquireSkill("Fireball");
+// playerA.GetHurt(20);
+
+// playerA.Heal(10);
+// console.log(playerA);
+
+// 創建兩名玩家
+let player1 = new Player("夏洛蒂");
+console.log(player1);
+let player2 = new Player("Alice");
+console.log(player2);
+
+// 測試功能
+player1.acquireItems(items)
+let farmland = new FarmLand("大草地")
+player1.plant("小麥",farmland);
+player1.harvest(farmland);
+let testobject = new GameObject("寶箱")
+
+console.log(player1.states.user)
+player1.interactWithObject(testobject);
+// player1.useSkill("火球術");
+player1.buyItems(player2, "蘋果", 5);
+player1.sellItems(player2, "魔法藥水", 3);
+player1.useItems(items)
+
+// playerA.sendMessage("Hello!");
+
+// 創建玩家角色
+// if (playerA.states instanceof States) {
+//   setInterval(playerA.states.Update.bind(playerA.states), 1000);
+// } else {
+//   console.error('playerA.states 不是 States 的一个实例');
+// }// 測試玩家的屬性和狀態腳本
+    //體力 飢餓 心情 魔力 血量
+// playerA.states.useMana(Skill)
+playerA.states.gainExperience(220)
+console.log(playerA.states)
+
+playerA.states.TakeDamage(20);//攻擊
+//受傷
+//回血
+playerA.states.levelUp()
+console.log(playerA.states)
+
+playerA.states.addStatusEffect("Poison")
+playerA.states.BringStatusEffect(playerA.states.statusEffects)
+playerA.states.removeStatusEffect("Poison")
+playerA.states.BringStatusEffect(playerA.states.statusEffects)
+playerA.states.death()
+playerA.states.resurrect() 
+console.log(playerA.states)
+playerA.states.Update
+playerA.states.death()
+

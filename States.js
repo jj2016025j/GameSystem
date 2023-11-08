@@ -1,31 +1,32 @@
 class States {
     // 定义类的常量
     static MAX_HEALTH = 100;
-    static MAX_MANA = 50;
+    static MAX_MANA = 100;
     static MAX_SATURATION = 100;
     static MAX_MOOD = 100;
     static MAX_BODY_STRENGTH = 100;// 初始化玩家的基本屬性
     static MAX_LEVEL = 90;
-    static DEAFULT_STATUS_EFFECTS = ["RestoreHealth","RestoreMana","BeginHungry","DepletePower"];
+    static DEFAULT_STATES_EFFECTS = ["RestoreHealth","RestoreMana","BeginHungry","DepletePower","PoisonEffect"];
 
 
-    constructor() {
+    constructor(user) {
+        this.user = user
         this._health = States.MAX_HEALTH;
         this._mana = States.MAX_MANA;
         this._saturation = States.MAX_SATURATION;
         this._mood = States.MAX_MOOD;
         this._bodyStrength = States.MAX_BODY_STRENGTH;
-        this.statusEffects = States.DEAFULT_STATUS_EFFECTS; // 存儲狀態效果的列表
-        this.experience = 0;
-        this.MAX_EXPERIENC = 100;
-        this.level = 1;
+        this._statesEffects = States.DEFAULT_STATES_EFFECTS; // 存儲狀態效果的列表
+        this._experience = 0;
+        this.MAX_EXPERIENCE = 100;
+        this._level = 1;
 
         this.isSleeping = false;
         this.lowHealth = false;
         this.lowSaturation = false;
         this.poorMood = false;
         this.lackOfPhysicalStrength = false;
-        this.stats = "Live";
+        this.states = "Live";
     }
 
     get health() {
@@ -34,7 +35,7 @@ class States {
 
     set health(value) {
         this._health = Math.max(0, Math.min(States.MAX_HEALTH, value));
-        if (this.health === 0) {
+        if (this.health === 0 && this.states != "Death") {
             this.death();
         }
     }
@@ -54,185 +55,203 @@ class States {
     set mood(value) {
         this._mood = Math.max(0, Math.min(States.MAX_MOOD, value));
         if (this.mood === 0) {
-            this.stats = "Disappeared";
+            this.states = "Disappeared";
         }
     }
 
     get bodyStrength() {
-        return this._physicalStrength;
+        return this._bodyStrength;
     }
 
     set bodyStrength(value) {
-        this._physicalStrength = Math.max(0, Math.min(States.MAX_PHYSICAL_STRENGTH, value));
+        this._bodyStrength = Math.max(0, Math.min(States.MAX_PHYSICAL_STRENGTH, value));
         if (this.bodyStrength === 0) {
-            this.stats = "Sleep";
+            this.states = "Sleep";
         }    
     }
     
-    get Saturation() {
+    get saturation() {
         return this._saturation;
     }
 
-    set Saturation(value) {
-        this.saturation = Math.max(0, Math.min(States.MAX_SATURATION, value));
-        if (this.bodyStrength === 0) {
+    set saturation(value) {
+        this._saturation = Math.max(0, Math.min(States.MAX_SATURATION, value));
+        if (this.saturation === 0) {
             this.health -= 20;
         }    
     }
-    takeDamage(damage) {
+
+    get level(){
+        return this._level;
+    }
+
+    set level(value){
+        this._level = Math.max(0, Math.min(States.MAX_LEVEL, value));
+    }
+
+    TakeDamage(damage) {
         // 玩家受到傷害時的處理
-        if (!this.isDead) {
+        if (this.states != "Death") {
             this.health -= damage;
-            if (this.health <= 0) {
-                this.health = 0;
-                this.isDead = true;
-                console.log("玩家已死亡");
-            }
-        } else {
-            console.log("玩家已死亡，無法再受到傷害");
+        } 
+        else {
+            console.log(this.user.name + "已死亡，無法再受到傷害");
         }
     }
 
-    useMana(Skill) {
+    Healing(restoreHealth){
+        if (this.states != "Death") {
+            this.health += restoreHealth;
+        } 
+        else {
+            console.log(this.user.name + "已死亡，無法再受到治癒");
+        }
+
+    }
+
+    UseMana(Skill) {
         // 使用魔法值的方法
-        if (!this.stats === "Dead") {
+        if (this.states != "Dead") {
             if (this.mana >= Skill.cost) {
                 this.mana -= Skill.cost;
-                console.log("使用了 " + Skill.cost + " 魔法值");
+                console.log(this.user.name + "使用了 " + Skill.cost + " 魔法值");
             } else {
-                console.log("魔法值不足");
+                console.log(this.user.name + "魔法值不足");
             }
         } else {
-            console.log("玩家已死亡，無法使用魔法");
+            console.log(this.user.name + "已死亡，無法使用魔法");
         }
     }
 
     gainExperience(amount) {
         // 獲得經驗值的方法
-        if (!this.stats === "Dead") {
+        if (this.states != "Dead") {
             this.experience += amount;
-            while (this.experience >= this.MAX_EXPERIENC) {
+            while (this.experience >= this.MAX_EXPERIENCE) {
                 this.levelUp();
             }
         } else {
-            console.log("玩家已死亡，無法獲得經驗值");
+            console.log(this.user.name + "已死亡，無法獲得經驗值");
         }
     }
 
     levelUp() {
         // 升級角色的方法
         this.level += 1;
-        this.health = 100; // 升級時恢復生命值
-        this.mana = 50; // 升級時恢復魔法值
-        this.saturation = 100; // 升級時恢復飲食值
-        this.mood = 100; // 升級時恢復心情值
-        this.bodyStrength = 100; // 升級時恢復物理力值
-        this.experience -= this.MAX_EXPERIENC; // 每次獲得經驗值就減少 100                
-        this.MAX_EXPERIENC *= 1.1; // 每次獲得經驗值就減少 100                
-        console.log("玩家升級到 Level " + this.level);
+        this.health = States.MAX_HEALTH; // 升級時恢復生命值
+        this.mana = States.MAX_MANA; // 升級時恢復魔法值
+        this.saturation = States.MAX_SATURATION; // 升級時恢復飲食值
+        this.mood = States.MAX_MOOD; // 升級時恢復心情值
+        this.bodyStrength = States.MAX_BODY_STRENGTH; // 升級時恢復物理力值
+        this._statesEffects = States.DEFAULT_STATES_EFFECTS; // 升級時恢復狀態效果
+        this.experience -= this.MAX_EXPERIENCE; // 每次獲得經驗值就減少 100                
+        this.MAX_EXPERIENCE *= 1.1; // 每次獲得經驗值就減少 100                
+        console.log(this.user.name + "升級到 Level " + this.level);
+        this.resurrect()
     }
 
-    addStatusEffect(effect) {
+    addStatusEffect(effect) {//加上效果時間
         // 添加狀態效果的方法
-        if (!this.stats === "Dead") {
-            this.statusEffects.push(effect);
-            console.log("玩家受到 " + effect + " 效果的影響");
+        if (this.states != "Dead") {
+            this._statesEffects.push(effect);
+            console.log(this.user.name + "受到 " + effect + " 效果的影響");
         } else {
-            console.log("玩家已死亡，無法添加狀態效果");
+            console.log(this.user.name + "已死亡，無法添加狀態效果");
         }
     }
 
     removeStatusEffect(effect) {
         // 移除狀態效果的方法
-        if (!this.stats === "Dead") {
-            const index = this.statusEffects.indexOf(effect);
+        if (this.states != "Dead") {
+            const index = this._statesEffects.indexOf(effect);
             if (index !== -1) {
-                this.statusEffects.splice(index, 1);
-                console.log("玩家解除了 " + effect + " 效果");
+                this._statesEffects.splice(index, 1);
+                console.log(this.user.name + "解除了 " + effect + " 效果");
             }
         } else {
-            console.log("玩家已死亡，無法移除狀態效果");
+            console.log(this.user.name + "已死亡，無法移除狀態效果");
         }
     }
 
-    BringStatusEffect(statusEffects){
+    BringStatusEffect(){
         //使每個效果分別對玩家造成影響
-        for (const [index, effect] of Object.entries(statusEffects)) {
-            console.log(effect);
-            switch (effect) {
-                case "RestoreHealth":
-                    this.health += 1;
-                    break;
-                case "RestoreMana":
-                    this.mana += 1;
-                    break;
-                case "BeginHungry":
-                    this.saturation -= 1;
-                    break;
-                case "DepletePower":
-                    this.physicalStrength -= 1;
-                    break;
-                case "Mood":
-                    this.mood-= 1;
-                    break;
-                case "Fire":
-                    this.health -= 8;
-                    break;
-                case "Poison":
-                    this.health -= 3;
-                    //傷害動畫
-                    break;
-                default:
-                    console.log("未知效果");
-                    break;
-            }
+        if (this._statesEffects) {
+            for (const effect of this._statesEffects) {
+                switch (effect) {
+                    case "RestoreHealth":
+                        this.health += 1;
+                        break;
+                    case "RestoreMana":
+                        this.mana += 1;
+                        break;
+                    case "BeginHungry":
+                        this.saturation -= 1;
+                        break;
+                    case "DepletePower":
+                        this.physicalStrength -= 1;
+                        break;
+                    case "Mood":
+                        this.mood-= 1;
+                        break;
+                    case "Fire":
+                        this.health -= 8;
+                        break;
+                    case "PoisonEffect":
+                        this.health -= 3;
+                        break;
+                    case "Sleeping":
+                        this.physicalStrength += 5;
+                        if(this.states!="Sleep")
+                            removeStatusEffect("Sleeping")
+                        break;
+                    case " ":
+                        break;
+                    default:
+                        console.log("未知效果: " + effect);
+                        break;
+            }}
+        }else {
+            console.error('statesEffects is undefined or null');
         }
     }
-
+    //死亡時歸零
     death() {
-        this.stats = "Dead";
-        this.statusEffects=[]
+        this.states = "Dead";
+        this._statesEffects={}
+        console.log(this.user.name + "死亡");
         // 處理死亡相關的操作
     }
 
+    //復活時全滿
     resurrect() {
         // 復活玩家的方法
-        if (this.stats === "Dead") {
-            this.stats === "Live";
+        if (this.states === "Dead") {
+            this.states = "Live";
             this.health = 10; // 復活時恢復十點生命值
-            this.statusEffects = States.DEAFULT_STATUS_EFFECTS
-            console.log("玩家已復活");
+            this._statesEffects = States.DEFAULT_STATES_EFFECTS
+            console.log(this.user.name + "已復活");
         } else {
-            console.log("玩家未死亡，無需復活");
+            console.log(this.user.name + "未死亡，無需復活");
         }
     }
 
     Update(){
-    //判斷是否死亡
-    if (this.stats === "Dead") {
+        //判斷是否死亡
+        console.log(this); // 调试输出，检查 this 指向
+        if (!this._statesEffects) {
+            console.error('States 实例中找不到 _statesEffects 属性。');
+            return; // 如果找不到 _statesEffects，提前退出函数
+            }
+        if (this.states === "Dead"){
+            return;
         }
-        this.BringStatusEffect(this.statusEffects)
+        else if (this.states === "Disappeared"){
+            death()
+            return;
+        }
+        else if (this.states === "Sleep")
+            this.addStatusEffect("Sleeping");
+        
+        this.BringStatusEffect()
     }
 }
-
-// 創建玩家角色
-const status1 = new States();
-const status2 = new States();
-setInterval(status1.Update.bind(status1), 1000); // 現在`this`在`Update`中指向`status1`
-setInterval(status2.Update.bind(status2), 1000); // 現在`this`在`Update`中指向`status2`
-// 測試玩家的屬性和狀態腳本
-    //體力 飢餓 心情 魔力 血量
-// status1.useMana(Skill)
-status1.gainExperience(220)
-status1.takeDamage(20);//攻擊
-//受傷
-//回血
-status1.levelUp()
-status1.addStatusEffect("Poison")
-status1.BringStatusEffect(status1.statusEffects)
-status1.removeStatusEffect("Poison")
-status1.BringStatusEffect(status1.statusEffects)
-status1.death()
-status1.resurrect() 
-console.log(status1)
-console.log(status2)

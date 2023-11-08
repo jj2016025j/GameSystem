@@ -17,17 +17,105 @@
                 <li>Mana: <span id="player-mana">50</span></li>
                 <li id="playTime"></li>
             </ul>
+            <!-- 攻擊
+            治癒 -->
             <button onclick="saveGameToLocal()">Save Game</button>
         </div>
 
         <!-- Backpack -->
         <div class="backpack">
             <h2 class="title">物品列表：</h2>
-            <ul class="list">
-                <li>Sword</li>
-                <li>Shield</li>
-                <li>Potion</li>
+            <ul class="list" id="backpackList">
+                <li data-item="sword">Sword</li>
+                <li data-item="shield">Shield</li>
+                <li data-item="potion">Potion</li>            </ul>
             </ul>
+            <script>
+                let selectedItem = [];  // 用来追踪当前选中的物品
+
+                // 给每个物品添加点击事件监听器，实现选中功能
+                document.querySelectorAll('#backpackList li').forEach(item => {
+                    item.addEventListener('click', function() {
+                        // 切换当前点击的物品选中状态
+                        this.classList.toggle('selected');
+
+                        // 更新 selectedItem，这里我们使用一个数组来追踪选中的物品
+                        const itemName = this.dataset.item;
+                        if (selectedItem.includes(itemName)) {
+                            // 如果已经选中，则取消选中
+                            selectedItem = selectedItem.filter(item => item !== itemName);
+                        } else {
+                            // 如果未选中，则添加到选中数组中
+                            selectedItem.push(itemName);
+                        }
+                    });
+                });
+
+            </script>
+            <button id="clearSelectionButton">清空選取</button>
+            <button id="addItemButton">加入背包</button>
+            <button id="removeItemButton">移除物品</button>
+            <button id="useItemButton">使用物品</button>
+            <button id="purchaseItemButton">購買物品</button>
+            <script>
+                // 清空选中状态的按钮事件监听器
+                document.getElementById('clearSelectionButton').addEventListener('click', function() {
+                    // 清除所有选中的物品状态
+                    document.querySelectorAll('#backpackList li.selected').forEach(li => {
+                        li.classList.remove('selected');
+                    });
+                    // 重置选中的物品数组
+                    selectedItem = [];
+                });
+
+                // 给按钮添加点击事件监听器，实现使用物品功能
+                document.getElementById('useItemButton').addEventListener('click', function() {
+                    if (selectedItem) {
+                        console.log(`使用物品：${selectedItem}`);
+                        // 在这里实现使用物品的逻辑
+                        // 比如更新玩家的状态，或是调用一个函数来处理物品效果
+                        // useItem(selectedItem);
+
+                        // 清除选中状态
+                        document.querySelectorAll('#backpackList li').forEach(li => {
+                            li.classList.remove('selected');
+                        });
+                        selectedItem = [];  // 重置选中的物品
+                    } else {
+                        console.log('没有选中任何物品');
+                    }
+                });
+                // 加入背包按钮事件
+                document.getElementById('addItemButton').addEventListener('click', function() {
+                    console.log('加入背包按钮被点击');
+                    // 这里实现加入背包的逻辑
+                });
+
+                // 移除按钮事件
+                document.getElementById('removeItemButton').addEventListener('click', function() {
+                    console.log('移除按钮被点击');
+                    // 这里实现移除物品的逻辑
+                });
+
+                // 使用物品按钮事件
+                document.getElementById('useItemButton').addEventListener('click', function() {
+                    console.log('使用物品按钮被点击');
+                    // 这里实现使用物品的逻辑
+                });
+
+                // 購買按钮事件
+                document.getElementById('purchaseItemButton').addEventListener('click', function() {
+                    console.log('購買按钮被点击');
+                    // 这里实现购买物品的逻辑
+                });
+
+                // 售出按钮事件
+                document.getElementById('sellItemButton').addEventListener('click', function() {
+                    console.log('售出按钮被点击');
+                    // 这里实现售出物品的逻辑
+                });
+
+            </script>
         </div>
 
         <!-- Skills -->
@@ -125,18 +213,19 @@
     <script src="backpack.js"></script>
     <script src="player.js"></script>
     <script src="States.js"></script>
+    <script src="item.js"></script>
     <script src="test.js"></script>
     <script>
-        // You can add interactive features or event listeners to your items here
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const creatures = document.querySelectorAll('.list li');
-        creatures.forEach(creature => {
-            creature.addEventListener('click', () => {
-              const description = creature.getAttribute('data-description');
-              alert(creature.textContent + '：' + description);
-            });
-        });
-    });
+    // You can add interactive features or event listeners to your items here
+    // document.addEventListener('DOMContentLoaded', (event) => {
+    //     const creatures = document.querySelectorAll('.list li');
+    //     creatures.forEach(creature => {
+    //         creature.addEventListener('click', () => {
+    //           const description = creature.getAttribute('data-description');
+    //           alert(creature.textContent + '：' + description);
+    //         });
+    //     });
+    // });
 
     
     </script>
