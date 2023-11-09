@@ -52,20 +52,34 @@
                 });
 
             </script>
-            <button id="clearSelectionButton">清空選取</button>
+            <button id="SelectionButton">全部選取</button>
             <button id="addItemButton">加入背包</button>
             <button id="removeItemButton">移除物品</button>
             <button id="useItemButton">使用物品</button>
             <button id="purchaseItemButton">購買物品</button>
             <script>
-                // 清空选中状态的按钮事件监听器
-                document.getElementById('clearSelectionButton').addEventListener('click', function() {
-                    // 清除所有选中的物品状态
-                    document.querySelectorAll('#backpackList li.selected').forEach(li => {
-                        li.classList.remove('selected');
-                    });
-                    // 重置选中的物品数组
-                    selectedItem = [];
+                // 用於追蹤是否所有物品都被選取的標誌
+                let selectionButton = document.getElementById('SelectionButton');
+                let allSelected = false;
+
+                // 清空選取狀態的按鈕事件監聽器
+                selectionButton.addEventListener('click', function() {
+                    let items = document.querySelectorAll('#backpackList li'); // 假設您的列表項目是在ul#backpackList下的li元素
+                    if (!allSelected) {
+                        // 選擇所有的物品
+                        items.forEach(function(li) {
+                            li.classList.add('selected');
+                        });
+                        selectionButton.textContent = "清空選取";
+                        allSelected = true;
+                    } else {
+                        // 清除所有選中的物品狀態
+                        items.forEach(function(li) {
+                            li.classList.remove('selected');
+                        });
+                        selectionButton.textContent = "全部選取";
+                        allSelected = false;
+                    }
                 });
 
                 // 给按钮添加点击事件监听器，实现使用物品功能
