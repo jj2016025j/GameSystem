@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>shin</title>
+    <title>Text RPG Game</title>
     <link rel="stylesheet" href="gameSystem.css">
 </head>
-<body>
+<body>    
+    <!-- 個人資訊列表 背包 裝備 技能-->
     <div class="player-container">
         <!-- Player Info -->
         <div class="player-info">
@@ -143,19 +144,51 @@
         </div>
     </div>
 
-    <!-- Chat -->
-    <div class="chat">
-        <div class="chatRoom">
-            <h2 class="title">Chat Room</h2>
-            <textarea rows="10" readonly>說了一些話... 
-    又說了一些話...</textarea>
-            <br><br>
-            <input type="text" placeholder="Type your message...">
-            <button>Send</button>
-        </div>
-    </div>
-
+    <!-- 互動列表 儲值 製作 商店 銀行 地圖 市集 城市 公會 生物 物品 NPC 任務-->
     <div class="container">
+
+        <section class="objects">
+            <h2 class="title">互動列表：</h2>
+            <ul class="list">
+                <li>
+                  物件
+                    <div>
+                        <button type="button">互动</button>
+                    </div>
+                </li>
+                <li>
+                  生物
+                  <div>
+                    <button type="button">攻击</button>
+                    <button type="button">反击</button>
+                  </div>
+                </li>
+                <li>
+                  其他玩家
+                  <div>
+                    <button type="button">对话</button>
+                    <button type="button">攻击</button>
+                    <button type="button">互动</button>
+                    <button type="button">其他</button>
+                  </div>
+                </li>
+                <li>
+                  商店
+                  <div>
+                    <button type="button">购买</button>
+                    <button type="button">贩卖</button>
+                  </div>
+                </li>
+                <li>
+                  NPC
+                  <div>
+
+                  </div>
+                  <button type="button">互动</button>
+                </li>
+              </ul>
+              
+        </section>
         <!-- 地圖列表 -->
         <section id="maps" class="maps">
             <h2 class="title">地圖列表：</h2>
@@ -194,6 +227,7 @@
                 <li data-description="可能是敵人或盟友，或是坐騎">龍</li>
             </ul>
         </section>
+
         <!-- NPC列表 -->
         <section id="npcs" class="npcs">
             <h2 class="title">NPC列表：</h2>
@@ -220,8 +254,44 @@
             </ul>
         </section>
         <!-- Repeat sections like above for each category -->
-
     </div>
+    
+    <!-- Chat 公會 信箱 通知 -->
+    <div class="chat">
+        <div class="chatRoom">
+            <h2 class="title">Chat Room</h2>
+            <textarea rows="10" readonly>說了一些話... 
+    又說了一些話...</textarea>
+            <br><br>
+            <input type="text" placeholder="Type your message...">
+            <button>Send</button>
+        </div>
+
+        <audio loop id="background-music" preload="auto">
+            <source src="SaveTube.App - KING _ Furina (AI Cover) (128 kbps).mp3" type="audio/mp3" >
+            Your browser does not support the audio element.
+        </audio>
+        <button id="playMusicButton">Play Music</button>
+        <script>
+            var playMusicButton = document.getElementById('playMusicButton');
+            var backgroundMusic = document.getElementById('background-music');
+    
+            playMusicButton.addEventListener('click', function() {
+                // 如果音乐已经在播放，这个按钮可以用来暂停音乐
+                if (backgroundMusic.paused) {
+                    backgroundMusic.play();
+                } else {
+                    backgroundMusic.pause();
+                }
+            });
+        </script>
+    
+    </div>
+
+    <!-- 
+        其他功能列 浮動在畫面中
+
+    -->
     <script src="gameSystem.js"></script>
     <script src="game.js"></script>
     <script src="backpack.js"></script>
