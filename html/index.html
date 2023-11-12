@@ -20,7 +20,7 @@
             </ul>
             <!-- 攻擊
             治癒 -->
-            <button onclick="saveGameToLocal()">Save Game</button>
+            <button onclick="saveGameToLocal()" class="log">Save Game</button>
         </div>
 
         <!-- Backpack -->
@@ -31,106 +31,13 @@
                 <li data-item="shield">Shield</li>
                 <li data-item="potion">Potion</li>            </ul>
             </ul>
-            <script>
-                let selectedItem = [];  // 用来追踪当前选中的物品
 
-                // 给每个物品添加点击事件监听器，实现选中功能
-                document.querySelectorAll('#backpackList li').forEach(item => {
-                    item.addEventListener('click', function() {
-                        // 切换当前点击的物品选中状态
-                        this.classList.toggle('selected');
-
-                        // 更新 selectedItem，这里我们使用一个数组来追踪选中的物品
-                        const itemName = this.dataset.item;
-                        if (selectedItem.includes(itemName)) {
-                            // 如果已经选中，则取消选中
-                            selectedItem = selectedItem.filter(item => item !== itemName);
-                        } else {
-                            // 如果未选中，则添加到选中数组中
-                            selectedItem.push(itemName);
-                        }
-                    });
-                });
-
-            </script>
-            <button id="SelectionButton">全部選取</button>
-            <button id="addItemButton">加入背包</button>
-            <button id="removeItemButton">移除物品</button>
-            <button id="useItemButton">使用物品</button>
-            <button id="purchaseItemButton">購買物品</button>
-            <script>
-                // 用於追蹤是否所有物品都被選取的標誌
-                let selectionButton = document.getElementById('SelectionButton');
-                let allSelected = false;
-
-                // 清空選取狀態的按鈕事件監聽器
-                selectionButton.addEventListener('click', function() {
-                    let items = document.querySelectorAll('#backpackList li'); // 假設您的列表項目是在ul#backpackList下的li元素
-                    if (!allSelected) {
-                        // 選擇所有的物品
-                        items.forEach(function(li) {
-                            li.classList.add('selected');
-                        });
-                        selectionButton.textContent = "清空選取";
-                        allSelected = true;
-                    } else {
-                        // 清除所有選中的物品狀態
-                        items.forEach(function(li) {
-                            li.classList.remove('selected');
-                        });
-                        selectionButton.textContent = "全部選取";
-                        allSelected = false;
-                    }
-                });
-
-                // 给按钮添加点击事件监听器，实现使用物品功能
-                document.getElementById('useItemButton').addEventListener('click', function() {
-                    if (selectedItem) {
-                        console.log(`使用物品：${selectedItem}`);
-                        // 在这里实现使用物品的逻辑
-                        // 比如更新玩家的状态，或是调用一个函数来处理物品效果
-                        // useItem(selectedItem);
-
-                        // 清除选中状态
-                        document.querySelectorAll('#backpackList li').forEach(li => {
-                            li.classList.remove('selected');
-                        });
-                        selectedItem = [];  // 重置选中的物品
-                    } else {
-                        console.log('没有选中任何物品');
-                    }
-                });
-                // 加入背包按钮事件
-                document.getElementById('addItemButton').addEventListener('click', function() {
-                    console.log('加入背包按钮被点击');
-                    // 这里实现加入背包的逻辑
-                });
-
-                // 移除按钮事件
-                document.getElementById('removeItemButton').addEventListener('click', function() {
-                    console.log('移除按钮被点击');
-                    // 这里实现移除物品的逻辑
-                });
-
-                // 使用物品按钮事件
-                document.getElementById('useItemButton').addEventListener('click', function() {
-                    console.log('使用物品按钮被点击');
-                    // 这里实现使用物品的逻辑
-                });
-
-                // 購買按钮事件
-                document.getElementById('purchaseItemButton').addEventListener('click', function() {
-                    console.log('購買按钮被点击');
-                    // 这里实现购买物品的逻辑
-                });
-
-                // 售出按钮事件
-                document.getElementById('sellItemButton').addEventListener('click', function() {
-                    console.log('售出按钮被点击');
-                    // 这里实现售出物品的逻辑
-                });
-
-            </script>
+            <button id="SelectionButton" class="log">全部選取</button>
+            <button id="addItemButton" class="log">加入背包</button>
+            <button id="removeItemButton" class="log">移除物品</button>
+            <button id="useItemButton" class="log">使用物品</button>
+            <button id="purchaseItemButton" class="log">購買物品</button>
+            <button id="sellItemButton" class="log">售出物品</button>
         </div>
 
         <!-- Skills -->
@@ -153,30 +60,30 @@
                 <li>
                   物件
                     <div>
-                        <button type="button">互动</button>
+                        <button type="button" class="log">互动</button>
                     </div>
                 </li>
                 <li>
                   生物
                   <div>
-                    <button type="button">攻击</button>
-                    <button type="button">反击</button>
+                    <button type="button" class="log">攻击</button>
+                    <button type="button" class="log">反击</button>
                   </div>
                 </li>
                 <li>
                   其他玩家
                   <div>
-                    <button type="button">对话</button>
-                    <button type="button">攻击</button>
-                    <button type="button">互动</button>
-                    <button type="button">其他</button>
+                    <button type="button" class="log">对话</button>
+                    <button type="button" class="log">攻击</button>
+                    <button type="button" class="log">互动</button>
+                    <button type="button" class="log">其他</button>
                   </div>
                 </li>
                 <li>
                   商店
                   <div>
-                    <button type="button">购买</button>
-                    <button type="button">贩卖</button>
+                    <button type="button" class="log">购买</button>
+                    <button type="button" class="log">贩卖</button>
                   </div>
                 </li>
                 <li>
@@ -184,7 +91,7 @@
                   <div>
 
                   </div>
-                  <button type="button">互动</button>
+                  <button type="button" class="log">互动</button>
                 </li>
               </ul>
               
@@ -260,39 +167,25 @@
     <div class="chat">
         <div class="chatRoom">
             <h2 class="title">Chat Room</h2>
-            <textarea rows="10" readonly>說了一些話... 
-    又說了一些話...</textarea>
+            <textarea rows="30" id="chatLog" readonly></textarea>
+            <!-- <div id="chatLog" readonly></div> -->
             <br><br>
             <input type="text" placeholder="Type your message...">
-            <button>Send</button>
+            <button id="sendButton">Send</button>
         </div>
 
         <audio loop id="background-music" preload="auto">
             <source src="SaveTube.App - KING _ Furina (AI Cover) (128 kbps).mp3" type="audio/mp3" >
-            Your browser does not support the audio element.
         </audio>
-        <button id="playMusicButton">Play Music</button>
-        <script>
-            var playMusicButton = document.getElementById('playMusicButton');
-            var backgroundMusic = document.getElementById('background-music');
-    
-            playMusicButton.addEventListener('click', function() {
-                // 如果音乐已经在播放，这个按钮可以用来暂停音乐
-                if (backgroundMusic.paused) {
-                    backgroundMusic.play();
-                } else {
-                    backgroundMusic.pause();
-                }
-            });
-        </script>
-    
+        <button id="playMusicButton" class="log">Play Music</button>
     </div>
 
     <!-- 
         其他功能列 浮動在畫面中
-
     -->
+    <script src="FrontSide.js"></script>
     <script src="gameSystem.js"></script>
+    <script src="chat.js"></script>
     <script src="game.js"></script>
     <script src="backpack.js"></script>
     <script src="player.js"></script>
@@ -310,8 +203,6 @@
     //         });
     //     });
     // });
-
-    
     </script>
 </body>
 </html>

@@ -74,13 +74,13 @@ function Main(){
       localStorage.setItem('gameData', JSON.stringify(gameData));
       console.log('Saving game state to local storage');
       playTime++
-      document.getElementById('playTime').textContent = playTime;
     }
+
     Start()
     saveGameToLocal()
     
     // 定時保存遊戲進度
-    setInterval(saveGameToLocal, 1000); // 每5秒保存一次遊戲
+    setInterval(saveGameToLocal, 10000); // 每5秒保存一次遊戲
 
     // 绑定beforeunload事件 在瀏覽器關閉時執行
     window.addEventListener('beforeunload', (event) => {
