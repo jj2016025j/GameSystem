@@ -1,10 +1,7 @@
 class Skills {
-    constructor() {
-      this.skillList = [];
-    }
-  
-    addSkill(skill) {
-      this.skillList.push(skill);
+    constructor(name) {
+      this.name = name
+      this.description = ""
     }
   
     useSkill(skill) {

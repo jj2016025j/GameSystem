@@ -3,7 +3,8 @@ class Player{
       this.name = name;
       this.states = new States(this);
       this.backpack = new Backpack(this);
-      this.skills = new Skills();
+      this.time = new Date().toISOString(); // 生成ISO 8601格式的时间戳
+      this.skillList = [];
       this.target = []
   
       // 這裡將各種功能系統作為組合引入
@@ -15,9 +16,9 @@ class Player{
       this.notificationSystem = new NotificationSystem(this);
     }
   
-    // 玩家取得物品，加入到背包
+    // 玩家取得物品，加入到背包 
     acquireItems(items) {
-      return this.backpack.addItems(items);
+      return this.backpack.AddItems(items);
     }
 
     removeItems(items) {
@@ -37,9 +38,8 @@ class Player{
       return this.backpack.sellItems(buyer.backpack, itemsToSell, pricePerItem)
     }
 
-    acquireSkill(skill) {
-      return this.skills.addSkill(skill);
-      // console.log("interactive with skill")
+    addSkill(skill) {
+      this.skillList.push(new Skills(skill));
     }
 
     attack(target){
@@ -67,7 +67,7 @@ class Player{
     } 
     
     addItemsToInventory(itemsToAdd) {
-      this.Backpack.addItems(itemsToAdd);
+      this.Backpack.AddItems(itemsToAdd);
     };
 
     plant(seed,farmland) {

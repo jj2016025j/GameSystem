@@ -37,6 +37,60 @@ defaultGameData = {
   }
 };
 
+const staticData = {
+  map: {
+    "古林": {
+      "description": "探索古老的森林",
+      "objects": [
+        { "name": "寶箱", "quantity": 3, "description": "在森林中可以找到寶箱。寶箱中可能包含金幣、道具或其他寶藏。" },
+        { "name": "井", "quantity": 1, "description": "可以使用井來補充水分。" }
+        // 可以根据实际情况继续添加其他物件
+      ],
+      "NPC": [
+        "村莊長老",
+        "旅館老闆"
+        // 可以添加其他NPC
+      ],
+      "creatures": [
+        { "name": "森林精靈", "quantity": 5 },
+        { "name": "野生動物", "quantity": 12 }
+        // 可以添加其他生物
+      ],
+      "shops": [
+        { "name": "武器店"},
+        { "name": "藥草店"}
+        // 可以添加其他商店
+      ]
+    },
+    "珊瑚海": {
+      "description": "在這裡與海洋生物共游",
+      "objects": [
+        { "name": "寶箱", "quantity": 4, "description": "在海中可以找到寶箱。寶箱中可能包含金幣、道具或其他寶藏。" },
+        { "name": "珊瑚", "quantity": 20, "description": "珊瑚是海洋中重要的生態系統。" }
+        // 珊瑚海特有的其他物件
+      ],
+      "NPC": [
+        "漁夫",
+        "潛水教練"
+        // 珊瑚海特有的其他NPC
+      ],
+      "creatures": [
+        { "name": "海洋生物", "quantity": 30 },
+        { "name": "海龍", "quantity": 2, "description": "海龍是海洋中最大的生物之一。" }
+        // 珊瑚海特有的其他生物
+      ],
+      "shops": [
+        { "name": "潛水裝備店"},
+        { "name": "海產店"}
+        // 珊瑚海特有的其他商店
+      ]
+    },
+    // 更多地图...
+  }
+}
+
+
+
 // 定義全域變數
 let GameData = defaultGameData
 

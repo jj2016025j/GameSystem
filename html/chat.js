@@ -1,8 +1,8 @@
 // 示例JSON数据
 var chatData = {
     "messages": [
-        {"message": "这是第一条消息", "sender": "用户A", "time":allSelected},
-        {"message": "这是第二条消息", "sender": "用户B", "time":allSelected}
+        {"message": "这是第一条消息", "sender": "用户A", "time":new Date().toISOString()},
+        {"message": "这是第二条消息", "sender": "用户B", "time":new Date().toISOString()}
         // 更多消息...
     ]
 };
@@ -149,3 +149,70 @@ document.addEventListener('DOMContentLoaded', function() {
 //     };
 // }
 
+class ChatSystem {
+    constructor(player) {
+      this.player = player;
+    }
+  
+    send(message) {
+      console.log(message)
+    }
+  
+    send(sender, message) {
+      console.log(`${sender.name}: ${message}`);
+      // 实际的聊天系统会有复杂的逻辑来发送消息到服务器或者直接到其他玩家
+    }
+    // ... 其他聊天相關方法
+  }
+
+
+
+
+
+  
+// Define the supporting classes
+
+class ObjectInteraction {
+    constructor(player) {
+      this.player = player;
+    }
+    // ... other methods
+  }
+  
+  class ShopSystem {
+    constructor(player) {
+      this.player = player;
+    }
+    // ... other methods
+  }
+  
+  class EventSystem {
+    constructor(player) {
+        this.player = player;
+    }
+    // ... other methods
+  }
+  
+  class QuestSystem {
+    constructor(player) {
+        this.player = player;
+    }
+    // ... other methods
+  }
+  
+  class NotificationSystem {
+    constructor(player) {
+        this.player = player;
+    }
+    // ... other methods
+  }
+  
+  class InventorySystem {
+    constructor(player) {
+        this.player = player;
+    }
+    // ... other methods
+  }
+  
+  // (Backpack, Skills, Status, ChatSystem, Player ... remain the same)
+  // 假设你的 Backpack 类定义已经存在

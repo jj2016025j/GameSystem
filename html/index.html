@@ -11,12 +11,28 @@
     <div class="player-container">
         <!-- Player Info -->
         <div class="player-info">
-            <h2 class="title">玩家資訊：</h2>
+            <h2 class="title">個人檔案：</h2>
             <ul class="list">
-                <li>Name: <span id="player-name">Alice</span></li>
-                <li>Health: <span id="player-health">100</span></li>
-                <li>Mana: <span id="player-mana">50</span></li>
-                <li id="playTime"></li>
+                <li>
+                    暱稱: 
+                    <span id="player-name">芙寧娜</span>
+                </li>
+                <li>
+                    血量: 
+                    <span id="player-health">10</span>
+                </li>
+                <li>
+                    魔力: 
+                    <span id="player-mana">10</span>
+                </li>
+                <li>
+                    等級: 
+                    <span id="player-level">10</span>
+                </li>
+                <li>
+                    金錢: 
+                    <span id="player-gold">500</span>
+                </li>
             </ul>
             <!-- 攻擊
             治癒 -->
@@ -29,7 +45,7 @@
             <ul class="list" id="backpackList">
                 <li data-item="sword">Sword</li>
                 <li data-item="shield">Shield</li>
-                <li data-item="potion">Potion</li>            </ul>
+                <li data-item="potion">Potion</li>
             </ul>
 
             <button id="SelectionButton" class="log">全部選取</button>
@@ -43,7 +59,7 @@
         <!-- Skills -->
         <div class="skills">
             <h2 class="title">技能列表：</h2>
-            <ul class="list">
+            <ul class="list" id="skillsList">
                 <li>Fireball</li>
                 <li>Heal</li>
                 <li>Stealth</li>
@@ -51,10 +67,10 @@
         </div>
     </div>
 
-    <!-- 互動列表 儲值 製作 商店 銀行 地圖 市集 城市 公會 生物 物品 NPC 任務-->
+    <!-- 互動列表 儲值 製作 商店 銀行 地圖 市集 城市 公會 生物 物品 NPC 任務 -->
     <div class="container">
 
-        <section class="objects">
+        <!-- <section class="objects">
             <h2 class="title">互動列表：</h2>
             <ul class="list">
                 <li>
@@ -95,24 +111,74 @@
                 </li>
               </ul>
               
-        </section>
+        </section> -->
+
         <!-- 地圖列表 -->
         <section id="maps" class="maps">
             <h2 class="title">地圖列表：</h2>
             <ul class="list">
-                <li data-description="探索古老的森林">古林</li>
-                <li data-description="在這裡與海洋生物共游">珊瑚海</li>
-                <li data-description="發現隱藏的寶藏和秘密">遺忘島嶼</li>
-                <li data-description="與龍族溝通的神聖之地">龍谷</li>
-                <li data-description="穿越這些危險的地域需要勇氣">黑暗荒原</li>
-                <li data-description="豐饒而神秘的地方，充滿未知">迷霧森林</li>
-            </ul>
+                <li data-description="探索古老的森林">古林
+                    <div>
+                        <button type="button" class="log">前往</button>
+                    </div>
+                </li>
+                <li data-description="在繁華的城市中購物">城市
+                    <div>
+                        <button type="button" class="log">前往</button>
+                    </div>
+                </li>
+                <li data-description="在冰冷的極地中生存">極地
+                    <div>
+                        <button type="button" class="log">前往</button>
+                    </div>
+                </li>
+                <li data-description="在熱帶雨林中尋找寶藏">雨林
+                    <div>
+                        <button type="button" class="log">前往</button>
+                    </div>
+                </li>
+                <li data-description="在神秘的洞穴中探險">洞穴
+                    <div>
+                        <button type="button" class="log">前往</button>
+                    </div>
+                </li>
+                <li data-description="在廣闊的草原上馳騁">草原
+                    <div>
+                        <button type="button" class="log">前往</button>
+                    </div>
+                </li>
+                <li data-description="在蔚藍的海水中暢遊">珊瑚海
+                    <div>
+                        <button type="button" class="log">前往</button>
+                    </div>
+                </li>
+                <li data-description="尋找失落的財寶和神話">遺忘島嶼
+                    <div>
+                        <button type="button" class="log">前往</button>
+                    </div>
+                </li>
+                <li data-description="與傳說中的生物相遇">龍谷
+                    <div>
+                        <button type="button" class="log">前往</button>
+                    </div>
+                </li>
+                <li data-description="在黑暗中尋找生機">黑暗荒原
+                    <div>
+                        <button type="button" class="log">前往</button>
+                    </div>
+                </li>
+                <li data-description="在迷霧中探索未知">迷霧森林
+                    <div>
+                        <button type="button" class="log">前往</button>
+                    </div>
+                </li>
+                            </ul>
         </section>
         
         <!-- 物件列表 -->
         <section id="objects" class="objects">
             <h2 class="title">可互動物件列表：</h2>
-            <ul class="list">
+            <ul class="list" id="objectsList">
                 <li data-description="可能包含金幣、武器、藥水等">寶箱</li>
                 <li data-description="可以取水或許願">井</li>
                 <li data-description="獲取故事資訊或學習新技能">書架</li>
@@ -183,15 +249,16 @@
     <!-- 
         其他功能列 浮動在畫面中
     -->
-    <script src="FrontSide.js"></script>
-    <script src="gameSystem.js"></script>
-    <script src="chat.js"></script>
-    <script src="game.js"></script>
     <script src="backpack.js"></script>
-    <script src="player.js"></script>
-    <script src="States.js"></script>
+    <script src="chat.js"></script>
+    <script src="FrontSide.js"></script>
+    <script src="FarmLand.js"></script>
+    <script src="gameSystem.js"></script>
     <script src="item.js"></script>
-    <script src="test.js"></script>
+    <script src="player.js"></script>
+    <script src="Skill.js"></script>
+    <script src="States.js"></script>
+    <script src="thing.js"></script>
     <script>
     // You can add interactive features or event listeners to your items here
     // document.addEventListener('DOMContentLoaded', (event) => {
@@ -204,5 +271,6 @@
     //     });
     // });
     </script>
+    <script src="test.js"></script>
 </body>
 </html>

@@ -101,3 +101,92 @@ playMusicButton.addEventListener('click', function() {
         this.textContent = 'Play Music'; // 更改按钮文本为 "Play Music"
     }
 });
+
+function UpdatePlayerInfo(){
+    // 更新玩家資訊
+    document.querySelector("#player-name").textContent = player.name;
+    document.querySelector("#player-health").textContent = player.states.health;
+    document.querySelector("#player-mana").textContent = player.states.mana;
+    document.querySelector("#player-level").textContent = player.states.level;
+    document.querySelector("#player-gold").textContent = player.backpack.gold;
+  }
+  
+  function UpdateBackpackList(){
+    // 更新玩家背包資訊 
+    const skillsList = document.querySelector("#backpackList");
+    skillsList.innerHTML = "";
+    player.backpack.items.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item.name;
+      li.setAttribute('data-item', item.id);
+      backpackList.appendChild(li);
+    })
+}   
+
+  function UpdateSkillsList(){
+    // 更新玩家技能資訊
+    const skillsList = document.querySelector("#skillsList");
+    skillsList.innerHTML = "";
+    player.skillList.forEach(skill => {
+      const li = document.createElement("li");
+      li.textContent = skill.name;
+      skillsList.appendChild(li);
+    });
+  }
+  
+  function UpdateObjectsList(){
+    // 更新遊戲物件資訊
+    const objectsList = document.querySelector("#objectsList");
+    objectsList.innerHTML = "";
+    staticData.map.古林.objects.forEach(object => {
+      const li = document.createElement("li");
+      li.textContent = object.name;
+      li.setAttribute("data-description", object.description);
+      objectsList.appendChild(li);
+    })  
+  }
+  
+                // <li data-description="探索古老的森林">古林
+                //     <div>
+                //         <button type="button" class="log">前往</button>
+                //     </div>
+                // </li>
+//               <li>
+//                 物件
+//                   <div>
+//                       <button type="button" class="log">互动</button>
+//                   </div>
+//               </li>
+//               <li>
+//                 生物
+//                 <div>
+//                   <button type="button" class="log">攻击</button>
+//                   <button type="button" class="log">反击</button>
+//                 </div>
+//               </li>
+//               <li>
+//                 其他玩家
+//                 <div>
+//                   <button type="button" class="log">对话</button>
+//                   <button type="button" class="log">攻击</button>
+//                   <button type="button" class="log">互动</button>
+//                   <button type="button" class="log">其他</button>
+//                 </div>
+//               </li>
+//               <li>
+//                 商店
+//                 <div>
+//                   <button type="button" class="log">购买</button>
+//                   <button type="button" class="log">贩卖</button>
+//                 </div>
+//               </li>
+//               <li>
+//                 NPC
+//                 <div>
+
+//                 </div>
+//                 <button type="button" class="log">互动</button>
+//               </li>
+//             </ul>
+            
+//       </section>`

@@ -120,3 +120,35 @@ button:hover {
     --hover_color: #ffb2b2;
     --select_color: #ffc5c5;
 }
+
+/* 媒体查询 */
+@media (max-width: 768px) {
+    .player-info, .backpack, .skills, .objects, .creature, .npcs, .shops {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .list {
+        padding: 0;
+    }
+
+    .list li {
+        margin-bottom: 10px;
+    }
+
+    .title {
+        text-align: center;
+    }
+
+    .chatRoom {
+        padding: 10px;
+    }
+}
+
+/* 图片和媒体 */
+img, video {
+    max-width: 100%;
+    height: auto;
+}
