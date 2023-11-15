@@ -42,6 +42,7 @@ class Backpack {
         }
       }
     });
+    return true;
   }
     
   // 使用物品
@@ -97,16 +98,16 @@ class Backpack {
       const item = seller.items.find(i => i.name === itemToBuy.name);
       return item && item.quantity >= itemToBuy.quantity && pricePerItem.hasOwnProperty(itemToBuy.name);
     });
-  
+
     if (!allItemsAvailable) {
       return false;
     }
   
     // 计算总价
-    itemsToBuy.forEach(itemToBuy => {
-      totalPrice += pricePerItem[itemToBuy.name] * itemToBuy.quantity;
+    itemsToBuy.forEach(item => {
+      totalPrice += pricePerItem[item.name] * item.quantity;
     });
-  
+
     // 检查买家是否有足够的金钱
     if (!this.hasMoney(totalPrice)) {
       return false;
@@ -117,13 +118,13 @@ class Backpack {
       name: item.name,
       quantity: item.quantity
     })));
-  
+
     if (!itemsRemovedSuccessfully) {
       return false;
     }
   
     // 买家添加物品
-    this.addItems(itemsToBuy.map(item => ({
+    this.AddItems(itemsToBuy.map(item => ({
       name: item.name,
       quantity: item.quantity
     })));
@@ -157,16 +158,15 @@ class Backpack {
     if (!buyer.hasMoney(totalPrice)) {
       return false;
     }
-
+    
     // 执行交易
     const itemsRemovedSuccessfully = itemsToSell.every(itemToSell => {
       const success = this.removeItems({ name: itemToSell.name, quantity: itemToSell.quantity });
       if (success) {
-        buyer.addItem({ name: itemToSell.name, quantity: itemToSell.quantity });
+        buyer.AddItems({ name: itemToSell.name, quantity: itemToSell.quantity });
       }
       return success;
     });
-
     if (!itemsRemovedSuccessfully) {
       return false;
     }

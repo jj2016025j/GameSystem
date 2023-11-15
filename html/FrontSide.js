@@ -1,3 +1,5 @@
+
+
 // 用於追蹤是否所有物品都被選取的標誌
 let selectionButton = document.getElementById('SelectionButton');
 let allSelected = false;
@@ -134,18 +136,74 @@ function UpdatePlayerInfo(){
     });
   }
   
-  function UpdateObjectsList(){
-    // 更新遊戲物件資訊
-    const objectsList = document.querySelector("#objectsList");
-    objectsList.innerHTML = "";
-    staticData.map.古林.objects.forEach(object => {
-      const li = document.createElement("li");
-      li.textContent = object.name;
-      li.setAttribute("data-description", object.description);
-      objectsList.appendChild(li);
-    })  
-  }
+//查看現在地點 尋找staticData內資料 生成該地圖的NPC 生成商店 按照數量生成生物及物品
+function UpdateMap(){
+let playerLocation = document.getElementById('player-location').getAttribute('location_name');
+console.log(playerLocation); // 输出当前位置，比如 "珊瑚海"
+
+let locationData = staticData.map.find(location => location.name === playerLocation);
+console.log(locationData);
+
+let mapListHTML = staticData.map.map(mapItem => 
+    `<li data-description="${mapItem.description}">${mapItem.name}
+        <div>
+            <button type="button" class="log">前往</button>
+        </div>
+    </li>`).join('');
+  document.querySelector('#mapsList').innerHTML = mapListHTML;
   
+  let npcHTML = locationData.NPC.map(npc => 
+    `<li>${npc}
+        <div>
+            <button type="button" class="log">互动</button>
+        </div>
+    </li>`).join('');
+  document.getElementById('npcList').innerHTML = npcHTML;
+  
+  let creatureHTML = '';
+  locationData.creatures.forEach(creature => {
+    for (let i = 0; i < creature.quantity; i++) {
+      creatureHTML += `<li>${creature.name}
+        <div>
+            <button type="button" class="log">攻击</button>
+            <button type="button" class="log">反击</button>
+        </div>
+      </li>`;
+    }
+  });
+  document.getElementById('creaturesList').innerHTML = creatureHTML;
+    
+  let objectHTML = '';
+  locationData.objects.forEach(object => {
+    for (let i = 0; i < object.quantity; i++) {
+      objectHTML += 
+      `<li data-description="${object.description}">${object.name}
+        <div>
+            <button type="button" class="log">互动</button>
+        </div>
+      </li>`;
+    }
+  });
+  document.getElementById('objectsList').innerHTML = objectHTML;
+  
+  
+  let shopHTML = locationData.shops.map(shop => 
+    `<li>${shop.name}
+        <div>
+            <button type="button" class="log">购买</button>
+            <button type="button" class="log">贩卖</button>
+        </div>
+    </li>`).join('');
+  document.getElementById('shopsList').innerHTML = shopHTML;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    UpdatePlayerInfo()
+    UpdateBackpackList()
+    UpdateSkillsList()
+    UpdateObjectsList()
+    UpdateMap()
+    })
                 // <li data-description="探索古老的森林">古林
                 //     <div>
                 //         <button type="button" class="log">前往</button>

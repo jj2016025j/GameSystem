@@ -38,8 +38,16 @@ class Player{
       return this.backpack.sellItems(buyer.backpack, itemsToSell, pricePerItem)
     }
 
-    addSkill(skill) {
-      this.skillList.push(new Skills(skill));
+    addSkill(skillListToAdd) {
+      const skills = Array.isArray(skillListToAdd) ? skillListToAdd : Object.entries(skillListToAdd).map(([name, description]) => ({ name, description }));
+
+      skills.forEach(skill=> {
+        const existingSkill = this.skillList.find(i => i.name === skill.name);
+        if (!existingSkill) {
+          // 如果不存在，添加新技能
+          this.skillList.push({...skill});
+        }
+      });
     }
 
     attack(target){

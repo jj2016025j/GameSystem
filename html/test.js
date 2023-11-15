@@ -190,7 +190,7 @@ function testPlayerBuyItemsSuccess() {
                     seller.backpack.hasItem('apple', 5) &&
                     buyer.backpack.gold === 40 &&
                     seller.backpack.gold === 10;
-                    
+                                    
   logTestResult("testPlayerBuyItemsSuccess", testPassed);
 }
   
@@ -255,49 +255,48 @@ function runTest(testFunction) {
 }
 
 
-if(true){
-  testPlayerAcquireItemSuccess();
-  testPlayerAcquireItemFailure();
-  testPlayerRemoveItemsSuccess();
-  testPlayerRemoveItemsFailure();
-  testPlayerUseItemSuccess();
-  testPlayerUseItemFailure();
-  testPlayerBuyItemsSuccess();
-  testPlayerBuyItemsFailure();
-  testPlayerSellItemsSuccess();
-  testPlayerSellItemsFailure();
-}else{
-  // 继续运行其他测试...
-  // 在測試中也包含失敗的情况
-  const tests = [
-    testBackpackRemoveItemsSuccess,
-    testBackpackRemoveItemsFailure,
-    testBackpackUseItemsSuccess,
-    testBackpackUseItemsFailure,
-    testBackpackBuyItemsSuccess,
-    testBackpackBuyItemsFailure,
-    testBackpackSellItemsSuccess,
-    testBackpackSellItemsFailure,
+// if(false){
+//   testPlayerAcquireItemSuccess();
+//   testPlayerAcquireItemFailure();
+//   testPlayerRemoveItemsSuccess();
+//   testPlayerRemoveItemsFailure();
+//   testPlayerUseItemSuccess();
+//   testPlayerUseItemFailure();
+//   testPlayerBuyItemsSuccess();
+//   testPlayerBuyItemsFailure();
+//   testPlayerSellItemsSuccess();
+//   testPlayerSellItemsFailure();
+// }else{
+//   const tests = [
+//     testBackpackRemoveItemsSuccess,
+//     testBackpackRemoveItemsFailure,
+//     testBackpackUseItemsSuccess,
+//     testBackpackUseItemsFailure,
+//     testBackpackBuyItemsSuccess,
+//     testBackpackBuyItemsFailure,
+//     testBackpackSellItemsSuccess,
+//     testBackpackSellItemsFailure,
     
-    testPlayerAcquireItemSuccess,
-    testPlayerAcquireItemFailure,
-    testPlayerRemoveItemsSuccess,
-    testPlayerRemoveItemsFailure,
-    testPlayerUseItemSuccess,
-    testPlayerUseItemFailure,
-    testPlayerBuyItemsSuccess,
-    testPlayerBuyItemsFailure,
-    testPlayerSellItemsSuccess,
-    testPlayerSellItemsFailure,
-  ];
+//     testPlayerAcquireItemSuccess,
+//     testPlayerAcquireItemFailure,
+//     testPlayerRemoveItemsSuccess,
+//     testPlayerRemoveItemsFailure,
+//     testPlayerUseItemSuccess,
+//     testPlayerUseItemFailure,
+//     testPlayerBuyItemsSuccess,
+//     testPlayerBuyItemsFailure,
+//     testPlayerSellItemsSuccess,
+//     testPlayerSellItemsFailure,
+//   ];
 
-  for (const test of tests) {
-    runTest(test);
-  }
-}
+//   for (const test of tests) {
+//     runTest(test);
+//   }
+// }
 
 
-// console.log(playerA); // To see the player object's status after the interactions
+function test(){
+  // console.log(playerA); // To see the player object's status after the interactions
 
 //something happening...
 let playerA = new Player("芙寧娜");
@@ -313,95 +312,12 @@ let player1 = new Player("夏洛蒂");
 let player2 = new Player("Alice");
 let farmland = new FarmLand("大草地")
 let testobject = new GameObject("寶箱")
-let player = new Player("芙寧娜");
-
-  backpack = [
-    {
-      id: 'sword',
-      name: '劍',
-    },
-    {
-      id: 'shield',
-      name: '盾牌',
-    },
-    {
-      id: 'potion',
-      name: '藥水',
-    },
-  ]
-
-// player = {
-//   name: '芙寧娜',
-//   health: 10,
-//   mana: 10,
-//   level: 10,
-//   gold: 500,
-
-//   skills: [
-//     {
-//       id: 'fireball',
-//       name: '火球術',
-//     },
-//     {
-//       id: 'heal',
-//       name: '治療術',
-//     },
-//     {
-//       id: 'stealth',
-//       name: '隱身術',
-//     },
-//   ],
-// };
-
-const items = [
-  {
-    "name": "Apple",
-    "value": 5, // 假设的价值
-    "description": "A juicy red apple.",
-    "quantity": 10 // 假设用户有10个苹果
-  },
-  {
-    "name": "Poison",
-    "value": 15, // 假设的价值
-    "description": "A dangerous poison.",
-    "quantity": 2 // 假设用户有2份毒药
-  },
-  {
-    "name": "Magic Potion",
-    "value": 25, // 假设的价值
-    "description": "Restores 50 points of mana.",
-    "quantity": 5 // 假设用户有5瓶魔法药水
-  },
-  {
-    "name": "Life Potion",
-    "value": 30, // 假设的价值
-    "description": "Restores 50 points of health.",
-    "quantity": 3 // 假设用户有3瓶生命药水
-  },
-  {
-    "name": "Experience Potion",
-    "value": 40, // 假设的价值
-    "description": "Grants 50 experience points.",
-    "quantity": 4 // 假设用户有4瓶经验药水
-  },
-  {
-    "name": "Strength Potion",
-    "value": 35, // 假设的价值
-    "description": "Increases strength by 50.",
-    "quantity": 1 // 假设用户有1瓶力量药水
-  }
-]
-
-
-console.log(player1);
-console.log(player2);
 
 // 測試功能
 player1.acquireItems(items)
 player1.plant("小麥",farmland);
 player1.harvest(farmland);
 
-console.log(player1.states.user)
 player1.interactWithObject(testobject);
 // player1.useSkill("火球術");
 player1.buyItems(player2, "蘋果", 5);
@@ -419,13 +335,11 @@ player1.useItems(items)
     //體力 飢餓 心情 魔力 血量
 // playerA.states.useMana(Skill)
 playerA.states.gainExperience(220)
-console.log(playerA.states)
 
 playerA.states.TakeDamage(20);//攻擊
-//受傷
-//回血
+playerA.GetHurt(20)//受傷
+playerA.Heal(20)//回血
 playerA.states.levelUp()
-console.log(playerA.states)
 
 playerA.states.addStatusEffect("Poison")
 playerA.states.BringStatusEffect(playerA.states.statusEffects)
@@ -433,16 +347,24 @@ playerA.states.removeStatusEffect("Poison")
 playerA.states.BringStatusEffect(playerA.states.statusEffects)
 playerA.states.death()
 playerA.states.resurrect() 
-console.log(playerA.states)
 playerA.states.Update
 playerA.states.death()
 
 player.addSkill("冰凍術")
+player.addSkill(skills)
+
 player.acquireItems(items) 
 
-console.log(player); // 芙寧娜
+
 
 UpdatePlayerInfo()
 UpdateBackpackList()
 UpdateSkillsList()
 UpdateObjectsList()
+}
+let player = new Player("芙寧娜");
+player.acquireItems(items)
+player.addSkill(skills)
+
+UpdateMap()
+// test()
