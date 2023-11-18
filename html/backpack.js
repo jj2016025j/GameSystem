@@ -88,7 +88,7 @@ class Backpack {
     return this.gold >= amount;
   }
   
-  buyItems(seller, inputItems, pricePerItem) {
+  buyItems(seller, inputItems, pricePerItem, isShop) {
     // 如果输入是对象，则将其转换为数组
     const itemsToBuy = Array.isArray(inputItems) ? inputItems : Object.entries(inputItems).map(([name, quantity]) => ({ name, quantity }));
     let totalPrice = 0;
@@ -137,7 +137,7 @@ class Backpack {
   }
   
   // 出售物品
-  sellItems(buyer, inputItems, pricePerItem) {
+  sellItems(buyer, inputItems, pricePerItem, isShop) {
     // 如果输入是对象，则将其转换为数组
     const itemsToSell = Array.isArray(inputItems) ? inputItems : Object.entries(inputItems).map(([name, quantity]) => ({ name, quantity }));
     // 检查是否所有要出售的物品都足够

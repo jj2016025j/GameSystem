@@ -7,7 +7,7 @@ class Player{
       this.time = new Date().toISOString(); // 生成ISO 8601格式的时间戳
       this.skillList = [];
       this.targets = []
-      this.location = ""
+      this.location = currentGameData.location
   
       // 這裡將各種功能系統作為組合引入
       this.chatSystem = new ChatSystem(this);
@@ -32,12 +32,12 @@ class Player{
       return this.backpack.useItems(item);
     }
 
-    buyItems(seller, itemsToBuy, pricePerItem){
-      return this.backpack.buyItems(seller.backpack, itemsToBuy, pricePerItem);
+    buyItems(seller, itemsToBuy, pricePerItem, isShop=false){
+      return this.backpack.buyItems(seller.backpack, itemsToBuy, pricePerItem, isShop);
     }
 
-    sellItems(buyer, itemsToSell, pricePerItem) {
-      return this.backpack.sellItems(buyer.backpack, itemsToSell, pricePerItem)
+    sellItems(buyer, itemsToSell, pricePerItem, isShop=false) {
+      return this.backpack.sellItems(buyer.backpack, itemsToSell, pricePerItem, isShop)
     }
 
     addSkill(skillListToAdd) {

@@ -135,7 +135,7 @@ function UpdateSkillsList(){
       li.textContent = skill.name;
       skillsList.appendChild(li);
     });
-  }
+}
   
 //查看現在地點 尋找staticData內資料 生成該地圖的NPC 生成商店 按照數量生成生物及物品
 //幫按鈕加上按下後會執行指定func的方法
@@ -155,116 +155,120 @@ function TalkWithNPC(npc){
     console.log('嗨 ', npc);
 }
 
-function UpdateMap(mapName){
-    currentGameData.location = mapName;
-    // 这里可以添加其他更新地图的逻辑
-    console.log('当前位置更新为：', mapName);
-    let playerLocation = currentGameData.location
-    let locationData = staticData.map.find(location => location.name === playerLocation);
+function NPCListUpdate(locationData){
+    let npcHTML = document.getElementById('npcList');
+    npcHTML.innerHTML = "";
     
-  let npcHTML = locationData.NPC.map(npc => 
-    `<li>${npc.name}
+    locationData.NPC.forEach(npc => {
+        let npcElement = document.createElement('li');
+        npcElement.innerHTML = `${npc.name}
         <div>
-            <button type="button" class="log" onclick="TalkWithNPC('${npc.name}')">互动</button>
-        </div>
-    </li>`).join('');
-  document.getElementById('npcList').innerHTML = npcHTML;
-  
-  document.getElementById('creaturesList').innerHTML =""
-  locationData.creatures.forEach((creature, index) => {
-    for (let i = 0; i < creature.quantity; i++) {
-      let creaturePlayer = new Player(creature.name);
-      creaturePlayer.id = `${creature.name}_${i}`
-      let creatureElement = document.createElement('li');
-      creatureElement.id = creaturePlayer.id;
-      creatureElement.innerHTML = `${creature.name}
-        <div>
-            <button type="button" class="log attack-btn">攻击</button>
-            <button type="button" class="log hurt-btn">反击</button>
+            <button type="button" class="log greet-btn">打招呼</button>
         </div>`;
-  
-      // 为攻击按钮添加事件监听
-      creatureElement.querySelector('.attack-btn').addEventListener('click', () => {
-        player.attack(creaturePlayer);
-      });
-  
-      // 为反击按钮添加事件监听
-      creatureElement.querySelector('.hurt-btn').addEventListener('click', () => {
-        player.GetHurt(10);
-      });
-  
-      document.getElementById('creaturesList').appendChild(creatureElement);
-    }
-  });
-  
-  // 假设这里的player是您定义的某个全局玩家实例
-  
     
-  let objectHTML = '';
-  locationData.objects.forEach(object => {
-    for (let i = 0; i < object.quantity; i++) {
-      objectHTML += 
-      `<li data-description="${object.description}">${object.name}
-        <div>
-            <button type="button" class="log">互动</button>
-        </div>
-      </li>`;
-    }
-  });
-  document.getElementById('objectsList').innerHTML = objectHTML;
-  
-  
-  let shopHTML = locationData.shops.map(shop => 
-    `<li>${shop.name}
-        <div>
-            <button type="button" class="log">购买</button>
-            <button type="button" class="log">贩卖</button>
-        </div>
-    </li>`).join('');
-  document.getElementById('shopsList').innerHTML = shopHTML;
+        // 为打招呼按钮添加事件监听
+        npcElement.querySelector('.greet-btn').addEventListener('click', () => {
+        TalkWithNPC(npc.name);
+        });
+    
+        npcHTML.appendChild(npcElement);
+    });    
 }
 
-                // <li data-description="探索古老的森林">古林
-                //     <div>
-                //         <button type="button" class="log">前往</button>
-                //     </div>
-                // </li>
-//               <li>
-//                 物件
-//                   <div>
-//                       <button type="button" class="log">互动</button>
-//                   </div>
-//               </li>
-//               <li>
-//                 生物
-//                 <div>
-//                   <button type="button" class="log">攻击</button>
-//                   <button type="button" class="log">反击</button>
-//                 </div>
-//               </li>
-//               <li>
-//                 其他玩家
-//                 <div>
-//                   <button type="button" class="log">对话</button>
-//                   <button type="button" class="log">攻击</button>
-//                   <button type="button" class="log">互动</button>
-//                   <button type="button" class="log">其他</button>
-//                 </div>
-//               </li>
-//               <li>
-//                 商店
-//                 <div>
-//                   <button type="button" class="log">购买</button>
-//                   <button type="button" class="log">贩卖</button>
-//                 </div>
-//               </li>
-//               <li>
-//                 NPC
-//                 <div>
+function CreaturesListUpdate(locationData) {
+    let creaturesHTML = document.getElementById('creaturesList');
+    creaturesHTML.innerHTML = "";
+  
+    locationData.creatures.forEach(creature => {
+      for (let i = 0; i < creature.quantity; i++) {
+        let creaturePlayer = new Player(creature.name);
+        creaturePlayer.id = `${creature.name}_${i}`;
+  
+        let creatureElement = document.createElement('li');
+        creatureElement.id = creaturePlayer.id;
+        creatureElement.innerHTML = `${creature.name}
+          <div>
+              <button type="button" class="log attack-btn">攻击</button>
+              <button type="button" class="log hurt-btn">反击</button>
+          </div>`;
+  
+        creatureElement.querySelector('.attack-btn').addEventListener('click', () => {
+          player.attack(creaturePlayer);
+        });
+  
+        creatureElement.querySelector('.hurt-btn').addEventListener('click', () => {
+          player.GetHurt(10);
+        });
+  
+        creaturesHTML.appendChild(creatureElement);
+      }
+    });
+  }  
 
-//                 </div>
-//                 <button type="button" class="log">互动</button>
-//               </li>
-//             </ul>
-            
-//       </section>`
+function ObjectsListUpdate(locationData) {
+    let objectsHTML = document.getElementById('objectsList');
+    objectsHTML.innerHTML = "";
+  
+    locationData.objects.forEach(object => {
+      for (let i = 0; i < object.quantity; i++) {
+        let objectItem = new Item(object.name);
+        objectItem.id = `${object.name}_${i}`;
+  
+        let objectElement = document.createElement('li');
+        objectElement.id = objectItem.id;
+        objectElement.innerHTML = `${object.name}
+          <div>
+              <button type="button" class="log interactive">互动</button>
+          </div>`;
+  
+        objectElement.querySelector('.interactive').addEventListener('click', () => {
+          objectItem.Interactive(player);
+        });
+  
+        objectsHTML.appendChild(objectElement);
+      }
+    });
+  }
+
+function ShopsListUpdate(locationData) {
+    let shopsHTML = document.getElementById('shopsList');
+    shopsHTML.innerHTML = "";
+    i=0
+    locationData.shops.forEach(shop => {
+        let _shop = new Shop(shop.name);
+        _shop.id = `${shop.name}_${i}`;
+
+        let shopElement = document.createElement('li');
+        shopElement.id = _shop.id;
+
+        shopElement.innerHTML = `${shop.name}
+            <div>
+                <button type="button" class="log buy-btn">购买</button>
+                <button type="button" class="log sell-btn">贩卖</button>
+            </div>`;
+  
+        shopElement.querySelector('.buy-btn').addEventListener('click', () => {
+            console.log(`向${_shop.name}購買物品${shop.itemsForSale[0].name}`);
+            // player.buyItems(_shop, [{ name:shop.itemsForSale.name, quantity: 1 }], {Apple:1}, true);
+        });
+    
+        shopElement.querySelector('.sell-btn').addEventListener('click', () => {
+            console.log(`向${_shop.name}販賣物品`);
+            // player.sellItems(_shop, [{ name: 'Apple', quantity: 1 }], {Apple:1}, true);
+        });
+    
+        shopsHTML.appendChild(shopElement);
+    });
+  }
+  
+  function UpdateMap(mapName) {
+    currentGameData.location = mapName;
+    let locationData = staticData.map.find(location => location.name === mapName);
+  
+    NPCListUpdate(locationData);
+    CreaturesListUpdate(locationData);
+    ObjectsListUpdate(locationData);
+    ShopsListUpdate(locationData);
+  
+    console.log('当前位置：', mapName);
+  }

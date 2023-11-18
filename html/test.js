@@ -257,10 +257,10 @@ function runTest(testFunction) {
 function BackpackTest(){
     let 夏洛蒂 = new Player("夏洛蒂");
     let 霄宮 = new Player("霄宮");
-    夏洛蒂.acquireItems(items)
+    夏洛蒂.acquireItems(staticData.items)
     夏洛蒂.buyItems(霄宮, "蘋果", 5);
     夏洛蒂.sellItems(霄宮, "魔法藥水", 3);
-    夏洛蒂.useItems(items)
+    夏洛蒂.useItems(staticData.items)
 }
 
 function StatesTest(){
@@ -283,7 +283,7 @@ function StatesTest(){
 function SkillTest(){
     let 托馬 = new Player("托馬");
     托馬.addSkill("冰凍術")
-    托馬.addSkill(skills)
+    托馬.addSkill(staticData.skills)
     托馬.useSkill("火球術");
 }
 
@@ -346,10 +346,12 @@ function AllTest(){
 //     runTest(test);
 //   }
 // }
+
+//定義默認值
 let playerName = "夏洛蒂"
 let player = new Player(playerName);
-player.acquireItems(items)
-player.addSkill(skills)
+player.acquireItems(staticData.items)
+player.addSkill(staticData.skills)
 
 document.addEventListener("DOMContentLoaded", () => {
   // AllTest()

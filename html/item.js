@@ -1,9 +1,10 @@
 class Item{
-    constructor(name, value, description, quantity) {
+    constructor(name) {
       this.name = name
-      this.value = value;
-      this.description = description
-      this.quantity = quantity
+      this.id = ""
+      this.value = "";
+      this.description = "";
+      this.quantity = "";
     }
     //作用
     Effects(states){
@@ -36,5 +37,9 @@ class Item{
                 console.log("未知效果");
                 break;
         }
+    }
+
+    Interactive(player){
+        console.log(`${player.name}使用了${this.name}`);
     }
 }
