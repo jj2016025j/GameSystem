@@ -125,56 +125,56 @@ function testBackpackBuyItemsSuccess() {
   }
 
   function testPlayerAcquireItemSuccess() {
-    const player = new Player("Buyer");
-    player.acquireItems([{ name: 'sword', quantity: 1 }]);
+    const 托馬 = new Player("Buyer");
+    托馬.acquireItems([{ name: 'sword', quantity: 1 }]);
   
-    const testPassed = player.backpack.hasItem('sword', 1);
+    const testPassed = 托馬.backpack.hasItem('sword', 1);
     logTestResult("testPlayerAcquireItemSuccess", testPassed);
 }
 
 function testPlayerAcquireItemFailure() {
-    const player = new Player("Buyer");
+    const 托馬 = new Player("Buyer");
     // 假设我们的 Backpack 类不允许添加数量为负的物品
-    player.acquireItems([{ name: 'sword', quantity: -1 }]);
+    托馬.acquireItems([{ name: 'sword', quantity: -1 }]);
   
-    const testPassed = !player.backpack.hasItem('sword', 1);
+    const testPassed = !托馬.backpack.hasItem('sword', 1);
     logTestResult("testPlayerAcquireItemFailure", testPassed);
 }
 
 function testPlayerRemoveItemsSuccess() {
-    const player = new Player("Buyer");
-    player.acquireItems([{ name: 'shield', quantity: 2 }]);
-    player.removeItems([{ name: 'shield', quantity: 1 }]);
+    const 托馬 = new Player("Buyer");
+    托馬.acquireItems([{ name: 'shield', quantity: 2 }]);
+    托馬.removeItems([{ name: 'shield', quantity: 1 }]);
   
-    const testPassed = player.backpack.hasItem('shield', 1);
+    const testPassed = 托馬.backpack.hasItem('shield', 1);
     logTestResult("testPlayerRemoveItemsSuccess", testPassed);
 }
 
 function testPlayerRemoveItemsFailure() {
-    const player = new Player("Buyer");
-    player.acquireItems([{ name: 'shield', quantity: 1 }]);
-    player.removeItems([{ name: 'shield', quantity: 2 }]); // 尝试移除更多的物品
+    const 托馬 = new Player("Buyer");
+    托馬.acquireItems([{ name: 'shield', quantity: 1 }]);
+    托馬.removeItems([{ name: 'shield', quantity: 2 }]); // 尝试移除更多的物品
   
-    const testPassed = !player.backpack.hasItem('shield', 0);
+    const testPassed = !托馬.backpack.hasItem('shield', 0);
     logTestResult("testPlayerRemoveItemsFailure", testPassed);
 }
   
 function testPlayerUseItemSuccess() {
-  const player = new Player("Buyer");
-  player.backpack.AddItems([{ name: 'potion', quantity: 3 }]);
-  const useResult = player.backpack.useItems([{ name: 'potion', quantity: 1 }]);
+  const 托馬 = new Player("Buyer");
+  托馬.backpack.AddItems([{ name: 'potion', quantity: 3 }]);
+  const useResult = 托馬.backpack.useItems([{ name: 'potion', quantity: 1 }]);
 
-  const testPassed = useResult && player.backpack.hasItem('potion', 2);
+  const testPassed = useResult && 托馬.backpack.hasItem('potion', 2);
   logTestResult("testPlayerUseItemSuccess", testPassed);
 }
 
 function testPlayerUseItemFailure() {
-  const player = new Player("Buyer");
-  player.backpack.AddItems([{ name: 'potion', quantity: 1 }]);
-  player.backpack.useItems([{ name: 'potion', quantity: 1 }]); // 第一次使用成功
-  const useResult = player.backpack.useItems([{ name: 'potion', quantity: 1 }]); // 尝试使用没有的物品
+  const 托馬 = new Player("Buyer");
+  托馬.backpack.AddItems([{ name: 'potion', quantity: 1 }]);
+  托馬.backpack.useItems([{ name: 'potion', quantity: 1 }]); // 第一次使用成功
+  const useResult = 托馬.backpack.useItems([{ name: 'potion', quantity: 1 }]); // 尝试使用没有的物品
 
-  const testPassed = !useResult && !player.backpack.hasItem('potion', 1);
+  const testPassed = !useResult && !托馬.backpack.hasItem('potion', 1);
   logTestResult("testPlayerUseItemFailure", testPassed);
 }
 
@@ -254,6 +254,59 @@ function runTest(testFunction) {
   }
 }
 
+function BackpackTest(){
+    let 夏洛蒂 = new Player("夏洛蒂");
+    let 霄宮 = new Player("霄宮");
+    夏洛蒂.acquireItems(items)
+    夏洛蒂.buyItems(霄宮, "蘋果", 5);
+    夏洛蒂.sellItems(霄宮, "魔法藥水", 3);
+    夏洛蒂.useItems(items)
+}
+
+function StatesTest(){
+    let 芙寧娜 = new Player("芙寧娜");
+    芙寧娜.states.TakeDamage(20);//攻擊
+    芙寧娜.GetHurt(40)//受傷
+    芙寧娜.Heal(20)//回血
+    芙寧娜.states.gainExperience(220)
+    芙寧娜.states.levelUp()
+    芙寧娜.states.addStatusEffect("Poison")
+    芙寧娜.states.BringStatusEffect(芙寧娜.states.statusEffects)
+    芙寧娜.states.removeStatusEffect("Poison")
+    芙寧娜.states.BringStatusEffect(芙寧娜.states.statusEffects)
+    芙寧娜.states.death()
+    芙寧娜.states.resurrect() 
+    芙寧娜.states.Update()
+    芙寧娜.states.death()
+}
+
+function SkillTest(){
+    let 托馬 = new Player("托馬");
+    托馬.addSkill("冰凍術")
+    托馬.addSkill(skills)
+    托馬.useSkill("火球術");
+}
+
+function FarmTest(){
+    let 夏洛蒂 = new Player("夏洛蒂");
+    let farmland = new FarmLand("大草地")
+    夏洛蒂.plant("小麥",farmland);
+    夏洛蒂.harvest(farmland);
+}
+
+function BoxTest(){
+    let 夏洛蒂 = new Player("夏洛蒂");
+    let testobject = new GameObject("寶箱")
+    夏洛蒂.interactWithObject(testobject);
+}
+
+function AllTest(){
+  BackpackTest()
+  StatesTest()
+  SkillTest()
+  FarmTest()
+  BoxTest()
+}
 
 // if(false){
 //   testPlayerAcquireItemSuccess();
@@ -293,78 +346,16 @@ function runTest(testFunction) {
 //     runTest(test);
 //   }
 // }
-
-
-function test(){
-  // console.log(playerA); // To see the player object's status after the interactions
-
-//something happening...
-let playerA = new Player("芙寧娜");
-// playerA.acquireItems("Sword");
-// playerA.acquireSkill("Fireball");
-// playerA.GetHurt(20);
-
-// playerA.Heal(10);
-// console.log(playerA);
-
-// 創建兩名玩家
-let player1 = new Player("夏洛蒂");
-let player2 = new Player("Alice");
-let farmland = new FarmLand("大草地")
-let testobject = new GameObject("寶箱")
-
-// 測試功能
-player1.acquireItems(items)
-player1.plant("小麥",farmland);
-player1.harvest(farmland);
-
-player1.interactWithObject(testobject);
-// player1.useSkill("火球術");
-player1.buyItems(player2, "蘋果", 5);
-player1.sellItems(player2, "魔法藥水", 3);
-player1.useItems(items)
-
-// playerA.sendMessage("Hello!");
-
-// 創建玩家角色
-// if (playerA.states instanceof States) {
-//   setInterval(playerA.states.Update.bind(playerA.states), 1000);
-// } else {
-//   console.error('playerA.states 不是 States 的一个实例');
-// }// 測試玩家的屬性和狀態腳本
-    //體力 飢餓 心情 魔力 血量
-// playerA.states.useMana(Skill)
-playerA.states.gainExperience(220)
-
-playerA.states.TakeDamage(20);//攻擊
-playerA.GetHurt(20)//受傷
-playerA.Heal(20)//回血
-playerA.states.levelUp()
-
-playerA.states.addStatusEffect("Poison")
-playerA.states.BringStatusEffect(playerA.states.statusEffects)
-playerA.states.removeStatusEffect("Poison")
-playerA.states.BringStatusEffect(playerA.states.statusEffects)
-playerA.states.death()
-playerA.states.resurrect() 
-playerA.states.Update
-playerA.states.death()
-
-player.addSkill("冰凍術")
-player.addSkill(skills)
-
-player.acquireItems(items) 
-
-
-
-UpdatePlayerInfo()
-UpdateBackpackList()
-UpdateSkillsList()
-UpdateObjectsList()
-}
-let player = new Player("芙寧娜");
+let playerName = "夏洛蒂"
+let player = new Player(playerName);
 player.acquireItems(items)
 player.addSkill(skills)
 
-UpdateMap()
-// test()
+document.addEventListener("DOMContentLoaded", () => {
+  // AllTest()
+  UpdatePlayerInfo()
+  UpdateBackpackList()
+  UpdateSkillsList()
+  firstUpdateMap()
+})
+

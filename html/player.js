@@ -1,11 +1,13 @@
 class Player{
     constructor(name) {
       this.name = name;
+      this.id = ""
       this.states = new States(this);
       this.backpack = new Backpack(this);
       this.time = new Date().toISOString(); // 生成ISO 8601格式的时间戳
       this.skillList = [];
-      this.target = []
+      this.targets = []
+      this.location = ""
   
       // 這裡將各種功能系統作為組合引入
       this.chatSystem = new ChatSystem(this);
@@ -51,10 +53,11 @@ class Player{
     }
 
     attack(target){
-      return target.getHurt(10)
+      return target.GetHurt(10)
     }
   
     GetHurt(amount) {
+      console.log(this);
       return this.states.TakeDamage(amount);
     }
   
@@ -96,19 +99,25 @@ class Player{
 
     // JavaScript不支持泛型方法，所以这里我们用skillName代替
     useSkill(skillName) {
-      let skill = this.getSkillByName(skillName);
-      if (skill) {
-          // 使用技能的方法
-          console.log(this.name + "正在使用技能：" + skill);
-          // 在這裡添加使用技能的邏輯
-          skill.execute(this);
-      } else {
-          console.log(`${this.name} 没有学会技能 ${skillName}`);
-      }
+        console.log(this.name + "正在使用技能：" + skillName);
+
+      // let skill = this.getSkillByName(skillName);
+      // if (skill) {
+      //     // 使用技能的方法
+      //     console.log(this.name + "正在使用技能：" + skill);
+      //     // 在這裡添加使用技能的邏輯
+      //     skill.execute(this);
+      // } else {
+      //     console.log(`${this.name} 没有学会技能 ${skillName}`);
+      // }
     };
 
     //計算冷卻
     updateCooldowns() {
       this.skills.forEach(skill => skill.updateCooldown());
+    }
+
+    death(){
+      GameSystem.death(this)
     }
   }

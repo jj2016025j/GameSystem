@@ -15,32 +15,39 @@
             <ul class="list">
                 <li>
                     暱稱: 
-                    <span id="player-name">芙寧娜</span>
+                    <span id="player-name">default</span>
                 </li>
                 <li>
                     血量: 
-                    <span id="player-health">10</span>
+                    <span id="player-health">default</span>
                 </li>
                 <li>
                     魔力: 
-                    <span id="player-mana">10</span>
+                    <span id="player-mana">default</span>
                 </li>
                 <li>
                     等級: 
-                    <span id="player-level">10</span>
+                    <span id="player-level">default</span>
                 </li>
                 <li>
                     金錢: 
-                    <span id="player-gold">500</span>
+                    <span id="player-gold">default</span>
                 </li>
                 <li>
                     當前位置: 
-                    <span id="player-location" location_name="珊瑚海">珊瑚海</span>
+                    <span id="player-location" location_name="">default</span>
                 </li>
             </ul>
             <!-- 攻擊
             治癒 -->
             <button onclick="saveGameToLocal()" class="log">Save Game</button>
+        </div>
+
+        <!-- Skills -->
+        <div class="skills">
+            <h2 class="title">技能列表：</h2>
+            <ul class="list" id="skillsList">
+            </ul>
         </div>
 
         <!-- Backpack -->
@@ -55,13 +62,6 @@
             <button id="useItemButton" class="log">使用物品</button>
             <button id="purchaseItemButton" class="log">購買物品</button>
             <button id="sellItemButton" class="log">售出物品</button>
-        </div>
-
-        <!-- Skills -->
-        <div class="skills">
-            <h2 class="title">技能列表：</h2>
-            <ul class="list" id="skillsList">
-            </ul>
         </div>
     </div>
 

@@ -111,9 +111,10 @@ function UpdatePlayerInfo(){
     document.querySelector("#player-mana").textContent = player.states.mana;
     document.querySelector("#player-level").textContent = player.states.level;
     document.querySelector("#player-gold").textContent = player.backpack.gold;
+    document.querySelector("#player-location").textContent = player.location;
   }
   
-  function UpdateBackpackList(){
+function UpdateBackpackList(){
     // 更新玩家背包資訊 
     const skillsList = document.querySelector("#backpackList");
     skillsList.innerHTML = "";
@@ -125,7 +126,7 @@ function UpdatePlayerInfo(){
     })
 }   
 
-  function UpdateSkillsList(){
+function UpdateSkillsList(){
     // 更新玩家技能資訊
     const skillsList = document.querySelector("#skillsList");
     skillsList.innerHTML = "";
@@ -137,41 +138,67 @@ function UpdatePlayerInfo(){
   }
   
 //查看現在地點 尋找staticData內資料 生成該地圖的NPC 生成商店 按照數量生成生物及物品
-function UpdateMap(){
-let playerLocation = document.getElementById('player-location').getAttribute('location_name');
-console.log(playerLocation); // 输出当前位置，比如 "珊瑚海"
+//幫按鈕加上按下後會執行指定func的方法
+function firstUpdateMap(){
+    let playerLocation = currentGameData.location
+    let mapListHTML = staticData.map.map(mapItem => 
+        `<li data-description="${mapItem.description}">${mapItem.name}
+            <div>
+                <button type="button" class="log" onclick="UpdateMap('${mapItem.name}')">前往</button>
+            </div>
+        </li>`).join('');
+    document.querySelector('#mapsList').innerHTML = mapListHTML;
+    UpdateMap(playerLocation)
+}
 
-let locationData = staticData.map.find(location => location.name === playerLocation);
-console.log(locationData);
+function TalkWithNPC(npc){
+    console.log('嗨 ', npc);
+}
 
-let mapListHTML = staticData.map.map(mapItem => 
-    `<li data-description="${mapItem.description}">${mapItem.name}
-        <div>
-            <button type="button" class="log">前往</button>
-        </div>
-    </li>`).join('');
-  document.querySelector('#mapsList').innerHTML = mapListHTML;
-  
+function UpdateMap(mapName){
+    currentGameData.location = mapName;
+    // 这里可以添加其他更新地图的逻辑
+    console.log('当前位置更新为：', mapName);
+    let playerLocation = currentGameData.location
+    let locationData = staticData.map.find(location => location.name === playerLocation);
+    
   let npcHTML = locationData.NPC.map(npc => 
-    `<li>${npc}
+    `<li>${npc.name}
         <div>
-            <button type="button" class="log">互动</button>
+            <button type="button" class="log" onclick="TalkWithNPC('${npc.name}')">互动</button>
         </div>
     </li>`).join('');
   document.getElementById('npcList').innerHTML = npcHTML;
   
-  let creatureHTML = '';
-  locationData.creatures.forEach(creature => {
+  document.getElementById('creaturesList').innerHTML =""
+  locationData.creatures.forEach((creature, index) => {
     for (let i = 0; i < creature.quantity; i++) {
-      creatureHTML += `<li>${creature.name}
+      let creaturePlayer = new Player(creature.name);
+      creaturePlayer.id = `${creature.name}_${i}`
+      let creatureElement = document.createElement('li');
+      creatureElement.id = creaturePlayer.id;
+      creatureElement.innerHTML = `${creature.name}
         <div>
-            <button type="button" class="log">攻击</button>
-            <button type="button" class="log">反击</button>
-        </div>
-      </li>`;
+            <button type="button" class="log attack-btn">攻击</button>
+            <button type="button" class="log hurt-btn">反击</button>
+        </div>`;
+  
+      // 为攻击按钮添加事件监听
+      creatureElement.querySelector('.attack-btn').addEventListener('click', () => {
+        player.attack(creaturePlayer);
+      });
+  
+      // 为反击按钮添加事件监听
+      creatureElement.querySelector('.hurt-btn').addEventListener('click', () => {
+        player.GetHurt(10);
+      });
+  
+      document.getElementById('creaturesList').appendChild(creatureElement);
     }
   });
-  document.getElementById('creaturesList').innerHTML = creatureHTML;
+  
+  // 假设这里的player是您定义的某个全局玩家实例
+  
     
   let objectHTML = '';
   locationData.objects.forEach(object => {
@@ -197,13 +224,6 @@ let mapListHTML = staticData.map.map(mapItem =>
   document.getElementById('shopsList').innerHTML = shopHTML;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    UpdatePlayerInfo()
-    UpdateBackpackList()
-    UpdateSkillsList()
-    UpdateObjectsList()
-    UpdateMap()
-    })
                 // <li data-description="探索古老的森林">古林
                 //     <div>
                 //         <button type="button" class="log">前往</button>

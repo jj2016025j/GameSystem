@@ -1,3 +1,4 @@
+print("c:\temp\back")
 #pip install flask
 #pip install flask-cors
 
@@ -35,3 +36,4 @@ def load_progress():
 
 if __name__ == '__main__':
     app.run(debug=True)
+

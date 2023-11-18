@@ -220,6 +220,8 @@ class States {
         this._statesEffects={}
         console.log(this.user.name + "死亡");
         // 處理死亡相關的操作
+        // this.health = 0;這條不用，不然會死循環
+        this.user.death()
     }
 
     //復活時全滿
