@@ -152,3 +152,33 @@ img, video {
     max-width: 100%;
     height: auto;
 }
+
+
+
+
+/* test */
+.fixed-center {
+    position: fixed; /* 固定定位，相对于视窗 */
+    left: 50%; /* 水平居中 */
+    bottom: 10%; /* 距离底部10% */
+    transform: translate(-50%, -50%); /* 校正元素的中心点 */
+    color:#ffffff
+  }
+  
+  .relative-container {
+    position: relative; /* 相对定位 */
+    color:#ffffff;
+    width: 100%; /* 和.container相同的宽度 */
+
+    /* 容器的其他样式，如宽高等 */
+  }
+  
+  .absolute-center {
+    position: absolute; /* 绝对定位，相对于父元素 */
+    left: 50%; /* 水平居中 */
+    bottom: 0%; /* 距离底部10% */
+    transform: translate(-50%, -50%); /* 校正元素的中心点 */
+    color:#ffffff;
+    width: 100%; /* 和.container相同的宽度 */
+}
+  

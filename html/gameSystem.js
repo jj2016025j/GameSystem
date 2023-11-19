@@ -113,131 +113,131 @@ const staticData = {
         },
       ]
     },
-    {
-      "name": "極地",
-      "description": "在冰冷的極地中生存",
-      "objects": [
-        { "name": "冰川", "quantity": 1, "description": "巨大的冰川，覆盖着厚厚的冰雪。" },
-        { "name": "破冰船", "quantity": 1, "description": "用于在冰层中开路的强大船只。" }
-      ],
-      "NPC": [
-        { "name": "科学家" },
-        { "name": "探险家" }
-      ],
-      "creatures": [
-        { "name": "北极熊", "quantity": 2 },
-        { "name": "海豹", "quantity": 1 }
-      ],
-      "shops": [
-        { "name": "供给站" },
-        { "name": "装备店" }
-      ]
-    },
-    {
-      "name": "雨林",
-      "description": "在熱帶雨林中尋找寶藏",
-      "objects": [
-        { "name": "古代遗迹", "quantity": 1, "description": "隐藏在雨林深处的古代文明遗迹。" },
-        { "name": "热带植物", "quantity": 2, "description": "繁茂的热带植物，生机盎然。" }
-      ],
-      "NPC": [
-        {
-          "name": "土著居民",
-          "itemsForSale": [
-            {"name": "Healing Herb", "price": 10},
-            {"name": "Poison Dart", "price": 45}
-          ]
-        },
-        {
-          "name": "考古学家",
-          "itemsForSale": [
-            {"name": "Ancient Artifact", "price": 500},
-            {"name": "Rare Gemstone", "price": 250}
-          ]
-        },
-        {
-          "name": "神秘商人",
-          "itemsForSale": [
-            {"name": "Magic Potion", "price": 25},
-            {"name": "Elixir of Life", "price": 100}
-          ]
-        },
-        {
-          "name": "冒险者",
-          "itemsForSale": [
-            {"name": "Old Map", "price": 35},
-            {"name": "Compass", "price": 15}
-          ]
-        },
-        {
-          "name": "铁匠",
-          "itemsForSale": [
-            {"name": "Iron Sword", "price": 200},
-            {"name": "Steel Shield", "price": 150}
-          ]
-        },
-        {
-          "name": "药剂师",
-          "itemsForSale": [
-            {"name": "Antidote", "price": 50},
-            {"name": "Strength Potion", "price": 40}
-          ]
-        },
-        {
-          "name": "书商",
-          "itemsForSale": [
-            {"name": "Ancient Scroll", "price": 75},
-            {"name": "Mystery Novel", "price": 20}
-          ]
-        }
-      ],
-      "creatures": [
-        { "name": "热带鸟类", "quantity": 1 },
-        { "name": "蟒蛇", "quantity": 3 }
-      ],
-      "shops": [
-        {
-          "name": "手工艺品店",
-          "itemsForSale": [
-            {"name": "手工雕刻", "price": 120},
-            {"name": "绣花布艺", "price": 60}
-          ]
-        },
-        {
-          "name": "野营用品店",
-          "itemsForSale": [
-            {"name": "帐篷", "price": 200},
-            {"name": "睡袋", "price": 100}
-          ]
-        }
-      ]
-    },
-    {
-      "name": "迷霧森林",
-      "description": "在迷霧中探索未知",
-      "objects": [
-        { "name": "古树", "quantity": 1, "description": "迷雾森林中的古老巨树，高耸入云。" },
-        { "name": "迷雾之泉", "quantity": 1, "description": "泉水清澈，常年被浓雾环绕。" }
-      ],
-      "NPC": [
-        { "name": "神秘隐士" },
-        { "name": "迷路的旅者" }
-      ],
-      "creatures": [
-        { "name": "幽灵狼", "quantity": 2 },
-        { "name": "森林精灵", "quantity": 1 }
-      ],
-      "shops": [
-        {
-          "name": "藥草店",
-          "itemsForSale": [
-            {"name": "治疗药草", "price": 15},
-            {"name": "魔法草", "price": 30}
-          ]
-        },
-        { "name": "旅行用品店" }
-      ]
-    }
+    // {
+    //   "name": "極地",
+    //   "description": "在冰冷的極地中生存",
+    //   "objects": [
+    //     { "name": "冰川", "quantity": 1, "description": "巨大的冰川，覆盖着厚厚的冰雪。" },
+    //     { "name": "破冰船", "quantity": 1, "description": "用于在冰层中开路的强大船只。" }
+    //   ],
+    //   "NPC": [
+    //     { "name": "科学家" },
+    //     { "name": "探险家" }
+    //   ],
+    //   "creatures": [
+    //     { "name": "北极熊", "quantity": 2 },
+    //     { "name": "海豹", "quantity": 1 }
+    //   ],
+    //   "shops": [
+    //     { "name": "供给站" },
+    //     { "name": "装备店" }
+    //   ]
+    // },
+    // {
+    //   "name": "雨林",
+    //   "description": "在熱帶雨林中尋找寶藏",
+    //   "objects": [
+    //     { "name": "古代遗迹", "quantity": 1, "description": "隐藏在雨林深处的古代文明遗迹。" },
+    //     { "name": "热带植物", "quantity": 2, "description": "繁茂的热带植物，生机盎然。" }
+    //   ],
+    //   "NPC": [
+    //     {
+    //       "name": "土著居民",
+    //       "itemsForSale": [
+    //         {"name": "Healing Herb", "price": 10},
+    //         {"name": "Poison Dart", "price": 45}
+    //       ]
+    //     },
+    //     {
+    //       "name": "考古学家",
+    //       "itemsForSale": [
+    //         {"name": "Ancient Artifact", "price": 500},
+    //         {"name": "Rare Gemstone", "price": 250}
+    //       ]
+    //     },
+    //     {
+    //       "name": "神秘商人",
+    //       "itemsForSale": [
+    //         {"name": "Magic Potion", "price": 25},
+    //         {"name": "Elixir of Life", "price": 100}
+    //       ]
+    //     },
+    //     {
+    //       "name": "冒险者",
+    //       "itemsForSale": [
+    //         {"name": "Old Map", "price": 35},
+    //         {"name": "Compass", "price": 15}
+    //       ]
+    //     },
+    //     {
+    //       "name": "铁匠",
+    //       "itemsForSale": [
+    //         {"name": "Iron Sword", "price": 200},
+    //         {"name": "Steel Shield", "price": 150}
+    //       ]
+    //     },
+    //     {
+    //       "name": "药剂师",
+    //       "itemsForSale": [
+    //         {"name": "Antidote", "price": 50},
+    //         {"name": "Strength Potion", "price": 40}
+    //       ]
+    //     },
+    //     {
+    //       "name": "书商",
+    //       "itemsForSale": [
+    //         {"name": "Ancient Scroll", "price": 75},
+    //         {"name": "Mystery Novel", "price": 20}
+    //       ]
+    //     }
+    //   ],
+    //   "creatures": [
+    //     { "name": "热带鸟类", "quantity": 1 },
+    //     { "name": "蟒蛇", "quantity": 3 }
+    //   ],
+    //   "shops": [
+    //     {
+    //       "name": "手工艺品店",
+    //       "itemsForSale": [
+    //         {"name": "手工雕刻", "price": 120},
+    //         {"name": "绣花布艺", "price": 60}
+    //       ]
+    //     },
+    //     {
+    //       "name": "野营用品店",
+    //       "itemsForSale": [
+    //         {"name": "帐篷", "price": 200},
+    //         {"name": "睡袋", "price": 100}
+    //       ]
+    //     }
+    //   ]
+    // },
+    // {
+    //   "name": "迷霧森林",
+    //   "description": "在迷霧中探索未知",
+    //   "objects": [
+    //     { "name": "古树", "quantity": 1, "description": "迷雾森林中的古老巨树，高耸入云。" },
+    //     { "name": "迷雾之泉", "quantity": 1, "description": "泉水清澈，常年被浓雾环绕。" }
+    //   ],
+    //   "NPC": [
+    //     { "name": "神秘隐士" },
+    //     { "name": "迷路的旅者" }
+    //   ],
+    //   "creatures": [
+    //     { "name": "幽灵狼", "quantity": 2 },
+    //     { "name": "森林精灵", "quantity": 1 }
+    //   ],
+    //   "shops": [
+    //     {
+    //       "name": "藥草店",
+    //       "itemsForSale": [
+    //         {"name": "治疗药草", "price": 15},
+    //         {"name": "魔法草", "price": 30}
+    //       ]
+    //     },
+    //     { "name": "旅行用品店" }
+    //   ]
+    // }
   ],
   backpack: [
     {

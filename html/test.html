@@ -21,20 +21,31 @@
     padding: 5px;
   }
 </style>
+<link rel="stylesheet" href="gameSystem.css">
+
 </head>
 <body>
+<!-- 
+    <div id="chat">
+      <div id="chatRoom">
+        <h2>Chat Room</h2>
+        <div id="chatLog">
 
-<div id="chat">
-  <div id="chatRoom">
-    <h2>Chat Room</h2>
-    <div id="chatLog">
-      <!-- Messages will be displayed here -->
+        </div>
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button id="sendButton">Send</button>
+        <div class="fixed-center">我是固定在中间偏下的元素</div>
+        <button id="indexPage" class="indexPage">indexPage</button>
+
+      </div>
+    </div> -->
+    <button onclick="document.location='index.html'">indexPage</button>
+    <div class="fixed-center">我是固定在中间偏下的元素</div>
+    <a id="indexPage" href="../html/index.html">indexPage</a>
+    <div class="relative-container">我是父元素
+      <div class="absolute-center">我是在父元素中间偏下的元素</div>
     </div>
-    <input type="text" id="messageInput" placeholder="Type your message...">
-    <button id="sendButton">Send</button>
-  </div>
-</div>
-
-<script src="chat.js"></script>
+    
+    <script href="chat.js"></script>
 </body>
 </html>
