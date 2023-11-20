@@ -4,24 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Simple Chat Room</title>
-<style>
-  #chatLog {
-    height: 300px;
-    overflow-y: scroll;
-    border: 1px solid #ccc;
-    padding: 5px;
-    margin-bottom: 10px;
-  }
-  #messageInput {
-    width: calc(100% - 90px);
-    padding: 5px;
-  }
-  #sendButton {
-    width: 80px;
-    padding: 5px;
-  }
-</style>
-<link rel="stylesheet" href="gameSystem.css">
+<link rel="stylesheet" href="test.css">
 
 </head>
 <body>
@@ -39,13 +22,31 @@
 
       </div>
     </div> -->
-    <button onclick="document.location='index.html'">indexPage</button>
-    <div class="fixed-center">我是固定在中间偏下的元素</div>
-    <a id="indexPage" href="../html/index.html">indexPage</a>
-    <div class="relative-container">我是父元素
-      <div class="absolute-center">我是在父元素中间偏下的元素</div>
-    </div>
+      <div class="Profile">Profile</div>
+      <div class="Skill_Bar">Skill Bar</div>
+      <div class="Interaction_List">
+          <!-- 这里放可滚动的内容 -->
+      </div>
+
+      <div class="Function_bar">
+        <li class="absolute-center" onclick="document.location='index.html'">indexPage
+        </li>
+        <li>
+          <button class="absolute-center" onclick="document.location='index.html'">indexPage</button>
+        </li>
+        <li>
+          <button class="absolute-center" onclick="document.location='index.html'">indexPage</button>
+        </li>
+        <li>
+          <button class="absolute-center" onclick="document.location='index.html'">indexPage</button>
+        </li>
+        <li>
+          <button class="absolute-center" onclick="document.location='index.html'">indexPage</button>
+        </li>
+      </div>
+
+      <div class="System_Notification ">System_Notification</div>
+      <div class="Full_Page_System_Announcement ">Full_Page_System_Announcement</div>
     
-    <script href="chat.js"></script>
 </body>
 </html>

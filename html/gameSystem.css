@@ -11,6 +11,7 @@ body {
     background-color: var(--background_color);
 }
 
+/* 大區管理 */
 .player-container, .container, .chat {
     width: 30%;
     margin: 0 auto;
@@ -33,27 +34,85 @@ body {
     width: 40%;
 }
 
-textarea {
-    width: 100%;
+/* 中區管理 */
+.Profile, .Skill_Bar, .Function_bar {
+    position: absolute;
+    width: 40%;
+    background-color: #414040;
+    /* padding: 10px; */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    left: 50%; /* 水平居中 */
+    transform: translate(-50%, -0%); /* 校正元素的中心点 */
 }
 
-input{
-    width: 79%;
+.Profile {
+    top: 0%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* 在列表项内的元素之间创建空间 */
+    align-items: center; /* 垂直居中对齐 */
 }
 
+.Skill_Bar {
+    top: 5.6%; /* 根据 .Profile 的高度调整 */
+
+}
+
+.Interaction_List {
+    flex-grow: 1;
+    padding-top: 100px; /* 留出足够空间显示顶部固定元素 */
+    overflow-y: auto;
+}
+
+.Function_bar {
+    position: absolute; /* 絕對定位 */
+    height:40px;
+    bottom: 0%; /* 距离底部10% */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* 在列表项内的元素之间创建空间 */
+    align-items: center; /* 垂直居中对齐 */
+    bottom: 0;
+    padding: 10px;
+    transform: translate(-50%, -0%); /* 校正元素的中心点 */
+}
+
+.Function_bar.list{
+    max-width:20%;
+    background-color: #ff9191;
+}
+
+.System_Notification {
+    position: fixed;
+    top: 10px;
+    right: 30%;
+    height: 45%;
+    width:15%;
+    background-color: #ffffff00;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.System_Notification.list{
+    padding: 10px;
+}
+
+.Full_Page_System_Announcement{
+    position: fixed;
+    height: 50%;
+    width:30%;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%); /* 校正元素的中心点 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* 小區管理 */
 .player-info, .backpack, .skills, .chatRoom, .maps, .objects, .creature, .npcs, .shops {
     max-width: 100%;
     padding: 20px;
     box-shadow: var(--box_shadow);
     background-color: var(--background_color);
-}
-
-.title {
-    background-color: var(--background_color);
-    color: var(--color);
-    font-weight: bold;
-    margin-bottom: 20px;
-    padding: 10px;
 }
 
 .list, .map-list, .interactive-object-list, .interactive-creature-list, .npc-list, .shop-list{
@@ -91,6 +150,23 @@ li span {
     background-color: var(--select_background_color); /* 选中项的背景颜色 */
     color: var(--select_color); /* 选中项的文本颜色 */
     /* 添加其他样式以改善可视化效果 */
+}
+
+/* 個別功能 */
+.title {
+    background-color: var(--background_color);
+    color: var(--color);
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+textarea {
+    width: 100%;
+}
+
+input{
+    width: 79%;
 }
 
 button {
@@ -152,33 +228,3 @@ img, video {
     max-width: 100%;
     height: auto;
 }
-
-
-
-
-/* test */
-.fixed-center {
-    position: fixed; /* 固定定位，相对于视窗 */
-    left: 50%; /* 水平居中 */
-    bottom: 10%; /* 距离底部10% */
-    transform: translate(-50%, -50%); /* 校正元素的中心点 */
-    color:#ffffff
-  }
-  
-  .relative-container {
-    position: relative; /* 相对定位 */
-    color:#ffffff;
-    width: 100%; /* 和.container相同的宽度 */
-
-    /* 容器的其他样式，如宽高等 */
-  }
-  
-  .absolute-center {
-    position: absolute; /* 绝对定位，相对于父元素 */
-    left: 50%; /* 水平居中 */
-    bottom: 0%; /* 距离底部10% */
-    transform: translate(-50%, -50%); /* 校正元素的中心点 */
-    color:#ffffff;
-    width: 100%; /* 和.container相同的宽度 */
-}
-  
