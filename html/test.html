@@ -4,49 +4,97 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Simple Chat Room</title>
-<link rel="stylesheet" href="test.css">
+<link rel="stylesheet" href="test copy.css">
 
 </head>
 <body>
-<!-- 
-    <div id="chat">
-      <div id="chatRoom">
-        <h2>Chat Room</h2>
-        <div id="chatLog">
-
-        </div>
-        <input type="text" id="messageInput" placeholder="Type your message...">
-        <button id="sendButton">Send</button>
-        <div class="fixed-center">我是固定在中间偏下的元素</div>
-        <button id="indexPage" class="indexPage">indexPage</button>
-
+  <div class="main-container">
+    <div class="header">
+      <img loading="lazy" srcset="https://cdn.builder.io/api/v1/image/assets/TEMP/90245683-9c8e-4df2-8588-7c23763296c7?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/90245683-9c8e-4df2-8588-7c23763296c7?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/90245683-9c8e-4df2-8588-7c23763296c7?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/90245683-9c8e-4df2-8588-7c23763296c7?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/90245683-9c8e-4df2-8588-7c23763296c7?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/90245683-9c8e-4df2-8588-7c23763296c7?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/90245683-9c8e-4df2-8588-7c23763296c7?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/90245683-9c8e-4df2-8588-7c23763296c7?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&"class="header-image" />
+      <div class="menu">
+        <div class="menu-item">首頁</div>
+        <div class="menu-item">新聞</div>
+        <div class="menu-item">角色</div>
+        <div class="menu-item">資料</div>
       </div>
-    </div> -->
-      <div class="Profile">Profile</div>
-      <div class="Skill_Bar">Skill Bar</div>
-      <div class="Interaction_List">
-          <!-- 这里放可滚动的内容 -->
-      </div>
+    </div>
+    <img loading="lazy" srcset="https://cdn.builder.io/api/v1/image/assets/TEMP/27926979-8c67-4914-8a17-9a48818754ae?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/27926979-8c67-4914-8a17-9a48818754ae?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/27926979-8c67-4914-8a17-9a48818754ae?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/27926979-8c67-4914-8a17-9a48818754ae?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/27926979-8c67-4914-8a17-9a48818754ae?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/27926979-8c67-4914-8a17-9a48818754ae?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/27926979-8c67-4914-8a17-9a48818754ae?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/27926979-8c67-4914-8a17-9a48818754ae?apiKey=86f7d6d274dc42f58d7b57819dcbe93f&"class="sidebar-image" />
+  </div>
+  
+  <style>
+    .body{
+      display: flex;
+      width: 2581px;
+      flex-direction: column;
+      align-items: flex-start;
+      background: #FFF;
+    }
 
-      <div class="Function_bar">
-        <li class="absolute-center" onclick="document.location='index.html'">indexPage
-        </li>
-        <li>
-          <button class="absolute-center" onclick="document.location='index.html'">indexPage</button>
-        </li>
-        <li>
-          <button class="absolute-center" onclick="document.location='index.html'">indexPage</button>
-        </li>
-        <li>
-          <button class="absolute-center" onclick="document.location='index.html'">indexPage</button>
-        </li>
-        <li>
-          <button class="absolute-center" onclick="document.location='index.html'">indexPage</button>
-        </li>
-      </div>
-
-      <div class="System_Notification ">System_Notification</div>
-      <div class="Full_Page_System_Announcement ">Full_Page_System_Announcement</div>
-    
+    .main-container {
+      justify-content: center;
+      align-items: flex-start;
+      align-content: flex-start;
+      flex-wrap: wrap;
+      display: flex;
+      gap: 0px;
+    }
+  
+    .header {
+      background-color: rgba(0, 0, 0, 0.65);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 4px 80px -2px 0;
+    }
+  
+    @media (max-width: 991px) {
+      .header {
+        max-width: 100%;
+        flex-wrap: wrap;
+        padding-right: 20px;
+      }
+    }
+  
+    .header-image {
+      aspect-ratio: 5.48;
+      object-fit: contain;
+      object-position: center;
+      width: 362px;
+      overflow: hidden;
+    }
+  
+    .menu {
+      justify-content: space-between;
+      align-self: center;
+      display: flex;
+      gap: 20px;
+      margin: auto 0;
+    }
+  
+    @media (max-width: 991px) {
+      .menu {
+        max-width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  
+    .menu-item {
+      color: #c7c7c7;
+      text-align: center;
+      letter-spacing: 3.12px;
+      font: 700 24px/36px Anonymous Pro, -apple-system, Roboto, Helvetica, sans-serif;
+    }
+  
+    .sidebar-image {
+      aspect-ratio: 2.8;
+      object-fit: contain;
+      object-position: center;
+      width: 196px;
+      overflow: hidden;
+      align-self: stretch;
+      max-width: 100%;
+    }
+  </style>
 </body>
 </html>
