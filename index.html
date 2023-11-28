@@ -3,196 +3,346 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text RPG Game</title>
-    <link rel="stylesheet" href="gameSystem.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8099482531873423"
-     crossorigin="anonymous"></script>
-    <meta name="google-adsense-account" content="ca-pub-8099482531873423">
-    <!-- 直立 -->
-    <!-- <ins class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-pub-8099482531873423"
-        data-ad-slot="8474582930"
-        data-ad-format="auto"
-        data-full-width-responsive="true"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8099482531873423"
-        crossorigin="anonymous"></script>
-    <ins class="adsbygoogle"
-        style="display:block"
-        data-ad-format="autorelaxed"
-        data-ad-client="ca-pub-8099482531873423"
-        data-ad-slot="2016985794"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script> -->
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>    
-    <div class="Profile">
-        <p id="player-name">default</p>
-        <p id="player-health">default</p>
-        <p id="player-location" location_name="">default</p>
-        <p id="player-level">default</p>
-    </div>
-    <div class="Skill_Bar">Skill Bar</div>
-    <div class="Interaction_List">
-        <!-- 这里放可滚动的内容 -->
-    </div>
-
-    <div class="Function_bar">
-      <li class="absolute-center" onclick="document.location='index.html'">index
-      </li>
-    </div>
-
-    <!-- 個人資訊列表 背包 裝備 技能-->
-    <div class="player-container">
-        <!-- Player Info -->
-        <div class="player-info">
-            <h2 class="title">個人檔案：</h2>
-            <ul class="list">
-                <li>
-                    暱稱: 
-                    <span id="player-name">default</span>
-                </li>
-                <li>
-                    血量: 
-                    <span id="player-health">default</span>
-                </li>
-                <li>
-                    魔力: 
-                    <span id="player-mana">default</span>
-                </li>
-                <li>
-                    等級: 
-                    <span id="player-level">default</span>
-                </li>
-                <li>
-                    金錢: 
-                    <span id="player-gold">default</span>
-                </li>
-                <li>
-                    當前位置: 
-                    <span id="player-location" location_name="">default</span>
-                </li>
-            </ul>
-            <!-- 攻擊
-            治癒 -->
-            <button onclick="saveGameToLocal()" class="log">Save Game</button>
+<body>
+    <header>
+        <p>LV.80</p>
+        <div>
+            <img src="" alt="">
+            <p>16438/34619</p>
         </div>
-
-        <!-- Skills -->
-        <div class="skills">
-            <h2 class="title">技能列表：</h2>
-            <ul class="list" id="skillsList">
+    </header>
+    <div class="UI_list hide-scrollbar">
+        <div class="profile-display">
+            <ul class="profile-List">
+                <li class="parameter">
+                    <p class="parameter-name">最大血量</p>
+                    <p class="parameter-value">34910</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">攻擊力</p>
+                    <p class="parameter-value">1346</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">防禦力</p>
+                    <p class="parameter-value">346</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">最大血量</p>
+                    <p class="parameter-value">34910</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">攻擊力</p>
+                    <p class="parameter-value">1346</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">防禦力</p>
+                    <p class="parameter-value">346</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">最大血量</p>
+                    <p class="parameter-value">34910</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">攻擊力</p>
+                    <p class="parameter-value">1346</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">防禦力</p>
+                    <p class="parameter-value">346</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">最大血量</p>
+                    <p class="parameter-value">34910</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">攻擊力</p>
+                    <p class="parameter-value">1346</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">防禦力</p>
+                    <p class="parameter-value">346</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">最大血量</p>
+                    <p class="parameter-value">34910</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">攻擊力</p>
+                    <p class="parameter-value">1346</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">防禦力</p>
+                    <p class="parameter-value">346</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">最大血量</p>
+                    <p class="parameter-value">34910</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">攻擊力</p>
+                    <p class="parameter-value">1346</p>
+                </li>
+                <li class="parameter">
+                    <p class="parameter-name">防禦力</p>
+                    <p class="parameter-value">346</p>
+                </li>
             </ul>
         </div>
-
-        <!-- Backpack -->
-        <div class="backpack">
-            <h2 class="title">物品列表：</h2>
-            <ul class="list" id="backpackList">
+        <div class="backpack-display">
+            <ul class="select-list">
+                <li class="select-option">全部</li>
+                <li class="select-option">物品</li>
+                <li class="select-option">消耗品</li>
             </ul>
-
-            <button id="SelectionButton" class="log">全部選取</button>
-            <button id="addItemButton" class="log">加入背包</button>
-            <button id="removeItemButton" class="log">移除物品</button>
-            <button id="useItemButton" class="log">使用物品</button>
-            <button id="purchaseItemButton" class="log">購買物品</button>
-            <button id="sellItemButton" class="log">售出物品</button>
+            <ul class="backpack-List">
+                <li class="item">
+                    <p class="item-name">蘋果</p>
+                    <p class="item-quantity">10</p>
+                </li>
+                <li class="item">
+                    <p class="item-name">蘋果</p>
+                    <p class="item-quantity">10</p>
+                </li>
+                <li class="item">
+                    <p class="item-name">蘋果</p>
+                    <p class="item-quantity">10</p>
+                </li>
+                <li class="item">
+                    <p class="item-name">蘋果</p>
+                    <p class="item-quantity">10</p>
+                </li>
+                <li class="item">
+                    <p class="item-name">蘋果</p>
+                    <p class="item-quantity">10</p>
+                </li>
+                <li class="item">
+                    <p class="item-name">蘋果</p>
+                    <p class="item-quantity">10</p>
+                </li>
+                <li class="item">
+                    <p class="item-name">蘋果</p>
+                    <p class="item-quantity">10</p>
+                </li>
+            </ul>
+        </div>
+        <div class="map-display">
+            <ul class="map-List">
+                <li class="map">
+                    <p class="map-name">蒙德</p>
+                    <p class="map-discription">最初的城鎮</p>
+                </li>
+                <li class="map interactive">
+                    <p class="map-name">摘星崖</p>
+                    <p class="map-discription">星河暢游</p>
+                </li>
+                <li class="map interactive">
+                    <p class="map-name">摘星崖</p>
+                    <p class="map-discription">星河暢游</p>
+                </li>
+                <li class="map interactive">
+                    <p class="map-name">摘星崖</p>
+                    <p class="map-discription">星河暢游</p>
+                </li>
+                <li class="map interactive">
+                    <p class="map-name">摘星崖</p>
+                    <p class="map-discription">星河暢游</p>
+                </li>
+                <li class="map interactive">
+                    <p class="map-name">摘星崖</p>
+                    <p class="map-discription">星河暢游</p>
+                </li>
+                <li class="auto interactive">
+                    <p class="map-name">自動採集</p>
+                    <p class="map-discription">蘋果5~15個</p>
+                </li>
+                <li class="shop interactive">
+                    <p class="shop-name">麵包店</p>
+                    <p class="shop-discription">好吃的麵包</p>
+                </li>
+                <li class="npc interactive">
+                    <p class="npc-name">夏莉莉</p>
+                    <p class="npc-discription">流浪的工程師</p>
+                </li>
+                <li class="collection interactive">
+                    <p class="name">採集</p>
+                    <p class="discription">荒涼的草原</p>
+                </li>
+            </ul>
+        </div>
+        <div class="chat-display">
+            <ul class="select-list">
+                <li class="chat-option">公開</li>
+                <li class="chat-option">公會</li>
+                <li class="chat-option">信箱</li>
+            </ul>
+            <ul class="chat-List">
+                <li class="other-chat">
+                    <p class="chat-object">夏莉莉</p>
+                    <div class="other-chat-content">
+                        <p class="chat-content">哈哈是我啦</p>
+                    </div>
+                </li>
+                <li class="self-chat">
+                    <p class="chat-object">可莉</p>
+                    <div class="self-chat-content">
+                        <p class="chat-content">炸魚囉~!</p>
+                    </div>
+                </li>
+                <li class="other-chat">
+                    <p class="chat-object">夏莉莉</p>
+                    <div class="other-chat-content">
+                        <p class="chat-content">哈哈是我啦</p>
+                    </div>
+                </li>
+                <li class="self-chat">
+                    <p class="chat-object">可莉</p>
+                    <div class="self-chat-content">
+                        <p class="chat-content">炸魚囉~!</p>
+                    </div>
+                </li>
+                <li class="other-chat">
+                    <p class="chat-object">夏莉莉</p>
+                    <div class="other-chat-content">
+                        <p class="chat-content">哈哈是我啦</p>
+                    </div>
+                </li>
+                <li class="self-chat">
+                    <p class="chat-object">可莉</p>
+                    <div class="self-chat-content">
+                        <p class="chat-content">炸魚囉~!</p>
+                    </div>
+                </li>
+                <li class="other-chat">
+                    <p class="chat-object">夏莉莉</p>
+                    <div class="other-chat-content">
+                        <p class="chat-content">哈哈是我啦</p>
+                    </div>
+                </li>
+                <li class="self-chat">
+                    <p class="chat-object">可莉</p>
+                    <div class="self-chat-content">
+                        <p class="chat-content">炸魚囉~!</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="shop-display">
+            <ul class="shop-List">
+                <li class="product-list">
+                    <p class="product-name">小小額贊助</p>
+                    <p class="product-content">請我喝一杯咖啡</p>
+                </li>
+                <li class="product-list">
+                    <p class="product-name">小額贊助</p>
+                    <p class="product-content">這對我們很有幫助</p>
+                </li>
+                <li class="product-list">
+                    <p class="product-name">大額贊助</p>
+                    <p class="product-content">給你開車車</p>
+                </li>
+                <li class="product-list">
+                    <p class="product-name">小小額贊助</p>
+                    <p class="product-content">請我喝一杯咖啡</p>
+                </li>
+                <li class="product-list">
+                    <p class="product-name">小額贊助</p>
+                    <p class="product-content">這對我們很有幫助</p>
+                </li>
+                <li class="product-list">
+                    <p class="product-name">大額贊助</p>
+                    <p class="product-content">給你開車車</p>
+                </li>
+                <li class="product-list">
+                    <p class="product-name">小小額贊助</p>
+                    <p class="product-content">請我喝一杯咖啡</p>
+                </li>
+                <li class="product-list">
+                    <p class="product-name">小額贊助</p>
+                    <p class="product-content">這對我們很有幫助</p>
+                </li>
+                <li class="product-list">
+                    <p class="product-name">大額贊助</p>
+                    <p class="product-content">給你開車車</p>
+                </li>
+            </ul>
         </div>
     </div>
-
-    <!-- 互動列表 儲值 製作 商店 銀行 地圖 市集 城市 公會 生物 物品 NPC 任務 -->
-    <div class="container">
-
-        <!-- 地圖列表 -->
-        <section id="maps" class="maps">
-            <h2 class="title">地圖列表：</h2>
-            <ul class="list" id="mapsList">
-            </ul>
-        </section>
-        
-        <!-- 物件列表 -->
-        <section id="objects" class="objects">
-            <h2 class="title">可互動物件列表：</h2>
-            <ul class="list" id="objectsList">
-            </ul>
-        </section>
-
-        <!-- 互動生物列表 -->
-        <section id="creature"  class="creature">
-            <h2 class="title">可互動生物列表：</h2>
-            <ul class="list" id="creaturesList">
-            </ul>
-        </section>
-
-        <!-- NPC列表 -->
-        <section id="npcs" class="npcs">
-            <h2 class="title">NPC列表：</h2>
-            <ul class="list" id="npcList">
-            </ul>
-        </section>
-
-        <!-- 商店列表 -->
-        <section id="shops" class="shops">
-            <h2 class="title">商店列表：</h2>
-            <ul class="list" id="shopsList">
-            </ul>
-        </section>
-        <!-- Repeat sections like above for each category -->
-    </div>
-    
-    <!-- Chat 公會 信箱 通知 -->
-    <div class="chat">
-        <div class="chatRoom">
-            <h2 class="title">Chat Room</h2>
-            <textarea rows="30" id="chatLog" readonly></textarea>
-            <!-- <div id="chatLog" readonly></div> -->
-            <br><br>
-            <input type="text" placeholder="Type your message...">
-            <button id="sendButton">Send</button>
+    <footer>
+        <div>
+            <img src="" alt="">
+            <p>個人檔案</p>
         </div>
-
-        <audio loop id="background-music" preload="auto">
-            <source src="SaveTube.App - KING _ Furina (AI Cover) (128 kbps).mp3" type="audio/mp3" >
-        </audio>
-        <button id="playMusicButton" class="log">Play Music</button>
-        <!-- 刪除元素的功能 -->
-        <button id="delete" class="delete">delete</button>
-        <button id="testPage" class="testPage" href="test.html" onclick="document.location='test.html'">testPage</button>
-        <button id="testPage" class="testPage" href="test.html" onclick="document.location='test.html'">testPage</button>
-    </div>
-
-    <!-- <div class="System_Notification ">System_Notification</div>
-    <div class="Full_Page_System_Announcement ">Full_Page_System_Announcement</div> -->
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8099482531873423"
-     crossorigin="anonymous"></script>
-    <script src="backpack.js"></script>
-    <script src="chat.js"></script>
-    <script src="FarmLand.js"></script>
-    <script src="gameSystem.js"></script>
-    <script src="item.js"></script>
-    <script src="player.js"></script>
-    <script src="Skill.js"></script>
-    <script src="States.js"></script>
-    <script src="Shop.js"></script>
-    <script src="thing.js"></script>
-    <script src="FrontSide.js"></script>
-    <script>
-    // You can add interactive features or event listeners to your items here
-    // document.addEventListener('DOMContentLoaded', (event) => {
-    //     const creatures = document.querySelectorAll('.list li');
-    //     creatures.forEach(creature => {
-    //         creature.addEventListener('click', () => {
-    //           const description = creature.getAttribute('data-description');
-    //           alert(creature.textContent + '：' + description);
-    //         });
-    //     });
-    // });
-    </script>
-    <script src="test.js"></script>
+        <div>
+            <img src="" alt="">
+            <p>背包</p>
+        </div>
+        <div>
+            <img src="" alt="">
+            <p>地圖</p>
+        </div>
+        <div>
+            <img src="" alt="">
+            <p>聊天</p>
+        </div>
+        <div>
+            <img src="" alt="">
+            <p>商城</p>
+        </div>
+    </footer>
 </body>
 </html>
+
+<!-- 
+數值
+<ul class="profile-List">
+<li class="parameter">
+    <p class="parameter-name">防禦力</p>
+    <p class="parameter-value">346</p>
+</li>
+
+背包物品
+<ul class="backpack-List">
+<li class="item">
+    <p class="item-name">蘋果</p>
+    <p class="item-quantity">10</p>
+</li>
+
+地圖
+<ul class="map-List">
+<li class="map">
+    <p class="map-name">蒙德</p>
+    <p class="map-discription">最初的城鎮</p>
+</li>
+
+<li class="auto">
+    <p class="map-name">自動採集</p>
+    <p class="map-discription">蘋果5~15個</p>
+</li>
+<li class="shop">
+    <p class="shop-name">麵包店</p>
+    <p class="shop-discription">好吃的麵包</p>
+</li>
+<li class="npc">
+    <p class="npc-name">夏莉莉</p>
+    <p class="npc-discription">流浪的工程師</p>
+</li>
+<li class="collection">
+    <p class="name">採集</p>
+    <p class="discription">荒涼的草原</p>
+</li>
+
+<ul class="chat-List">聊天
+<li class="other-chat">
+    <p class="chat-object">夏莉莉</p>
+    <p class="chat-content">哈哈是我啦</p>
+</li>
+
+<ul class="shop-List">
+<li class="product-list">
+    <p class="product-name">小額贊助</p>
+    <p class="product-content">請我喝一杯咖啡</p>
+</li>
+-->

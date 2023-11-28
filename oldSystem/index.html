@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text RPG Game</title>
+    <link rel="stylesheet" href="gameSystem.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8099482531873423"
+     crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-8099482531873423">
+    <!-- 直立 -->
+    <!-- <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-8099482531873423"
+        data-ad-slot="8474582930"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8099482531873423"
+        crossorigin="anonymous"></script>
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-format="autorelaxed"
+        data-ad-client="ca-pub-8099482531873423"
+        data-ad-slot="2016985794"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> -->
+</head>
+<body>    
+    <div class="Profile">
+        <p id="player-name">default</p>
+        <p id="player-health">default</p>
+        <p id="player-location" location_name="">default</p>
+        <p id="player-level">default</p>
+    </div>
+    <div class="Skill_Bar">Skill Bar</div>
+    <div class="Interaction_List">
+        <!-- 这里放可滚动的内容 -->
+    </div>
+
+    <div class="Function_bar">
+      <li class="absolute-center" onclick="document.location='index.html'">index
+      </li>
+    </div>
+
+    <!-- 個人資訊列表 背包 裝備 技能-->
+    <div class="player-container">
+        <!-- Player Info -->
+        <div class="player-info">
+            <h2 class="title">個人檔案：</h2>
+            <ul class="list">
+                <li>
+                    暱稱: 
+                    <span id="player-name">default</span>
+                </li>
+                <li>
+                    血量: 
+                    <span id="player-health">default</span>
+                </li>
+                <li>
+                    魔力: 
+                    <span id="player-mana">default</span>
+                </li>
+                <li>
+                    等級: 
+                    <span id="player-level">default</span>
+                </li>
+                <li>
+                    金錢: 
+                    <span id="player-gold">default</span>
+                </li>
+                <li>
+                    當前位置: 
+                    <span id="player-location" location_name="">default</span>
+                </li>
+            </ul>
+            <!-- 攻擊
+            治癒 -->
+            <button onclick="saveGameToLocal()" class="log">Save Game</button>
+        </div>
+
+        <!-- Skills -->
+        <div class="skills">
+            <h2 class="title">技能列表：</h2>
+            <ul class="list" id="skillsList">
+            </ul>
+        </div>
+
+        <!-- Backpack -->
+        <div class="backpack">
+            <h2 class="title">物品列表：</h2>
+            <ul class="list" id="backpackList">
+            </ul>
+
+            <button id="SelectionButton" class="log">全部選取</button>
+            <button id="addItemButton" class="log">加入背包</button>
+            <button id="removeItemButton" class="log">移除物品</button>
+            <button id="useItemButton" class="log">使用物品</button>
+            <button id="purchaseItemButton" class="log">購買物品</button>
+            <button id="sellItemButton" class="log">售出物品</button>
+        </div>
+    </div>
+
+    <!-- 互動列表 儲值 製作 商店 銀行 地圖 市集 城市 公會 生物 物品 NPC 任務 -->
+    <div class="container">
+
+        <!-- 地圖列表 -->
+        <section id="maps" class="maps">
+            <h2 class="title">地圖列表：</h2>
+            <ul class="list" id="mapsList">
+            </ul>
+        </section>
+        
+        <!-- 物件列表 -->
+        <section id="objects" class="objects">
+            <h2 class="title">可互動物件列表：</h2>
+            <ul class="list" id="objectsList">
+            </ul>
+        </section>
+
+        <!-- 互動生物列表 -->
+        <section id="creature"  class="creature">
+            <h2 class="title">可互動生物列表：</h2>
+            <ul class="list" id="creaturesList">
+            </ul>
+        </section>
+
+        <!-- NPC列表 -->
+        <section id="npcs" class="npcs">
+            <h2 class="title">NPC列表：</h2>
+            <ul class="list" id="npcList">
+            </ul>
+        </section>
+
+        <!-- 商店列表 -->
+        <section id="shops" class="shops">
+            <h2 class="title">商店列表：</h2>
+            <ul class="list" id="shopsList">
+            </ul>
+        </section>
+        <!-- Repeat sections like above for each category -->
+    </div>
+    
+    <!-- Chat 公會 信箱 通知 -->
+    <div class="chat">
+        <div class="chatRoom">
+            <h2 class="title">Chat Room</h2>
+            <textarea rows="30" id="chatLog" readonly></textarea>
+            <!-- <div id="chatLog" readonly></div> -->
+            <br><br>
+            <input type="text" placeholder="Type your message...">
+            <button id="sendButton">Send</button>
+        </div>
+
+        <audio loop id="background-music" preload="auto">
+            <source src="SaveTube.App - KING _ Furina (AI Cover) (128 kbps).mp3" type="audio/mp3" >
+        </audio>
+        <button id="playMusicButton" class="log">Play Music</button>
+        <!-- 刪除元素的功能 -->
+        <button id="delete" class="delete">delete</button>
+        <button id="testPage" class="testPage" href="test.html" onclick="document.location='test.html'">testPage</button>
+        <button id="testPage" class="testPage" href="test.html" onclick="document.location='test.html'">testPage</button>
+    </div>
+
+    <!-- <div class="System_Notification ">System_Notification</div>
+    <div class="Full_Page_System_Announcement ">Full_Page_System_Announcement</div> -->
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8099482531873423"
+     crossorigin="anonymous"></script>
+    <script src="backpack.js"></script>
+    <script src="chat.js"></script>
+    <script src="FarmLand.js"></script>
+    <script src="gameSystem.js"></script>
+    <script src="item.js"></script>
+    <script src="player.js"></script>
+    <script src="Skill.js"></script>
+    <script src="States.js"></script>
+    <script src="Shop.js"></script>
+    <script src="thing.js"></script>
+    <script src="FrontSide.js"></script>
+    <script>
+    // You can add interactive features or event listeners to your items here
+    // document.addEventListener('DOMContentLoaded', (event) => {
+    //     const creatures = document.querySelectorAll('.list li');
+    //     creatures.forEach(creature => {
+    //         creature.addEventListener('click', () => {
+    //           const description = creature.getAttribute('data-description');
+    //           alert(creature.textContent + '：' + description);
+    //         });
+    //     });
+    // });
+    </script>
+    <script src="test.js"></script>
+</body>
+</html>

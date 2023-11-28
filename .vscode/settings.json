@@ -1,3 +1,4 @@
 {
-    "dotnet.defaultSolution": "GameSystem.sln"
+    "dotnet.defaultSolution": "GameSystem.sln",
+    "liveServer.settings.port": 5501
 }
