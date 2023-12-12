@@ -1,7 +1,3 @@
-print("c:\temp\back")
-#pip install flask
-#pip install flask-cors
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
