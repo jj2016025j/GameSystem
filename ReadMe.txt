@@ -1,3 +1,5 @@
+這是一個有rpg遊戲架構的網站
+
 記得先裝擴充包
 pip install flask
 pip install flask-cors
