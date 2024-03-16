@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Interface</title>
+    <link rel="stylesheet" href="test.css">
+</head>
+
+<body>
+    <div class="game-container">
+        <!-- Player Info -->
+        <div class="player-info">
+            <div class="title">Player Info</div>
+            <p>Name: Alice</p>
+            <p>Health: 100/100</p>
+            <p>Mana: 100/100</p>
+        </div>
+
+        <!-- Backpack -->
+        <div class="backpack">
+            <div class="title">Backpack</div>
+            <ul>
+                <li>Sword</li>
+                <li>Shield</li>
+                <li>Potion</li>
+            </ul>
+        </div>
+
+        <!-- Skills -->
+        <div class="skills">
+            <div class="title">Skills</div>
+            <ul>
+                <li>Fireball</li>
+                <li>Heal</li>
+                <li>Stealth</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Chat -->
+    <div class="chat">
+        <div class="title">Chat Room</div>
+        <textarea rows="10" style="width: 100%;" readonly>說了一些話... 
+又說了一些話...</textarea>
+        <br><br>
+        <input type="text" style="width: 80%;" placeholder="Type your message...">
+        <button>Send</button>
+    </div>
+
+    <div class="container">
+        <section id="objects" class="objects">
+            <h2 class="h2title">可互動物件列表：</h2>
+            <ul class="interactive-object-list">
+                <li data-description="可能包含金幣、武器、藥水等">寶箱</li>
+                <li data-description="可以取水或許願">井</li>
+                <li data-description="獲取故事資訊或學習新技能">書架</li>
+                <li data-description="閱讀歷史或獲得任務">石碑</li>
+                <li data-description="需要鑰匙或解謎才能打開">門</li>
+                <li data-description="製作藥水或魔法物品">炼金桌</li>
+                <li data-description="獲取或更換武器">武器架</li>
+                <li data-description="快速移動到其他地點">傳送門</li>
+            </ul>
+        </section>
+
+        <!-- 互動生物列表 -->
+        <section id="creature" class="creature">
+            <h2 class="h2title">可互動生物列表：</h2>
+            <ul class="interactive-creature-list">
+                <li data-description="給予魔法能量或資訊">森林精靈</li>
+                <li data-description="例如鹿、兔子，可以狩獵或馴養">野生動物</li>
+                <li data-description="例如魚，可以釣魚">水中生物</li>
+                <li data-description="可能是敵人或盟友，或是坐騎">龍</li>
+            </ul>
+        </section>
+        <!-- NPC列表 -->
+        <section id="npcs" class="npcs">
+            <h2 class="h2title">NPC列表：</h2>
+            <ul class="npc-list">
+                <li data-description="提供資訊或任務">村莊長老</li>
+                <li data-description="提供住宿和補給">旅館老闆</li>
+                <li data-description="教授新技能或升級技能">教練</li>
+                <li data-description="有時提供小任務或秘密資訊">孩子</li>
+                <li data-description="在某些情境中可能是友好的，或可能是阻礙">治安官或騎士</li>
+                <li data-description="提供魔法物品或任務">巫師或魔法師</li>
+            </ul>
+        </section>
+
+        <!-- 商店列表 -->
+        <section id="shops" class="shops">
+            <h2 class="h2title">商店列表：</h2>
+            <ul class="shop-list">
+                <li data-description="買賣武器">武器店</li>
+                <li data-description="買賣藥水、藥草">藥草店</li>
+                <li data-description="購買魔法書或書籍">書店</li>
+                <li data-description="購買或賣出寵物">寵物店</li>
+                <li data-description="租房休息，恢復生命值和魔法值">旅館</li>
+                <li data-description="買賣各種遊戲道具">道具店</li>
+            </ul>
+        </section>
+        <!-- Repeat sections like above for each category -->
+
+    </div>
+    <script src="test.js"></script>
+</body>
+
+</html>
