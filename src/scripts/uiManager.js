@@ -9,9 +9,19 @@ import { NPCUI } from "./map/npcUI.js";
 
 export class UIManager {
   static initialize(gameSystem) {
+    console.log("UI 開始初始化");
+
     if (!gameSystem || !gameSystem.player || !gameSystem.staticData) {
       console.error("GameSystem 尚未完全初始化，無法啟動 UI");
       return;
+    }
+    PlayerUI.initialize(gameSystem.player);
+    SkillUI.initialize(gameSystem.player.skillList); // 更新技能 UI
+    BackpackUI.initialize(gameSystem.player.backpack);
+    if (gameSystem.mapData) {
+      MapUI.initialize(gameSystem.mapData);
+      NPCUI.initialize(gameSystem.mapData.NPC);
+      ShopUI.initialize(gameSystem.mapData.shops);
     }
     this.updateAllUI(gameSystem);
   }

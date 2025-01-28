@@ -18,13 +18,24 @@
                 <li>暱稱: <span id="player-name">芙寧娜(預設)</span></li>
                 <li>血量: <span id="player-health">100(預設)</span></li>
                 <li>魔力: <span id="player-mana">100(預設)</span></li>
+                <li>經驗值: <span id="player-exp">0(預設)</span></li>
                 <li>等級: <span id="player-level">10(預設)</span></li>
                 <li>金錢: <span id="player-gold">500(預設)</span></li>
                 <li>位置: <span id="player-location">古林</span></li>
                 <li>狀態: <span id="player-states">存活(預設)</span></li>
             </ul>
-            <button onclick="saveGameToLocal()" class="log">儲存遊戲</button>
-            <button onclick="loadGameFromLocal()" class="log">載入遊戲</button>
+            <button id="updateButton" class="log">更新狀態</button>
+            <button id="saveGameButton" class="log">儲存遊戲</button>
+            <button id="loadGameButton" class="log">載入遊戲</button>
+            <button id="randomHealthButton" class="log">隨機血量變動</button>
+            <button id="randomManaButton" class="log">隨機魔力變動</button>
+            <button id="randomExpButton" class="log">隨機經驗值變動</button>
+            <button id="randomGoldButton" class="log">隨機金錢變動</button>
+            <button id="levelUpButton" class="log">升級</button>
+            <button id="resetLevelButton" class="log">回到一等</button>
+            <button id="randomLocationButton" class="log">隨機位置變動</button>
+            <button id="poisonButton" class="log">中毒</button>
+            <button id="cleanseButton" class="log">淨化</button>
         </div>
 
         <!-- Skills -->

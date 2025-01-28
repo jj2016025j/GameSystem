@@ -1,0 +1,75 @@
+class EffectManager {
+    constructor(states, availableEffects) {
+        this.states = states; // 玩家狀態
+        this.availableEffects = availableEffects; // 可用的效果列表
+        this.activeEffects = new Map(); // 當前作用中的效果
+    }
+
+    // 🔹 添加效果（如果已經存在，則重置持續時間）
+    addEffect(effectId) {
+        const effect = this.availableEffects.find(e => e.id === effectId);
+        if (!effect) {
+            console.log(`⚠️ 效果 ${effectId} 無效`);
+            return;
+        }
+
+        if (this.activeEffects.has(effect.id)) {
+            this.activeEffects.get(effect.id).remainingTime = effect.duration; // 🔄 重置持續時間
+            console.log(`🔄 效果 ${effect.name} 持續時間已重置`);
+        } else {
+            this.activeEffects.set(effect.id, { ...effect, remainingTime: effect.duration });
+            console.log(`✅ 添加效果: ${effect.name}`);
+        }
+
+        this.states.updateCombatStats(); // ✅ 確保影響戰鬥屬性
+    }
+
+    // 🔹 移除效果
+    removeEffect(effectId) {
+        if (this.activeEffects.has(effectId)) {
+            console.log(`❌ 移除效果: ${this.activeEffects.get(effectId).name}`);
+            this.activeEffects.delete(effectId);
+            this.states.updateCombatStats(); // ✅ 確保屬性更新
+        } else {
+            console.log(`⚠️ 效果 ${effectId} 不存在`);
+        }
+    }
+
+    // ✅ 新增方法：清空所有效果（死亡時使用）
+    removeAllEffects() {
+        this.activeEffects.clear();
+        console.log("🛑 所有效果已移除");
+        this.states.updateCombatStats(); // ✅ 確保戰鬥狀態重置
+    }
+
+    // 🔹 更新所有效果（每回合/每秒調用）
+    updateEffects() {
+        this.activeEffects.forEach((effect, effectId) => {
+            this.applyEffect(effect); // ✅ 直接應用效果
+
+            if (effect.remainingTime !== null) {
+                effect.remainingTime -= 1;
+                if (effect.remainingTime <= 0) {
+                    this.removeEffect(effectId);
+                }
+            }
+        });
+
+        this.states.updateCombatStats(); // ✅ 確保影響戰鬥屬性
+    }
+
+    // 🔹 應用單個效果的影響
+    applyEffect(effect) {
+        if (effect.impact) {
+            Object.entries(effect.impact).forEach(([key, value]) => {
+                if (AttributeHandler.handlers[key]) {
+                    AttributeHandler.handlers[key](value, this.states);
+                } else {
+                    console.log(`⚠️ 未定義的屬性影響: ${key}`);
+                }
+            });
+        }
+    }
+}
+
+export { EffectManager };
