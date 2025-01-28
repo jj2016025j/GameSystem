@@ -1,3 +1,36 @@
+class Item {
+    constructor({ id, name, description, price, durability = null }) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.durability = durability; // 可選，適用於可損耗物品
+    }
+
+    use() {
+        if (this.durability !== null) {
+            this.durability -= 1;
+            if (this.durability <= 0) {
+                console.log(`${this.name} 耐久度耗盡，無法再使用`);
+                return false;
+            }
+        }
+        console.log(`${this.name} 使用成功`);
+        return true;
+    }
+
+    repair(amount) {
+        if (this.durability !== null) {
+            this.durability += amount;
+            console.log(`${this.name} 已修復，當前耐久度: ${this.durability}`);
+        } else {
+            console.log(`${this.name} 不需要修復`);
+        }
+    }
+}
+
+export { Item };
+
 // 抽象基類：Item
 class Item {
     constructor(data) {
@@ -57,7 +90,7 @@ class Weapon extends Item {
         if (!this.isBroken()) {
             this.attributes.durability -= 1;
             console.log(`🗡️ 使用了 ${this.name}，耐久度剩餘 ${this.attributes.durability}`);
-            
+
             if (this.isBroken()) {
                 console.log(`⚠️ ${this.name} 已經損壞！`);
                 states.equipItem("Weapon", null); // 自動卸下損壞的武器
@@ -77,7 +110,7 @@ class Weapon extends Item {
     }
 }
 
-  
+
 // 工具類別
 class Tool extends Item {
     equip(states) {
@@ -93,7 +126,7 @@ class Tool extends Item {
         if (!this.isBroken()) {
             this.attributes.durability -= 1;
             console.log(`🔨 使用了 ${this.name}，耐久度剩餘 ${this.attributes.durability}`);
-            
+
             if (this.isBroken()) {
                 console.log(`⚠️ ${this.name} 已損壞，無法繼續使用`);
             }

@@ -1,8 +1,14 @@
+import { AttributeHandler } from "./attributeHandler.js";
+import { AvailableEffects } from "./availableEffects.js";
+
 class EffectManager {
-    constructor(states, availableEffects) {
+    constructor(states, activeEffects = []) {
         this.states = states; // 玩家狀態
-        this.availableEffects = availableEffects; // 可用的效果列表
-        this.activeEffects = new Map(); // 當前作用中的效果
+        this.availableEffects = AvailableEffects; // 可用的效果列表
+        // 將陣列轉換為 Map（`effectId` 作為鍵）
+        this.activeEffects = new Map(
+            activeEffects.map(effect => [effect.id, { ...effect }])
+        );
     }
 
     // 🔹 添加效果（如果已經存在，則重置持續時間）
@@ -55,7 +61,7 @@ class EffectManager {
             }
         });
 
-        this.states.updateCombatStats(); // ✅ 確保影響戰鬥屬性
+        // this.states.updateCombatStats(); // ✅ 確保影響戰鬥屬性
     }
 
     // 🔹 應用單個效果的影響

@@ -13,6 +13,10 @@ class AttributeHandler {
 
 // 定義不同屬性的影響策略
 AttributeHandler.handlers = {
+    health: (value, states) => {
+      states.health = Math.max(0, Math.min(states.maxHealth, states.health + value));
+      console.log(`🩹 調整生命值：${value}`);
+    },
     heal: (value, states) => {
         states.health = Math.min(states.maxHealth, states.health + value);
         console.log(`💖 恢復 ${value} 點生命值`);

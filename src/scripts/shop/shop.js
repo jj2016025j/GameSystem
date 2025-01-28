@@ -55,3 +55,40 @@ class Shop {
         return true;
     }
 }
+
+
+class Shop {
+    constructor({ id, name, itemsForSale = [] }) {
+      this.id = id;
+      this.name = name;
+      this.itemsForSale = itemsForSale; // 商店商品列表
+    }
+  
+    listItems() {
+      console.log(`商店: ${this.name}`);
+      this.itemsForSale.forEach((item) => {
+        console.log(`${item.name} - 價格: ${item.price}`);
+      });
+    }
+  
+    purchaseItem(itemId, buyer) {
+      const item = this.itemsForSale.find((i) => i.id === itemId);
+      if (!item) {
+        console.log(`商店 ${this.name} 中沒有此物品`);
+        return false;
+      }
+  
+      if (buyer.gold >= item.price) {
+        buyer.gold -= item.price;
+        buyer.backpack.addItem(item);
+        console.log(`${buyer.name} 購買了 ${item.name}`);
+        return true;
+      } else {
+        console.log(`${buyer.name} 金幣不足`);
+        return false;
+      }
+    }
+  }
+  
+  export { Shop };
+  

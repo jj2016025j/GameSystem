@@ -155,7 +155,7 @@ const items = [
   },
   {
       id: "ElvenBow",
-      type: "Armor",
+      type: "Weapon",
       name: "精靈弓",
       value: 400,
       description: "一把精靈國度製作的工藝精湛的弓。",
