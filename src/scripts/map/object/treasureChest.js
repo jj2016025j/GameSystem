@@ -19,3 +19,20 @@ class TreasureChest extends MapObject {
     }
   }
   
+// **寶箱 (TreasureChest)** - 可開啟獲取物品
+class TreasureChest extends MapObject {
+  constructor({ id, name, description, quantity = 1, contents = [] }) {
+      super({ id, name, description, quantity });
+      this.contents = contents; // 寶箱內的物品
+      this.isOpened = false; // 是否已開啟
+  }
+
+  open() {
+      if (this.isOpened) {
+          console.log(`${this.name} 已經被打開過了，裡面沒有東西了。`);
+      } else {
+          this.isOpened = true;
+          console.log(`打開 ${this.name}，獲得物品:`, this.contents);
+      }
+  }
+}
