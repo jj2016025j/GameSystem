@@ -41,7 +41,7 @@ input{
     width: 79%;
 }
 
-.player-info, .backpack, .skills, .chatRoom, .maps, .objects, .creature, .npcs, .shops {
+.player-info, .inventory, .skills, .chatRoom, .maps, .objects, .creature, .npcs, .shops {
     max-width: 100%;
     padding: 20px;
     box-shadow: var(--box_shadow);
@@ -123,7 +123,7 @@ button:hover {
 
 /* 媒体查询 */
 @media (max-width: 768px) {
-    .player-info, .backpack, .skills, .objects, .creature, .npcs, .shops {
+    .player-info, .inventory, .skills, .objects, .creature, .npcs, .shops {
         flex: 0 0 100%;
         max-width: 100%;
     }

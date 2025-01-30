@@ -25,7 +25,7 @@ export class PlayerUI {
       document.querySelector("#player-mana").textContent = `${states.mana}/${states.maxMana}`;
       document.querySelector("#player-exp").textContent = `${states.experience}/${states.maxExperience}`;
       document.querySelector("#player-level").textContent = states.level;
-      document.querySelector("#player-gold").textContent = player.backpack.gold;
+      document.querySelector("#player-gold").textContent = player.inventory.gold;
       document.querySelector("#player-location").textContent = player.location;
       document.querySelector("#player-states").textContent = states.currentState; // 修正為 `currentState`
     } catch (err) {
@@ -39,7 +39,7 @@ export class PlayerUI {
         id: "addGoldButton", // 新增金錢按鈕
         handler: () => {
           const randomGold = Math.floor(Math.random() * 50) + 1; // 隨機增加 1-50 金幣
-          player.backpack.addMoney(randomGold);
+          player.inventory.addMoney(randomGold);
           this.update(player);
           console.log(`增加金錢：${randomGold}`);
         },
@@ -47,8 +47,8 @@ export class PlayerUI {
         id: "removeGoldButton", // 消耗金錢按鈕
         handler: () => {
           const randomGold = Math.floor(Math.random() * 30) + 1; // 隨機消耗 1-30 金幣
-          if (player.backpack.checkMoney(randomGold)) { // 修改方法名稱
-            player.backpack.removeMoney(randomGold);
+          if (player.inventory.checkMoney(randomGold)) { // 修改方法名稱
+            player.inventory.removeMoney(randomGold);
             this.update(player);
             console.log(`消耗金錢：${randomGold}`);
           } else {

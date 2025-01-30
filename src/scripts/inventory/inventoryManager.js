@@ -1,9 +1,9 @@
-export class BackpackManager {
-    constructor(player, backpack = []) {
+export class InventoryManager {
+    constructor(player, inventory = []) {
         this.player = player;
-        this.gold = backpack.gold || 0;
+        this.gold = inventory.gold || 0;
         this.items = new Map(
-            backpack.items.map((item) => [item.id, { ...item, quantity: item.quantity }])
+            inventory.items.map((item) => [item.id, { ...item, quantity: item.quantity }])
         );
     }
 
@@ -64,12 +64,12 @@ export class BackpackManager {
         return Array.from(this.items.values());
     }
 
-    transferItemsTo(targetBackpack, inputItems) {
+    transferItemsTo(targetInventory, inputItems) {
         const transferredItems = [];
         this.processItems(inputItems, (item, quantity) => {
             if (item && item.quantity >= quantity) {
                 this.removeItems([{ id: item.id, quantity }]);
-                targetBackpack.addItems([{ id: item.id, quantity }]);
+                targetInventory.addItems([{ id: item.id, quantity }]);
                 transferredItems.push(item.name);
             } else {
                 console.log(`⚠️ 無法轉移 ${item ? item.name : "未知物品"}，數量不足`);

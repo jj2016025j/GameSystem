@@ -2,7 +2,7 @@
 class Shop {
     constructor(name) {
         this.name = name;
-        this.backpack = new Backpack(this);
+        this.inventory = new Inventory(this);
     }
 
     buyItems(seller, inputItems, priceMap) {
@@ -10,21 +10,21 @@ class Shop {
             ? inputItems
             : Object.entries(inputItems).map(([name, quantity]) => ({ name, quantity }));
 
-        const totalPrice = this.backpack.calculateTotalPrice(itemsToBuy, priceMap);
-        if (!this.backpack.hasMoney(totalPrice)) {
+        const totalPrice = this.inventory.calculateTotalPrice(itemsToBuy, priceMap);
+        if (!this.inventory.hasMoney(totalPrice)) {
             console.log("購買失敗：金額不足。");
             return false;
         }
 
-        const allAvailable = itemsToBuy.every(({ name, quantity }) => seller.backpack.hasItem(name, quantity));
+        const allAvailable = itemsToBuy.every(({ name, quantity }) => seller.inventory.hasItem(name, quantity));
         if (!allAvailable) {
             console.log("購買失敗：賣家物品不足。");
             return false;
         }
 
-        this.backpack.transferItems(seller.backpack, this.backpack, itemsToBuy);
-        this.backpack.gold -= totalPrice;
-        seller.backpack.gold += totalPrice;
+        this.inventory.transferItems(seller.inventory, this.inventory, itemsToBuy);
+        this.inventory.gold -= totalPrice;
+        seller.inventory.gold += totalPrice;
 
         console.log(`${this.name} 成功購買物品。`);
         return true;
@@ -35,21 +35,21 @@ class Shop {
             ? inputItems
             : Object.entries(inputItems).map(([name, quantity]) => ({ name, quantity }));
 
-        const totalPrice = this.backpack.calculateTotalPrice(itemsToSell, priceMap);
-        if (!buyer.backpack.hasMoney(totalPrice)) {
+        const totalPrice = this.inventory.calculateTotalPrice(itemsToSell, priceMap);
+        if (!buyer.inventory.hasMoney(totalPrice)) {
             console.log("出售失敗：買家金額不足。");
             return false;
         }
 
-        const allAvailable = itemsToSell.every(({ name, quantity }) => this.backpack.hasItem(name, quantity));
+        const allAvailable = itemsToSell.every(({ name, quantity }) => this.inventory.hasItem(name, quantity));
         if (!allAvailable) {
             console.log("出售失敗：商店物品不足。");
             return false;
         }
 
-        this.backpack.transferItems(this.backpack, buyer.backpack, itemsToSell);
-        this.backpack.gold += totalPrice;
-        buyer.backpack.gold -= totalPrice;
+        this.inventory.transferItems(this.inventory, buyer.inventory, itemsToSell);
+        this.inventory.gold += totalPrice;
+        buyer.inventory.gold -= totalPrice;
 
         console.log(`${this.name} 成功出售物品。`);
         return true;
@@ -80,7 +80,7 @@ class Shop {
   
       if (buyer.gold >= item.price) {
         buyer.gold -= item.price;
-        buyer.backpack.addItem(item);
+        buyer.inventory.addItem(item);
         console.log(`${buyer.name} 購買了 ${item.name}`);
         return true;
       } else {

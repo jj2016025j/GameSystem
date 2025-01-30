@@ -214,5 +214,5 @@ class ObjectInteraction {
     // ... other methods
   }
   
-  // (Backpack, Skills, Status, ChatSystem, Player ... remain the same)
-  // 假设你的 Backpack 类定义已经存在
+  // (Inventory, Skills, Status, ChatSystem, Player ... remain the same)
+  // 假设你的 Inventory 类定义已经存在

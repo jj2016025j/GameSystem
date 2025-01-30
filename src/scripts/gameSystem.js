@@ -1,12 +1,12 @@
 import { CookieManager } from "./utils/cookieManager.js";
 import { Player } from "./player/player.js";
-// import { BackpackSystem } from "./backpack/backpackSystem.js";
+// import { InventorySystem } from "./inventory/inventorySystem.js";
 import { UIManager } from "./uiManager.js";
 
 export class GameSystem {
   constructor() {
     this.player = new Player(this); // 玩家資料
-    // this.backpackSystem = new BackpackSystem(this.player); // 背包系統
+    // this.inventorySystem = new InventorySystem(this.player); // 背包系統
   }
 
   // 初始化遊戲

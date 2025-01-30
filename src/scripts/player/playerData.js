@@ -5,7 +5,7 @@ import { States } from "./state/states.js";
 export const defaultPlayerData = {
   name: "芙莉蓮",
   states: initializePlayerStates(),
-  backpack: initializePlayerBackpack(),
+  inventory: initializePlayerInventory(),
   skillList: initializePlayerSkills(),
   location: "古林", // 初始化位置
 };
@@ -24,7 +24,7 @@ function initializePlayerStates() {
 }
 
 // 初始化玩家背包
-function initializePlayerBackpack() {
+function initializePlayerInventory() {
   return {
     items: [
       { id: "Sword", name: "劍", quantity: 2 },

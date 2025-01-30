@@ -24,7 +24,7 @@ class NPC {
 
         if (buyer.gold >= item.price) {
             buyer.gold -= item.price;
-            buyer.backpack.addItem(item);
+            buyer.inventory.addItem(item);
             console.log(`${this.name} 賣出 ${item.name} 給 ${buyer.name}`);
             return true;
         } else {

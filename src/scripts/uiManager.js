@@ -2,7 +2,7 @@
 
 import { PlayerUI } from "./player/playerUI.js";
 import { SkillUI } from "./skill/skillUI.js";
-import { BackpackUI } from "./backpack/backpackUI.js";
+import { InventoryUI } from "./inventory/inventoryUI.js";
 import { ShopUI } from "./shop/shopUI.js";
 import { MapUI } from "./map/mapUI.js";
 import { NPCUI } from "./map/npcUI.js";
@@ -19,7 +19,7 @@ export class UIManager {
     try {
       PlayerUI.initialize(gameSystem.player);
       SkillUI.initialize(this.getSkillList(gameSystem));
-      BackpackUI.initialize(gameSystem.player.backpack);
+      InventoryUI.initialize(gameSystem.player.inventory);
 
       if (gameSystem.mapData) {
         this.initializeMapRelatedUI(gameSystem.mapData);
@@ -38,7 +38,7 @@ export class UIManager {
     try {
       PlayerUI.update(gameSystem.player);
       SkillUI.update(this.getSkillList(gameSystem));
-      BackpackUI.update(gameSystem.player.backpack);
+      InventoryUI.update(gameSystem.player.inventory);
 
       if (gameSystem.mapData) {
         this.updateMapRelatedUI(gameSystem.mapData);
