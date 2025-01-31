@@ -1,7 +1,7 @@
-import { CookieManager } from "/src/scripts/utils/cookieManager.js";
-import { Player } from "/src/scripts/player/player.js";
+import { CookieManager } from "./utils/cookieManager.js";
+import { Player } from "./entity/creature/player/player.js";
 // import { InventorySystem } from "./inventory/inventorySystem.js";
-import { UIManager } from "/src/scripts/uiManager.js";
+// import { UIManager } from "./uiManager.js";
 
 export class GameSystem {
   constructor() {
@@ -12,7 +12,7 @@ export class GameSystem {
   // 初始化遊戲
   initializeGame() {
     // this.loadGameFromCookie();
-    UIManager.initialize(this); // 初始化 UI
+    // UIManager.initialize(this); // 初始化 UI
     
     // // 定期保存遊戲進度
     // setInterval(() => this.saveGameToCookie(), 10000);

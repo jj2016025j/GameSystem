@@ -3,9 +3,9 @@
 import { PlayerUI } from "./player/playerUI.js";
 import { SkillUI } from "./skill/skillUI.js";
 import { InventoryUI } from "./inventory/inventoryUI.js";
-import { ShopUI } from "./shop/shopUI.js";
-import { MapUI } from "./map/mapUI.js";
-import { NPCUI } from "./map/npcUI.js";
+// import { ShopUI } from "./shop/shopUI.js";
+// import { MapUI } from "./map/mapUI.js";
+// import { NPCUI } from "./map/npcUI.js";
 
 export class UIManager {
   static initialize(gameSystem) {
@@ -41,7 +41,7 @@ export class UIManager {
       InventoryUI.update(gameSystem.player.inventory);
 
       if (gameSystem.mapData) {
-        this.updateMapRelatedUI(gameSystem.mapData);
+        // this.updateMapRelatedUI(gameSystem.mapData);
       }
     } catch (error) {
       console.error("更新 UI 時出錯：", error);
@@ -62,17 +62,17 @@ export class UIManager {
     return Array.from(gameSystem.player.skillManager.unlockedSkills.values());
   }
 
-  // 初始化與地圖相關的 UI
-  static initializeMapRelatedUI(mapData) {
-    MapUI.initialize(mapData);
-    NPCUI.initialize(mapData.NPC || []);
-    ShopUI.initialize(mapData.shops || []);
-  }
+  // // 初始化與地圖相關的 UI
+  // static initializeMapRelatedUI(mapData) {
+  //   MapUI.initialize(mapData);
+  //   NPCUI.initialize(mapData.NPC || []);
+  //   ShopUI.initialize(mapData.shops || []);
+  // }
 
-  // 更新與地圖相關的 UI
-  static updateMapRelatedUI(mapData) {
-    MapUI.update(mapData);
-    NPCUI.update(mapData.NPC || []);
-    ShopUI.update(mapData.shops || []);
-  }
+  // // 更新與地圖相關的 UI
+  // static updateMapRelatedUI(mapData) {
+  //   MapUI.update(mapData);
+  //   NPCUI.update(mapData.NPC || []);
+  //   ShopUI.update(mapData.shops || []);
+  // }
 }

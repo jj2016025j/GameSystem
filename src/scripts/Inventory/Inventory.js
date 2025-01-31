@@ -1,7 +1,7 @@
 export class InventoryManager {
-    constructor(player, inventory = []) {
+    constructor(player, gold = 0, inventory = []) {
         this.player = player;
-        this.gold = inventory.gold || 0;
+        this.gold = gold || 0;
         this.items = new Map(
             inventory.items.map((item) => [item.id, { ...item, quantity: item.quantity }])
         );

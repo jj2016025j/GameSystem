@@ -1,7 +1,6 @@
 class NPC {
     constructor({ id, name, dialogue = [], itemsForSale = [] }) {
-        this.id = id;
-        this.name = name;
+        super({ id, name });
         this.dialogue = dialogue;
         this.itemsForSale = itemsForSale; // 商品列表
     }

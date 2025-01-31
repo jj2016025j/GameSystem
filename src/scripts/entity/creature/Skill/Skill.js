@@ -1,6 +1,6 @@
 import { skillsData } from "./skillsData.js";
 
-export class SkillManager {
+export class Skill {
     constructor(player, skillList = []) {
         this.player = player; // 關聯玩家實例
         this.availableSkills = skillsData; // 所有可用技能的列表
