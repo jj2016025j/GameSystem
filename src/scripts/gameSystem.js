@@ -1,7 +1,7 @@
-import { CookieManager } from "./utils/cookieManager.js";
-import { Player } from "./player/player.js";
+import { CookieManager } from "/src/scripts/utils/cookieManager.js";
+import { Player } from "/src/scripts/player/player.js";
 // import { InventorySystem } from "./inventory/inventorySystem.js";
-import { UIManager } from "./uiManager.js";
+import { UIManager } from "/src/scripts/uiManager.js";
 
 export class GameSystem {
   constructor() {

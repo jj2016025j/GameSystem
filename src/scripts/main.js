@@ -1,4 +1,4 @@
-import { GameSystem } from "./gameSystem.js";
+import { GameSystem } from "/src/scripts/gameSystem.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Main開始初始化");
