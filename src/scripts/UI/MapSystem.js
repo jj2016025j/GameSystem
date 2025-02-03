@@ -1,6 +1,8 @@
+import { SystemLog } from "../utils/SystemLog.js";
+
 export class MapSystem {
     static updateMapUI(location) {
-        console.log(`🌍 目前位置: ${location.name}`);
+        SystemLog.addMessage(`🌍 目前位置: ${location.name}`);
     }
 
     static initializeMap(mapManager, currentLocation) {

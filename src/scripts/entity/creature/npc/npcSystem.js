@@ -7,7 +7,7 @@
 //       npcs,
 //       npc =>
 //         DOMUtils.createListItem(npc.name, [
-//           DOMUtils.createButton("打招呼", () => console.log(`與 ${npc.name} 交談`), "greet-btn")
+//           DOMUtils.createButton("打招呼", () => SystemLog.addMessage(`與 ${npc.name} 交談`), "greet-btn")
 //         ])
 //     );
 //   }

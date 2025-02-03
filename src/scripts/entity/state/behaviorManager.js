@@ -1,3 +1,5 @@
+import { SystemLog } from "../../utils/SystemLog.js";
+
 export class BehaviorManager {
     constructor(player, eventManager) {
         this.player = player;
@@ -11,14 +13,14 @@ export class BehaviorManager {
             this.player.location = newLocation;
             this.events.emit("move", { player: this.player, oldLocation, newLocation });
         } else {
-            console.log(`⚠️ ${this.player.name} 已經在 ${newLocation}`);
+            SystemLog.addMessage(`⚠️ ${this.player.name} 已經在 ${newLocation}`);
         }
     }
 
     // ✅ 死亡
     death() {
         if (this.player.states.state === "DEAD") {
-            console.log(`⚠️ ${this.player.name} 已經是死亡狀態`);
+            SystemLog.addMessage(`⚠️ ${this.player.name} 已經是死亡狀態`);
             return;
         }
         this.player.states.state = "DEAD";
@@ -31,7 +33,7 @@ export class BehaviorManager {
         if (skill) {
             this.events.emit("skillUsed", { skill, target });
         } else {
-            console.log(`⚠️ ${this.player.name} 無法使用技能 ${skillId}`);
+            SystemLog.addMessage(`⚠️ ${this.player.name} 無法使用技能 ${skillId}`);
         }
     }
 
@@ -39,27 +41,27 @@ export class BehaviorManager {
     learnSkill(skillId) {
         const success = this.player.skillManager.learnSkill(skillId);
         if (success) {
-            console.log(`🎉 ${this.player.name} 解鎖新技能：${skillId}`);
+            SystemLog.addMessage(`🎉 ${this.player.name} 解鎖新技能：${skillId}`);
         } else {
-            console.log(`⚠️ ${this.player.name} 已經擁有技能 ${skillId}`);
+            SystemLog.addMessage(`⚠️ ${this.player.name} 已經擁有技能 ${skillId}`);
         }
     }
 
     // ✅ 基礎攻擊
     attack(target) {
         if (!target || target.states.state === "DEAD") {
-            console.log(`⚠️ ${this.player.name} 無法攻擊無效目標`);
+            SystemLog.addMessage(`⚠️ ${this.player.name} 無法攻擊無效目標`);
             return;
         }
 
         const damage = this.calculateDamage();
-        console.log(`⚔️ ${this.player.name} 攻擊 ${target.name}，造成 ${damage} 傷害`);
+        SystemLog.addMessage(`⚔️ ${this.player.name} 攻擊 ${target.name}，造成 ${damage} 傷害`);
         target.states.takeDamage(damage);
 
         this.events.emit("attack", { player: this.player, target, damage });
 
         if (target.states.state === "DEAD") {
-            console.log(`💀 ${target.name} 被 ${this.player.name} 擊敗`);
+            SystemLog.addMessage(`💀 ${target.name} 被 ${this.player.name} 擊敗`);
             this.events.emit("enemyDefeated", { player: this.player, target });
         }
     }

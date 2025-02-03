@@ -1,20 +1,25 @@
 import { CookieManager } from "./utils/cookieManager.js";
 import { Player } from "./entity/creature/player/player.js";
+import { ItemManager } from "./Inventory/ItemManager.js";
+import { SkillManager } from "./entity/creature/Skill/SkillManager.js";
 import { MapManager } from "./map/MapManager.js";
 import { NPCManager } from "./entity/creature/NPC/NPCManager.js";
 // import { ShopManager } from "./shop/ShopManager.js";
 // import { CreatureManager } from "./entity/creature/CreatureManager.js";
 import { ObjectManager } from "./entity/Object/ObjectManager.js";
 import { UIManager } from "./UI/UIManager.js";
+import { SystemLog } from "./utils/SystemLog.js";
 
 export class GameSystem {
   constructor() {
-    this.player = new Player(this); // 玩家資料
+    this.itemManager = new ItemManager();
+    this.skillManager = new SkillManager();
     this.mapManager = new MapManager(); // 玩家資料
     this.npcManager = new NPCManager();
     // this.shopManager = new ShopManager();
     // this.creatureManager = new CreatureManager();
     this.objectManager = new ObjectManager();
+    this.player = new Player(this); // 玩家資料
     this.currentLocation = this.player.location || "forest"; // 設定當前位置
     this.initializeGame();
   }
@@ -22,7 +27,7 @@ export class GameSystem {
   // 初始化遊戲
   initializeGame() {
     // this.loadGameFromCookie();
-    console.log("[系統] 初始化中...");
+    SystemLog.addMessage("[系統] 初始化中...");
     UIManager.initialize(this); // 初始化 UI
     
     // // 定期保存遊戲進度
@@ -41,7 +46,7 @@ export class GameSystem {
     }
 
     this.currentLocation = mapRegion.id; // ✅ 確保 `currentLocation` 是 ID
-    console.log(`🔄 切換到地點: ${mapRegion.name}`);
+    SystemLog.addMessage(`🔄 切換到地點: ${mapRegion.name}`);
     
     UIManager.updateAllUI(this); // ✅ 更新 UI
   }
@@ -53,7 +58,7 @@ export class GameSystem {
       time: new Date().toISOString(),
     };
     CookieManager.setCookie("gameData", JSON.stringify(gameData));
-    console.log("遊戲進度已保存到 Cookie。");
+    SystemLog.addMessage("遊戲進度已保存到 Cookie。");
   }
 
   // 從 Cookie 加載遊戲進度
@@ -62,9 +67,9 @@ export class GameSystem {
     if (savedData) {
       const parsedData = JSON.parse(savedData);
       this.player = Object.assign(new Player(), parsedData.player);
-      console.log("遊戲進度從 Cookie 加載成功。");
+      SystemLog.addMessage("遊戲進度從 Cookie 加載成功。");
     } else {
-      console.log("未找到存檔，使用默認遊戲數據初始化。");
+      SystemLog.addMessage("未找到存檔，使用默認遊戲數據初始化。");
     }
   }
 }

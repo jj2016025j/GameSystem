@@ -1,88 +1,57 @@
+import { SystemLog } from "../utils/SystemLog.js";
+
 export class Inventory {
-    constructor({ gold = 0, items = [] } = {}) {
-        this.gold = typeof gold === "number" ? gold : 0; // ✅ 確保 gold 為數字
+    constructor(gameManager, { items = [], gold = 0 }) {
+        this.gameManager = gameManager;
+        this.gold = typeof gold === "number" ? gold : 0;
+        this.items = new Map();
 
-        // ✅ 確保 items 不管是 Map、物件還是陣列，都能正確轉換
-        if (items instanceof Map) {
-            this.items = new Map(items);
-        } else if (Array.isArray(items)) {
-            this.items = new Map(items.map((item) => [item.id, { ...item, quantity: item.quantity }]));
-        } else if (typeof items === "object") {
-            this.items = new Map(Object.entries(items));
-        } else {
-            this.items = new Map();
-        }
-    }
-
-    getItemById(itemId) {
-        return this.items.get(itemId) || null;
-    }
-
-    getItemByName(itemName) {
-        for (const item of this.items.values()) {
-            if (item.name === itemName) return item;
-        }
-        return null;
-    }
-
-    processItems(inputItems, callback) {
-        const items = Array.isArray(inputItems)
-            ? inputItems
-            : Object.entries(inputItems).map(([id, quantity]) => ({ id, quantity }));
-        items.forEach((item) => callback(this.getItemById(item.id), item.quantity));
+        items.forEach(({ id, quantity }) => {
+            if (this.gameManager.itemManager.getItemById(id)) {
+                this.items.set(id, { id, quantity }); // ✅ 只存 ID 和數量
+            } else {
+                SystemLog.addMessage(`⚠️ 找不到物品 ID: ${id}`);
+            }
+        });
     }
 
     addItems(inputItems) {
-        this.processItems(inputItems, (item, quantity) => {
-            if (item) {
-                item.quantity += quantity;
-            } else {
-                console.log(`⚠️ 無法添加未知物品`);
+        inputItems.forEach(({ id, quantity }) => {
+            if (!this.gameManager.itemManager.getItemById(id)) {
+                SystemLog.addMessage(`⚠️ 無法添加未知物品 ID: ${id}`);
+                return;
             }
+            if (!this.items.has(id)) {
+                this.items.set(id, { id, quantity });
+            } else {
+                this.items.get(id).quantity += quantity;
+            }
+            SystemLog.addMessage(`✅ 添加物品: ${id} x${quantity}`);
         });
     }
 
     removeItems(inputItems) {
-        this.processItems(inputItems, (item, quantity) => {
+        inputItems.forEach(({ id, quantity }) => {
+            const item = this.items.get(id);
             if (item && item.quantity >= quantity) {
                 item.quantity -= quantity;
-                if (item.quantity === 0) this.items.delete(item.id);
+                if (item.quantity === 0) this.items.delete(id);
+                SystemLog.addMessage(`✅ 移除物品: ${id} x${quantity}`);
             } else {
-                console.log(`⚠️ ${item ? item.name : "未知物品"} 數量不足`);
+                SystemLog.addMessage(`⚠️ ${id} 數量不足`);
             }
         });
     }
 
-    decreaseDurability(itemId, amount) {
-        const item = this.getItemById(itemId);
-        if (item && item.attributes.durability) {
-            item.attributes.durability = Math.max(0, item.attributes.durability - amount);
-            if (item.attributes.durability === 0) {
-                console.log(`⚠️ ${item.name} 耐久度耗盡，已損壞`);
-            }
-        }
+    listAllItemIds() {
+        return Array.from(this.items.keys()); // ✅ 只回傳 ID
     }
 
     filterItemsByType(type) {
-        return Array.from(this.items.values()).filter((item) => item.type === type);
-    }
-
-    listAllItems() {
-        return Array.from(this.items.values());
-    }
-
-    transferItemsTo(targetInventory, inputItems) {
-        const transferredItems = [];
-        this.processItems(inputItems, (item, quantity) => {
-            if (item && item.quantity >= quantity) {
-                this.removeItems([{ id: item.id, quantity }]);
-                targetInventory.addItems([{ id: item.id, quantity }]);
-                transferredItems.push(item.name);
-            } else {
-                console.log(`⚠️ 無法轉移 ${item ? item.name : "未知物品"}，數量不足`);
-            }
+        return this.listAllItemIds().filter(id => {
+            const item = this.gameManager.itemManager.getItemById(id);
+            return item && item.type === type;
         });
-        return transferredItems;
     }
 
     addMoney(amount) {
@@ -93,7 +62,7 @@ export class Inventory {
         if (this.gold >= amount) {
             this.gold -= amount;
         } else {
-            console.log("⚠️ 金幣不足");
+            SystemLog.addMessage("⚠️ 金幣不足");
         }
     }
 
@@ -101,10 +70,12 @@ export class Inventory {
         return this.gold >= amount;
     }
 
-    // 返回可序列化的數據
     getSerializableData() {
         return {
-            items: Array.from(this.items.values()), // ✅ Map 轉換成陣列
+            items: this.listAllItemIds().map(id => ({
+                id,
+                quantity: this.items.get(id).quantity
+            })),
             gold: this.gold,
         };
     }

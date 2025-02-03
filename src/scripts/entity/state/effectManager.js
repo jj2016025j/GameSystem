@@ -1,5 +1,6 @@
 import { AttributeHandler } from "./attributeHandler.js";
 import { AvailableEffects } from "./availableEffects.js";
+import { SystemLog } from "../../utils/SystemLog.js";
 
 class EffectManager {
     constructor(state, activeEffects = []) {
@@ -15,16 +16,16 @@ class EffectManager {
     addEffect(effectId) {
         const effect = this.availableEffects.find(e => e.id === effectId);
         if (!effect) {
-            console.log(`⚠️ 效果 ${effectId} 無效`);
+            SystemLog.addMessage(`⚠️ 效果 ${effectId} 無效`);
             return;
         }
 
         if (this.activeEffects.has(effect.id)) {
             this.activeEffects.get(effect.id).remainingTime = effect.duration; // 🔄 重置持續時間
-            console.log(`🔄 效果 ${effect.name} 持續時間已重置`);
+            SystemLog.addMessage(`🔄 效果 ${effect.name} 持續時間已重置`);
         } else {
             this.activeEffects.set(effect.id, { ...effect, remainingTime: effect.duration });
-            console.log(`✅ 添加效果: ${effect.name}`);
+            SystemLog.addMessage(`✅ 添加效果: ${effect.name}`);
         }
 
         this.state.updateCombatStats(); // ✅ 確保影響戰鬥屬性
@@ -33,18 +34,18 @@ class EffectManager {
     // 🔹 移除效果
     removeEffect(effectId) {
         if (this.activeEffects.has(effectId)) {
-            console.log(`❌ 移除效果: ${this.activeEffects.get(effectId).name}`);
+            SystemLog.addMessage(`❌ 移除效果: ${this.activeEffects.get(effectId).name}`);
             this.activeEffects.delete(effectId);
             this.state.updateCombatStats(); // ✅ 確保屬性更新
         } else {
-            console.log(`⚠️ 效果 ${effectId} 不存在`);
+            SystemLog.addMessage(`⚠️ 效果 ${effectId} 不存在`);
         }
     }
 
     // ✅ 新增方法：清空所有效果（死亡時使用）
     removeAllEffects() {
         this.activeEffects.clear();
-        console.log("🛑 所有效果已移除");
+        SystemLog.addMessage("🛑 所有效果已移除");
         this.state.updateCombatStats(); // ✅ 確保戰鬥狀態重置
     }
 
@@ -71,7 +72,7 @@ class EffectManager {
                 if (AttributeHandler.handlers[key]) {
                     AttributeHandler.handlers[key](value, this.state);
                 } else {
-                    console.log(`⚠️ 未定義的屬性影響: ${key}`);
+                    SystemLog.addMessage(`⚠️ 未定義的屬性影響: ${key}`);
                 }
             });
         }

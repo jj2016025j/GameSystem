@@ -1,4 +1,5 @@
 import { EffectManager } from "./state/effectManager.js";
+import { SystemLog } from "../utils/SystemLog.js";
 
 export class EntityState {
     constructor(entity, stateConfig = {}) {
@@ -39,7 +40,7 @@ export class EntityState {
     takeDamage(amount) {
         if (!this.alive) return;
         this.health = Math.max(0, this.health - amount);
-        console.log(`${this.entity.name} 受到 ${amount} 點傷害`);
+        SystemLog.addMessage(`${this.entity.name} 受到 ${amount} 點傷害`);
 
         if (this.health === 0) this.death();
     }
@@ -48,7 +49,7 @@ export class EntityState {
     death() {
         this.alive = false;
         this.effectManager.removeAllEffects();
-        console.log(`${this.entity.name} 已死亡`);
+        SystemLog.addMessage(`${this.entity.name} 已死亡`);
     }
 
     // 🔹 復活
@@ -57,7 +58,7 @@ export class EntityState {
             this.alive = true;
             this.health = Math.floor(this.maxHealth * 0.5);
             this.mana = Math.floor(this.maxMana * 0.3);
-            console.log(`${this.entity.name} 已復活`);
+            SystemLog.addMessage(`${this.entity.name} 已復活`);
         }
     }
 

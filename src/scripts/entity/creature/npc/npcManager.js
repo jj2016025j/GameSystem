@@ -1,6 +1,7 @@
 // src\scripts\entity\creature\NPC\NPCManager.js
 import { NPC } from "./NPC.js";
 import { npcData } from "./npcData.js"; // 🔹 先導入預設的 NPC 數據
+import { SystemLog } from "../../../utils/SystemLog.js";
 
 class NPCManager {
     constructor(customNpcs = []) {
@@ -12,7 +13,7 @@ class NPCManager {
             combinedNpcs.map(npc => [npc.id, new NPC(npc)])
         );
 
-        console.log(`[NPC] 初始化完成，共 ${this.npcs.size} 位 NPC`);
+        SystemLog.addMessage(`[NPC] 初始化完成，共 ${this.npcs.size} 位 NPC`);
     }
 
     // 🔹 根據 ID 獲取 NPC

@@ -28,8 +28,8 @@ function getDefaultPlayerState() {
 function getDefaultPlayerInventory() {
   return {
     items: [
-      { id: "Sword", name: "劍", quantity: 2 },
-      { id: "Shield", name: "盾", quantity: 1 },
+      { id: "Sword", quantity: 2 },
+      { id: "ElvenBow", quantity: 1 },
     ],
     gold: 100,
   };
@@ -37,8 +37,5 @@ function getDefaultPlayerInventory() {
 
 // ✅ 初始化玩家技能
 function getDefaultPlayerSkills() {
-  return new Map([
-    ["Fireball", { id: "Fireball", level: 1, cooldown: 5, manaCost: 10, effects: { damage: 20 } }],
-    ["Heal", { id: "Heal", level: 1, cooldown: 3, manaCost: 5, effects: { heal: 15 } }],
-  ]); 
+  return ["Fireball", "Heal"];
 }

@@ -1,4 +1,5 @@
 import { BaseEntity } from "../../BaseEntity.js";
+import { SystemLog } from "../../../utils/SystemLog.js";
 
 class NPC extends BaseEntity {
     constructor({ id, name, dialogue = [], itemsForSale = [] }) {
@@ -11,9 +12,9 @@ class NPC extends BaseEntity {
     speak() {
         if (this.dialogue.length > 0) {
             const randomDialogue = this.dialogue[Math.floor(Math.random() * this.dialogue.length)];
-            console.log(`${this.name}: "${randomDialogue}"`);
+            SystemLog.addMessage(`${this.name}: "${randomDialogue}"`);
         } else {
-            console.log(`${this.name} 沒有話要說`);
+            SystemLog.addMessage(`${this.name} 沒有話要說`);
         }
     }
 
@@ -21,17 +22,17 @@ class NPC extends BaseEntity {
     sellItem(itemId, buyer) {
         const item = this.itemsForSale.get(itemId);
         if (!item) {
-            console.log(`${this.name} 沒有出售此物品`);
+            SystemLog.addMessage(`${this.name} 沒有出售此物品`);
             return false;
         }
 
         if (buyer.gold >= item.price) {
             buyer.gold -= item.price;
             buyer.inventory.addItem(item);
-            console.log(`${this.name} 賣出 ${item.name} 給 ${buyer.name}`);
+            SystemLog.addMessage(`${this.name} 賣出 ${item.name} 給 ${buyer.name}`);
             return true;
         } else {
-            console.log(`${buyer.name} 金幣不足`);
+            SystemLog.addMessage(`${buyer.name} 金幣不足`);
             return false;
         }
     }

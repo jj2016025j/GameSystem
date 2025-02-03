@@ -1,12 +1,12 @@
 import { EntityState } from "../BaseEntity/EntityState.js";
 
 const entityState = new EntityState()
-console.log(entityState)
+SystemLog.addMessage(entityState)
 
 import { BaseEntity } from "../BaseEntity/BaseEntity.js";
 
 const entity = new BaseEntity({ id: "id", name: "name" })
-console.log(entity)
+SystemLog.addMessage(entity)
 
 
 
@@ -16,7 +16,7 @@ console.log(entity)
 // import { Player } from "../player/player.js";
 // const gameSystem = new GameSystem()
 // const player = new Player(gameSystem, { name: "芙莉蓮", location: "冒險者公會" });
-// console.log(JSON.stringify(player));
+// SystemLog.addMessage(JSON.stringify(player));
 // // 移動
 // player.moveTo("魔法森林");
 
@@ -30,10 +30,10 @@ console.log(entity)
 // player.update(1.0);
 
 // // 查看玩家數據
-// // console.log(player.getPlayerData());
+// // SystemLog.addMessage(player.getPlayerData());
 // const playerStates = player.states
 // const effectManager = playerStates.effectManager
-// // console.log(effectManager.activeEffects)
+// // SystemLog.addMessage(effectManager.activeEffects)
 // // 玩家獲得一個中毒效果
 // effectManager.addEffect("PoisonEffect");
 

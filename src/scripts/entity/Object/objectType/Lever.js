@@ -1,4 +1,5 @@
 import { GameObject } from "../GameObject.js";
+import { SystemLog } from "../../../utils/SystemLog.js";
 
 export class Lever extends GameObject {
   constructor(props) {
@@ -8,6 +9,6 @@ export class Lever extends GameObject {
 
   interact() {
     this.isActivated = !this.isActivated;
-    console.log(`🔄 ${this.name} ${this.isActivated ? "被啟動了！" : "被關閉了！"}`);
+    SystemLog.addMessage(`🔄 ${this.name} ${this.isActivated ? "被啟動了！" : "被關閉了！"}`);
   }
 }

@@ -1,4 +1,5 @@
 import { CreatureState } from "./creatureState.js";
+import { SystemLog } from "../../../utils/SystemLog.js";
 
 export class Monster {
     constructor(monsterData = {}) {
@@ -11,10 +12,10 @@ export class Monster {
 
     attack(target) {
         if (!target.state.alive) {
-            console.log(`${target.name} 已死亡，無法攻擊`);
+            SystemLog.addMessage(`${target.name} 已死亡，無法攻擊`);
             return;
         }
-        console.log(`${this.name} 攻擊 ${target.name}`);
+        SystemLog.addMessage(`${this.name} 攻擊 ${target.name}`);
         target.state.takeDamage(this.state.attackPower);
     }
 }

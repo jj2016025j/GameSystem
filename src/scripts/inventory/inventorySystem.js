@@ -1,4 +1,5 @@
 import { DOMUtils } from "../utils/domUtils.js";
+import { SystemLog } from "./utils/SystemLog.js";
 
 // 背包系統模組
 export class InventorySystem {
@@ -17,16 +18,16 @@ export class InventorySystem {
   addItemToInventory(name, quantity) {
     this.player.inventory.addItems({ [name]: quantity });
     this.updateInventoryList();
-    console.log(`Added ${quantity}x ${name} to inventory.`);
+    SystemLog.addMessage(`Added ${quantity}x ${name} to inventory.`);
   }
 
   removeItemFromInventory(name, quantity) {
     if (this.player.inventory.hasItem(name, quantity)) {
       this.player.inventory.removeItems({ [name]: quantity });
       this.updateInventoryList();
-      console.log(`Removed ${quantity}x ${name} from inventory.`);
+      SystemLog.addMessage(`Removed ${quantity}x ${name} from inventory.`);
     } else {
-      console.log(`Not enough ${name} in inventory to remove.`);
+      SystemLog.addMessage(`Not enough ${name} in inventory to remove.`);
     }
   }
 }

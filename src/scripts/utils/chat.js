@@ -76,7 +76,7 @@ function sendMessageToServer(message) {
     // 这里假设 sendMessage() 是一个发送消息到服务器的函数
     sendMessage(message).then(message => {
     // 消息成功发送到服务器后的操作
-    console.log(message);
+    SystemLog.addMessage(message);
     });
 }
 
@@ -155,11 +155,11 @@ class ChatSystem {
     }
   
     send(message) {
-      console.log(message)
+      SystemLog.addMessage(message)
     }
   
     send(sender, message) {
-      console.log(`${sender.name}: ${message}`);
+      SystemLog.addMessage(`${sender.name}: ${message}`);
       // 实际的聊天系统会有复杂的逻辑来发送消息到服务器或者直接到其他玩家
     }
     // ... 其他聊天相關方法

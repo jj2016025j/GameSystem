@@ -1,3 +1,5 @@
+import { SystemLog } from "../utils/SystemLog.js";
+
 export class ShopUI {
   static initialize() {
     const shopList = document.querySelector("#shopsList");
@@ -9,17 +11,17 @@ export class ShopUI {
 
       const buyButton = document.createElement("button");
       buyButton.textContent = "購買";
-      buyButton.addEventListener("click", () => console.log(`向 ${shop.name} 購買物品`));
+      buyButton.addEventListener("click", () => SystemLog.addMessage(`向 ${shop.name} 購買物品`));
 
       const sellButton = document.createElement("button");
       sellButton.textContent = "出售";
-      sellButton.addEventListener("click", () => console.log(`向 ${shop.name} 出售物品`));
+      sellButton.addEventListener("click", () => SystemLog.addMessage(`向 ${shop.name} 出售物品`));
 
       li.appendChild(buyButton);
       li.appendChild(sellButton);
       shopList.appendChild(li);
     });
-    console.log("商店 UI 已初始化");
+    SystemLog.addMessage("商店 UI 已初始化");
   }
 
   static update(shops) {
@@ -32,11 +34,11 @@ export class ShopUI {
 
       const buyButton = document.createElement("button");
       buyButton.textContent = "購買";
-      buyButton.addEventListener("click", () => console.log(`向 ${shop.name} 購買物品`));
+      buyButton.addEventListener("click", () => SystemLog.addMessage(`向 ${shop.name} 購買物品`));
 
       const sellButton = document.createElement("button");
       sellButton.textContent = "出售";
-      sellButton.addEventListener("click", () => console.log(`向 ${shop.name} 出售物品`));
+      sellButton.addEventListener("click", () => SystemLog.addMessage(`向 ${shop.name} 出售物品`));
 
       li.appendChild(buyButton);
       li.appendChild(sellButton);

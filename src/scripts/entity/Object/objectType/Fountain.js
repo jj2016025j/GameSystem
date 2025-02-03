@@ -1,5 +1,6 @@
 // **噴泉 (Fountain)** - 可恢復體力
 import { GameObject } from "../GameObject.js";
+import { SystemLog } from "../../../utils/SystemLog.js";
 
 export class Fountain extends GameObject {
   constructor(props) {
@@ -8,6 +9,6 @@ export class Fountain extends GameObject {
   }
 
   interact() {
-    console.log(`⛲ ${this.name} 的水讓你恢復了 ${this.restoreAmount} 點體力！`);
+    SystemLog.addMessage(`⛲ ${this.name} 的水讓你恢復了 ${this.restoreAmount} 點體力！`);
   }
 }

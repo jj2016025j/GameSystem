@@ -1,17 +1,19 @@
+import { SystemLog } from "../utils/SystemLog.js";
+
 export class NPCUI {
   static initialize(gameSystem) {
-    console.log("[NPC UI] 開始初始化");
+    SystemLog.addMessage("[NPC UI] 開始初始化");
     this.gameSystem = gameSystem; 
     this.mapManager = gameSystem.mapManager; 
     this.npcs = this.mapManager.getNPCsInLocation(this.gameSystem.currentLocation, this.gameSystem.npcManager); 
     this.render();
-    console.log("[NPC UI] 已初始化 ✅");
+    SystemLog.addMessage("[NPC UI] 已初始化 ✅");
   }
 
   static update() {
     this.npcs = this.mapManager.getNPCsInLocation(this.gameSystem.currentLocation, this.gameSystem.npcManager); 
     this.render();
-    console.log(`[NPC UI] 更新 ${this.npcs.length} 位 NPC`);
+    SystemLog.addMessage(`[NPC UI] 更新 ${this.npcs.length} 位 NPC`);
   }
 
   static render() {
@@ -52,9 +54,9 @@ export class NPCUI {
 
     if (npc.dialogue && npc.dialogue.length > 0) {
       const randomDialogue = npc.dialogue[Math.floor(Math.random() * npc.dialogue.length)];
-      console.log(`🗣️ ${npc.name}: "${randomDialogue}"`);
+      SystemLog.addMessage(`🗣️ ${npc.name}: "${randomDialogue}"`);
     } else {
-      console.log(`🗣️ ${npc.name} 沒有話要說`);
+      SystemLog.addMessage(`🗣️ ${npc.name} 沒有話要說`);
     }
   }
 }

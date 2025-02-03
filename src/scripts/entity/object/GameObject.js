@@ -1,3 +1,5 @@
+import { SystemLog } from "../../utils/SystemLog.js";
+
 export class GameObject {
   constructor({ id, name, type, description = "", isInteractable = false }) {
       this.id = id;
@@ -9,9 +11,9 @@ export class GameObject {
 
   interact() {
       if (this.isInteractable) {
-          console.log(`🔹 你與 ${this.name} 互動了！`);
+          SystemLog.addMessage(`🔹 你與 ${this.name} 互動了！`);
       } else {
-          console.log(`🔹 ${this.name} 只是個裝飾物。`);
+          SystemLog.addMessage(`🔹 ${this.name} 只是個裝飾物。`);
       }
   }
 }

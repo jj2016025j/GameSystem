@@ -1,6 +1,7 @@
 // **水井 (Well)** - 可補充水分
 
 import { GameObject } from "../GameObject.js";
+import { SystemLog } from "../../../utils/SystemLog.js";
 
 export class Well extends GameObject {
   constructor(props) {
@@ -11,9 +12,9 @@ export class Well extends GameObject {
   interact() {
     if (this.waterAmount > 0) {
       this.waterAmount -= 10;
-      console.log(`💧 你從 ${this.name} 取水，剩餘水量: ${this.waterAmount}`);
+      SystemLog.addMessage(`💧 你從 ${this.name} 取水，剩餘水量: ${this.waterAmount}`);
     } else {
-      console.log(`💧 ${this.name} 的水已經乾涸了！`);
+      SystemLog.addMessage(`💧 ${this.name} 的水已經乾涸了！`);
     }
   }
 }

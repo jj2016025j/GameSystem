@@ -1,3 +1,5 @@
+import { SystemLog } from "../utils/SystemLog.js";
+
 export class MapUI {
   static initialize(gameSystem) {
     this.gameSystem = gameSystem; // ✅ 儲存 gameSystem 以便 switchMap
@@ -5,7 +7,7 @@ export class MapUI {
     this.mapData = this.mapManager.listAllRegions(); // ✅ 儲存 gameSystem 以便 switchMap
     this.currentLocation = gameSystem.currentLocation; // ✅ 儲存 gameSystem 以便 switchMap
     this.update();
-    console.log("[地圖UI] 已初始化 🗺️");
+    SystemLog.addMessage("[地圖UI] 已初始化 🗺️");
   }
 
   static update() {

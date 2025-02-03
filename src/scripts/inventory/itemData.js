@@ -1,4 +1,4 @@
-const items = [
+export const itemsData = [
   {
       id: "Apple",
       type: "Food",

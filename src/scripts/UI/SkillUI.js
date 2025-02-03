@@ -1,11 +1,13 @@
+import { SystemLog } from "../utils/SystemLog.js";
+
 export class SkillUI {
   static initialize(gameSystem) {
-    console.log(`[技能UI] 開始初始化...`);
+    SystemLog.addMessage(`[技能UI] 開始初始化...`);
     this.gameSystem = gameSystem
     this.player = this.gameSystem.player
     const skillList = this.gameSystem.player.getSkillList(gameSystem.player)
     SkillUI.update(skillList);
-    console.log(`[技能UI] 初始化完成，共 ${skillList.length} 個技能 ✅`);
+    SystemLog.addMessage(`[技能UI] 初始化完成，共 ${skillList.length} 個技能 ✅`);
   }
 
   static update() {
@@ -13,6 +15,7 @@ export class SkillUI {
     skillsListElement.innerHTML = ""; // 清空技能列表
 
     const skillList = this.player.getSkillList(this.player)
+
     skillList.forEach(skill => {
       // 創建技能項目容器
       const skillItem = document.createElement("div");
@@ -52,14 +55,14 @@ export class SkillUI {
   }
 
   static useSkill(skill, cooldownDisplay, useButton) {
-    console.log(`使用技能: ${skill.name}`);
+    SystemLog.addMessage(`使用技能: ${skill.name}`);
     if (skill.cooldownRemaining > 0) {
-      console.log(`技能 ${skill.name} 正在冷卻中，剩餘時間：${skill.cooldownRemaining} 秒`);
+      SystemLog.addMessage(`技能 ${skill.name} 正在冷卻中，剩餘時間：${skill.cooldownRemaining} 秒`);
       return;
     }
 
     // 處理技能使用
-    console.log(`技能 ${skill.name} 使用成功！`);
+    SystemLog.addMessage(`技能 ${skill.name} 使用成功！`);
     skill.cooldownRemaining = skill.cooldown || 5; // 假設技能有 5 秒冷卻
 
     // 更新按鈕狀態和冷卻時間顯示

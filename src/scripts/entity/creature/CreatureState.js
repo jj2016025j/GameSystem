@@ -1,4 +1,5 @@
 import { EntityState } from "../EntityState.js";
+import { SystemLog } from "../../utils/SystemLog.js";
 
 export class CreatureState extends EntityState {
     constructor(entity, stateConfig = {}) {
@@ -52,7 +53,7 @@ export class CreatureState extends EntityState {
         this.maxExperience = Math.floor(this.maxExperience * 1.2);
         this.health = this.maxHealth;
         this.mana = this.maxMana;
-        console.log(`${this.entity.name} 升級到等級 ${this.level}`);
+        SystemLog.addMessage(`${this.entity.name} 升級到等級 ${this.level}`);
     }
 
     // 🔹 受傷（計算防禦力）

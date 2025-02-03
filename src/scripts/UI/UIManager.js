@@ -1,5 +1,6 @@
 // UIManager.js
 
+import { SystemLog } from "../utils/SystemLog.js";
 import { PlayerUI } from "./PlayerUI.js";
 import { SkillUI } from "./SkillUI.js";
 import { InventoryUI } from "./InventoryUI.js";
@@ -9,7 +10,7 @@ import { NPCUI } from "./NPCUI.js";
 
 export class UIManager {
   static initialize(gameSystem) {
-    console.log("[系統] UI 開始初始化");
+    SystemLog.addMessage("[系統] UI 開始初始化");
 
     if (!this.validateGameSystem(gameSystem)) return;
 
@@ -24,7 +25,7 @@ export class UIManager {
       } catch (error) {
       console.error("初始化 UI 時出錯：", error);
     }    
-    console.log("[系統] UI 初始化完成 ✅");
+    SystemLog.addMessage("[系統] UI 初始化完成 ✅");
   }
 
   static updateAllUI(gameSystem) {

@@ -5,6 +5,7 @@ import { BehaviorManager } from "../../state/BehaviorManager.js";
 import { Creature } from "../Creature.js";
 import { CreatureState } from "../CreatureState.js";
 import { Inventory } from "../../../Inventory/Inventory.js";
+import { SystemLog } from "../../../utils/SystemLog.js";
 
 /**
  * 玩家類別
@@ -14,65 +15,55 @@ export class Player extends Creature {
     constructor(gameManager, initPlayerData = {}) {
         const playerData = { ...defaultPlayerData, ...initPlayerData };
 
-        // ✅ 先呼叫 super()，確保 state & inventory 正確初始化
         super({
             id: playerData.id || "fake_id",
             name: playerData.name,
-            state: playerData.state, // ✅ 修正傳遞 state
-            inventory: playerData.inventory instanceof Inventory
-                ? playerData.inventory // ✅ 若已經是 Inventory，直接使用
-                : new Inventory(playerData.inventory), // ✅ 否則重新建立
+            state: playerData.state,
+            inventory: new Inventory(gameManager, playerData.inventory),
         });
-        console.log(defaultPlayerData);
-        console.log(initPlayerData);
-        console.log(playerData);
 
-        this.gameManager = gameManager; // ✅ `super()` 之後再賦值
+        this.gameManager = gameManager;
+        this.skillList = new Set(playerData.skillList); // ✅ 只存技能 ID
 
-        // ✅ 使用 Skill
-        this.state = new CreatureState(this, this.state); // ✅ 使用 CreatureState
-        this.skillList = new Skill(this, playerData.skillList);
-
-        // ✅ 初始化事件管理
         this.events = new EventManager();
         this.behavior = new BehaviorManager(this, this.events);
 
-        // ✅ 初始化事件監聽
         this.initializeEvents();
     }
 
-    // ✅ 修正事件監聽
     initializeEvents() {
         this.events.on("death", () => {
-            console.log(`💀 [死亡] ${this.name} 已死亡`);
+            SystemLog.addMessage(`💀 [死亡] ${this.name} 已死亡`);
         });
 
         this.events.on("move", ({ oldLocation, newLocation }) => {
-            console.log(`🚶 [移動] ${this.name} 從 ${oldLocation} 移動到 ${newLocation}`);
+            SystemLog.addMessage(`🚶 [移動] ${this.name} 從 ${oldLocation} 移動到 ${newLocation}`);
         });
 
-        this.events.on("skillUsed", ({ skill, target }) => {
-            const targetName = target?.name ?? "未知目標";
-            console.log(`✨ [技能] ${this.name} 使用 ${skill.name} 對 ${targetName}`);
+        this.events.on("skillUsed", ({ skillId, target }) => {
+            const skill = this.gameManager.skillManager.getSkillById(skillId);
+            if (skill) {
+                SystemLog.addMessage(`✨ [技能] ${this.name} 使用 ${skill.name} 對 ${target?.name || "未知目標"}`);
+            } else {
+                SystemLog.addMessage(`⚠️ 技能 ID ${skillId} 不存在`);
+            }
         });
     }
 
-    getSkillList(player) {
-        return Array.from(player.skillList.unlockedSkills.values());
+    getSkillList() {
+        return Array.from(this.skillList); // ✅ 只回傳技能 ID
     }
 
-    // ✅ 取得玩家存檔資料
     getPlayerData() {
         return {
             name: this.name,
             id: this.id,
-            state: this.state.getSerializableData(), // ✅ 確保與存檔格式一致
+            state: this.state.getSerializableData(),
             inventory: this.inventory.getSerializableData(),
-            skillList: this.skillList.getSerializableData(),
+            skillList: this.getSkillList(),
         };
     }
 
-    // ✅ 確保存檔 JSON 正確
     toJSON() {
         try {
             return this.getPlayerData();
