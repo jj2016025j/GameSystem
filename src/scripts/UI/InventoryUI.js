@@ -1,15 +1,16 @@
 export class InventoryUI {
   // 初始化背包 UI
-  static initialize(inventory) {
+  static initialize(gameSystem) {
     console.log("[背包UI] 開始初始化");
+    this.inventory = gameSystem.player.inventory
 
     // 綁定按鈕事件
     InventoryUI.bindButtonEvents();
     
     // 初始渲染背包
-    InventoryUI.update(inventory);
+    InventoryUI.update(this.inventory);
 
-    console.log("[背包UI] 初始化完成 ✅");
+    console.log(`[背包UI] 初始化完成，共 ${this.inventory.items.size} 件物品 ✅`);
   }
 
   // 綁定按鈕事件
@@ -21,11 +22,11 @@ export class InventoryUI {
   }
 
   // 更新背包內容到 UI
-  static update(inventory) {
+  static update() {
     const inventoryList = document.querySelector("#inventoryList");
     inventoryList.innerHTML = ""; // 清空舊的背包內容
 
-    Array.from(inventory.items.values()).forEach(item => {
+    Array.from(this.inventory.items.values()).forEach(item => {
       const li = InventoryUI.createItemElement(item);
       inventoryList.appendChild(li);
     });

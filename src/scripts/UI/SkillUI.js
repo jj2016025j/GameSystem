@@ -1,14 +1,18 @@
 export class SkillUI {
-  static initialize(skillList) {
-    console.log("[技能UI] 開始初始化");
+  static initialize(gameSystem) {
+    console.log(`[技能UI] 開始初始化...`);
+    this.gameSystem = gameSystem
+    this.player = this.gameSystem.player
+    const skillList = this.gameSystem.player.getSkillList(gameSystem.player)
     SkillUI.update(skillList);
-    console.log("[技能UI] 初始化完成 ✅");
+    console.log(`[技能UI] 初始化完成，共 ${skillList.length} 個技能 ✅`);
   }
 
-  static update(skillList) {
+  static update() {
     const skillsListElement = document.querySelector("#skillsList");
     skillsListElement.innerHTML = ""; // 清空技能列表
 
+    const skillList = this.player.getSkillList(this.player)
     skillList.forEach(skill => {
       // 創建技能項目容器
       const skillItem = document.createElement("div");

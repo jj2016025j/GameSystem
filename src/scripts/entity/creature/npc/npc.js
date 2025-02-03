@@ -1,8 +1,8 @@
-import { Entity } from "../../Entity.js";
+import { BaseEntity } from "../../BaseEntity.js";
 
-class NPC extends Entity {
+class NPC extends BaseEntity {
     constructor({ id, name, dialogue = [], itemsForSale = [] }) {
-        super({ id, name }); // ✅ 繼承 Entity
+        super({ id, name }); // ✅ 繼承 BaseEntity
         this.dialogue = dialogue;
         this.itemsForSale = new Map(itemsForSale.map(item => [item.id, item])); // ✅ 優化為 Map 方便查找
     }

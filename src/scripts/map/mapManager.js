@@ -8,15 +8,21 @@ export class MapManager {
 
     // ✅ 使用 new Map() 而不是 new MapRegion()
     this.mapRegions = new Map(
-        combinedMapData.map(region => [region.id, new MapRegion(region)])
+      combinedMapData.map(region => [region.id, new MapRegion(region)])
     );
   }
 
   getMapRegionById(id) {
-      return this.mapRegions.get(id) || null;
+    return this.mapRegions.get(id) || null;
   }
 
   listAllRegions() {
-      return Array.from(this.mapRegions.values());
+    return [...this.mapRegions.values()]; // 確保回傳陣列
+  }
+
+  // ✅ 提取獲取當前地圖 NPC 的邏輯
+  getNPCsInLocation(currentLocation, npcManager) {
+    const currentMap = this.getMapRegionById(currentLocation);
+    return currentMap ? currentMap.listNPCs(npcManager) : [];
   }
 }

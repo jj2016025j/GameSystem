@@ -1,11 +1,11 @@
-import { EntityState } from "../Entity/EntityState.js";
+import { EntityState } from "../BaseEntity/EntityState.js";
 
 const entityState = new EntityState()
 console.log(entityState)
 
-import { Entity } from "../Entity/Entity.js";
+import { BaseEntity } from "../BaseEntity/BaseEntity.js";
 
-const entity = new Entity({ id: "id", name: "name" })
+const entity = new BaseEntity({ id: "id", name: "name" })
 console.log(entity)
 
 

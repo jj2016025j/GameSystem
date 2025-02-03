@@ -1,3 +1,4 @@
+// src\scripts\entity\creature\NPC\npcData.js
 
 // NPC 數據
 export const npcData = [

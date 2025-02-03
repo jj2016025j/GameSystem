@@ -4,7 +4,7 @@ import { MapManager } from "./map/MapManager.js";
 import { NPCManager } from "./entity/creature/NPC/NPCManager.js";
 // import { ShopManager } from "./shop/ShopManager.js";
 // import { CreatureManager } from "./entity/creature/CreatureManager.js";
-// import { ObjectManager } from "./entity/object/ObjectManager.js";
+import { ObjectManager } from "./entity/Object/ObjectManager.js";
 import { UIManager } from "./UI/UIManager.js";
 
 export class GameSystem {
@@ -14,7 +14,7 @@ export class GameSystem {
     this.npcManager = new NPCManager();
     // this.shopManager = new ShopManager();
     // this.creatureManager = new CreatureManager();
-    // this.objectManager = new ObjectManager();
+    this.objectManager = new ObjectManager();
     this.currentLocation = this.player.location || "forest"; // 設定當前位置
     this.initializeGame();
   }

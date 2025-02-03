@@ -1,10 +1,17 @@
 export class Inventory {
-    constructor(player, gold = 0, items = []) {
-        this.player = player;
-        this.gold = gold || 0;
-        this.items = new Map(
-            items.map((item) => [item.id, { ...item, quantity: item.quantity }])
-        );
+    constructor({ gold = 0, items = [] } = {}) {
+        this.gold = typeof gold === "number" ? gold : 0; // ✅ 確保 gold 為數字
+
+        // ✅ 確保 items 不管是 Map、物件還是陣列，都能正確轉換
+        if (items instanceof Map) {
+            this.items = new Map(items);
+        } else if (Array.isArray(items)) {
+            this.items = new Map(items.map((item) => [item.id, { ...item, quantity: item.quantity }]));
+        } else if (typeof items === "object") {
+            this.items = new Map(Object.entries(items));
+        } else {
+            this.items = new Map();
+        }
     }
 
     getItemById(itemId) {
@@ -97,13 +104,8 @@ export class Inventory {
     // 返回可序列化的數據
     getSerializableData() {
         return {
-            items: Array.from(this.items.values()).map(item => ({
-                id: item.id,
-                name: item.name,
-                quantity: item.quantity,
-                attributes: item.attributes,
-            })),
+            items: Array.from(this.items.values()), // ✅ Map 轉換成陣列
             gold: this.gold,
         };
-    }    
+    }
 }

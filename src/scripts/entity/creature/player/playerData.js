@@ -5,7 +5,7 @@ export const defaultPlayerData = {
   state: getDefaultPlayerState(),
   inventory: getDefaultPlayerInventory(),
   skillList: getDefaultPlayerSkills(),
-  location: "古林", // ✅ 初始地點
+  location: "forest", // ✅ 初始地點
 };
 
 // ✅ 初始化玩家狀態
@@ -27,10 +27,10 @@ function getDefaultPlayerState() {
 // ✅ 初始化玩家背包
 function getDefaultPlayerInventory() {
   return {
-    items: new Map([
-      ["Sword", { id: "Sword", quantity: 2 }],
-      ["Shield", { id: "Shield", quantity: 1 }],
-    ]), 
+    items: [
+      { id: "Sword", name: "劍", quantity: 2 },
+      { id: "Shield", name: "盾", quantity: 1 },
+    ],
     gold: 100,
   };
 }

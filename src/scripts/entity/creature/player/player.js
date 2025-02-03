@@ -4,6 +4,7 @@ import { EventManager } from "../../../utils/eventManager.js";
 import { BehaviorManager } from "../../state/BehaviorManager.js";
 import { Creature } from "../Creature.js";
 import { CreatureState } from "../CreatureState.js";
+import { Inventory } from "../../../Inventory/Inventory.js";
 
 /**
  * 玩家類別
@@ -18,8 +19,13 @@ export class Player extends Creature {
             id: playerData.id || "fake_id",
             name: playerData.name,
             state: playerData.state, // ✅ 修正傳遞 state
-            inventory: playerData.inventory,
+            inventory: playerData.inventory instanceof Inventory
+                ? playerData.inventory // ✅ 若已經是 Inventory，直接使用
+                : new Inventory(playerData.inventory), // ✅ 否則重新建立
         });
+        console.log(defaultPlayerData);
+        console.log(initPlayerData);
+        console.log(playerData);
 
         this.gameManager = gameManager; // ✅ `super()` 之後再賦值
 
@@ -49,6 +55,10 @@ export class Player extends Creature {
             const targetName = target?.name ?? "未知目標";
             console.log(`✨ [技能] ${this.name} 使用 ${skill.name} 對 ${targetName}`);
         });
+    }
+
+    getSkillList(player) {
+        return Array.from(player.skillList.unlockedSkills.values());
     }
 
     // ✅ 取得玩家存檔資料

@@ -1,4 +1,4 @@
-// uiManager.js
+// UIManager.js
 
 import { PlayerUI } from "./PlayerUI.js";
 import { SkillUI } from "./SkillUI.js";
@@ -11,20 +11,15 @@ export class UIManager {
   static initialize(gameSystem) {
     console.log("[系統] UI 開始初始化");
 
-    if (!this.validateGameSystem(gameSystem)) {
-      return;
-    }
+    if (!this.validateGameSystem(gameSystem)) return;
 
-    // 初始化各種 UI 模塊
+    this.gameSystem = gameSystem; // ✅ 儲存 gameSystem
     try {
-      PlayerUI.initialize(gameSystem.player);
-      SkillUI.initialize(this.getSkillList(gameSystem.player));
-      InventoryUI.initialize(gameSystem.player.inventory);
-
+      PlayerUI.initialize(gameSystem);
+      SkillUI.initialize(gameSystem);
+      InventoryUI.initialize(gameSystem);
       MapUI.initialize(gameSystem);
-      const currentMap = gameSystem.mapManager.getMapRegionById(gameSystem.currentLocation);
-      const npcsInLocation = currentMap ? currentMap.listNPCs(gameSystem.npcManager) : [];
-      NPCUI.initialize(npcsInLocation);
+      NPCUI.initialize(gameSystem);
       // ShopUI.initialize(mapData.shops);
       } catch (error) {
       console.error("初始化 UI 時出錯：", error);
@@ -38,16 +33,12 @@ export class UIManager {
     }
 
     try {
-      PlayerUI.update(gameSystem.player);
-      SkillUI.update(this.getSkillList(gameSystem.player));
-      InventoryUI.update(gameSystem.player.inventory);
-
-      MapUI.update(gameSystem);
-      
+      PlayerUI.update();
+      SkillUI.update();
+      InventoryUI.update();
+      MapUI.update();
       // ✅ 獲取當前地圖的 NPC 並更新 UI
-      const currentMap = gameSystem.mapManager.getMapRegionById(gameSystem.currentLocation);
-      const npcsInLocation = currentMap ? currentMap.listNPCs(gameSystem.npcManager) : [];
-      NPCUI.update(npcsInLocation);
+      NPCUI.update();
 
     } catch (error) {
       console.error("更新 UI 時出錯：", error);
@@ -61,10 +52,5 @@ export class UIManager {
       return false;
     }
     return true;
-  }
-
-  // 獲取技能列表
-  static getSkillList(player) {
-    return Array.from(player.skillList.unlockedSkills.values());
   }
 }

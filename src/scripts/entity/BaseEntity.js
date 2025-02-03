@@ -4,7 +4,7 @@ import { EntityState } from "./EntityState.js";
  * 生命體基礎類別
  * - 玩家 (Player)、NPC、Creature (生物) 繼承此類別
  */
-export class Entity {
+export class BaseEntity {
     constructor({ id = "unknown", name = "未知", state = {} }) {
         this.id = id;
         this.name = name;
