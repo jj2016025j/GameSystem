@@ -5,29 +5,28 @@ export class PlayerUI {
       return;
     }
 
-    console.log("開始初始化玩家 UI");
+    console.log("[玩家UI] 開始初始化");
     this.update(player);
     this.addEventListeners(player);
-    console.log("玩家 UI 已初始化");
+    console.log("[玩家UI] 初始化完成 ✅");
   }
 
   static update(player) {
-    const { states } = player;
+    const { state } = player;
 
-    if (!states) {
+    if (!state) {
       console.error("玩家狀態不存在，無法更新 UI");
       return;
     }
 
     try {
       document.querySelector("#player-name").textContent = player.name;
-      document.querySelector("#player-health").textContent = `${states.health}/${states.maxHealth}`;
-      document.querySelector("#player-mana").textContent = `${states.mana}/${states.maxMana}`;
-      document.querySelector("#player-exp").textContent = `${states.experience}/${states.maxExperience}`;
-      document.querySelector("#player-level").textContent = states.level;
+      document.querySelector("#player-health").textContent = `${state.health}/${state.maxHealth}`;
+      document.querySelector("#player-mana").textContent = `${state.mana}/${state.maxMana}`;
+      document.querySelector("#player-exp").textContent = `${state.experience}/${state.maxExperience}`;
+      document.querySelector("#player-level").textContent = state.level;
       document.querySelector("#player-gold").textContent = player.inventory.gold;
-      document.querySelector("#player-location").textContent = player.location;
-      document.querySelector("#player-states").textContent = states.currentState; // 修正為 `currentState`
+      document.querySelector("#player-states").textContent = state.currentState; // 修正為 `currentState`
     } catch (err) {
       console.error("更新玩家 UI 時出錯:", err);
     }
@@ -43,7 +42,7 @@ export class PlayerUI {
           this.update(player);
           console.log(`增加金錢：${randomGold}`);
         },
-      },{
+      }, {
         id: "removeGoldButton", // 消耗金錢按鈕
         handler: () => {
           const randomGold = Math.floor(Math.random() * 30) + 1; // 隨機消耗 1-30 金幣
@@ -55,15 +54,15 @@ export class PlayerUI {
             console.log(`金幣不足，無法消耗 ${randomGold}`);
           }
         },
-      },      
+      },
       {
         id: "randomHealthButton",
         handler: () => {
           const randomHealthChange = Math.floor(Math.random() * 20) - 10;
           if (randomHealthChange > 0) {
-            player.states.healing(randomHealthChange);
+            player.state.healing(randomHealthChange);
           } else {
-            player.states.takeDamage(-randomHealthChange);
+            player.state.takeDamage(-randomHealthChange);
           }
           this.update(player);
           console.log(`血量隨機變動：${randomHealthChange}`);
@@ -73,7 +72,7 @@ export class PlayerUI {
         id: "randomManaButton",
         handler: () => {
           const randomManaChange = Math.floor(Math.random() * 20) - 10;
-          player.states.mana = Math.max(0, Math.min(player.states.maxMana, player.states.mana + randomManaChange));
+          player.state.mana = Math.max(0, Math.min(player.state.maxMana, player.state.mana + randomManaChange));
           this.update(player);
           console.log(`魔力隨機變動：${randomManaChange}`);
         },
@@ -82,7 +81,7 @@ export class PlayerUI {
         id: "randomExpButton",
         handler: () => {
           const randomExp = Math.floor(Math.random() * 50);
-          player.states.gainExperience(randomExp);
+          player.state.gainExperience(randomExp);
           this.update(player);
           console.log(`經驗值隨機增加：${randomExp}`);
         },
@@ -90,17 +89,9 @@ export class PlayerUI {
       {
         id: "levelUpButton",
         handler: () => {
-          player.states.levelUp();
+          player.state.levelUp();
           this.update(player);
           console.log("升級成功");
-        },
-      },
-      {
-        id: "resetLevelButton",
-        handler: () => {
-          player.states.resetLevel();
-          this.update(player);
-          console.log("重置到一等");
         },
       },
       {
@@ -116,7 +107,7 @@ export class PlayerUI {
       {
         id: "poisonButton",
         handler: () => {
-          player.states.addEffect("PoisonEffect");
+          player.state.addEffect("PoisonEffect");
           this.update(player);
           console.log("中毒效果已添加");
         },
@@ -124,7 +115,7 @@ export class PlayerUI {
       {
         id: "cleanseButton",
         handler: () => {
-          player.states.removeEffect("PoisonEffect");
+          player.state.removeEffect("PoisonEffect");
           this.update(player);
           console.log("中毒效果已移除");
         },

@@ -1,8 +1,8 @@
 export class SkillUI {
   static initialize(skillList) {
-    console.log("開始初始化技能 UI");
+    console.log("[技能UI] 開始初始化");
     SkillUI.update(skillList);
-    console.log("初始化技能 UI 完成");
+    console.log("[技能UI] 初始化完成 ✅");
   }
 
   static update(skillList) {

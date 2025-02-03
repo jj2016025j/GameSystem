@@ -1,24 +1,49 @@
 import { CookieManager } from "./utils/cookieManager.js";
 import { Player } from "./entity/creature/player/player.js";
-// import { InventorySystem } from "./inventory/inventorySystem.js";
-// import { UIManager } from "./uiManager.js";
+import { MapManager } from "./map/MapManager.js";
+import { NPCManager } from "./entity/creature/NPC/NPCManager.js";
+// import { ShopManager } from "./shop/ShopManager.js";
+// import { CreatureManager } from "./entity/creature/CreatureManager.js";
+// import { ObjectManager } from "./entity/object/ObjectManager.js";
+import { UIManager } from "./UI/UIManager.js";
 
 export class GameSystem {
   constructor() {
     this.player = new Player(this); // 玩家資料
-    // this.inventorySystem = new InventorySystem(this.player); // 背包系統
+    this.mapManager = new MapManager(); // 玩家資料
+    this.npcManager = new NPCManager();
+    // this.shopManager = new ShopManager();
+    // this.creatureManager = new CreatureManager();
+    // this.objectManager = new ObjectManager();
+    this.currentLocation = this.player.location || "forest"; // 設定當前位置
+    this.initializeGame();
   }
 
   // 初始化遊戲
   initializeGame() {
     // this.loadGameFromCookie();
-    // UIManager.initialize(this); // 初始化 UI
+    console.log("[系統] 初始化中...");
+    UIManager.initialize(this); // 初始化 UI
     
     // // 定期保存遊戲進度
     // setInterval(() => this.saveGameToCookie(), 10000);
 
     // // 頁面關閉時保存遊戲進度
     // window.addEventListener("beforeunload", () => this.saveGameToCookie());
+  }
+
+  // 切換地圖
+  switchMap(newLocation) {
+    const mapRegion = this.mapManager.getMapRegionById(newLocation);
+    if (!mapRegion) {
+      console.warn(`⚠️ 地點 ${newLocation} 不存在`);
+      return;
+    }
+
+    this.currentLocation = mapRegion.id; // ✅ 確保 `currentLocation` 是 ID
+    console.log(`🔄 切換到地點: ${mapRegion.name}`);
+    
+    UIManager.updateAllUI(this); // ✅ 更新 UI
   }
 
   // 保存遊戲進度到 Cookie

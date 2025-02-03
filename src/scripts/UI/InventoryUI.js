@@ -1,7 +1,7 @@
 export class InventoryUI {
   // 初始化背包 UI
   static initialize(inventory) {
-    console.log("開始初始化背包 UI");
+    console.log("[背包UI] 開始初始化");
 
     // 綁定按鈕事件
     InventoryUI.bindButtonEvents();
@@ -9,7 +9,7 @@ export class InventoryUI {
     // 初始渲染背包
     InventoryUI.update(inventory);
 
-    console.log("初始化背包 UI 完成");
+    console.log("[背包UI] 初始化完成 ✅");
   }
 
   // 綁定按鈕事件
@@ -29,8 +29,6 @@ export class InventoryUI {
       const li = InventoryUI.createItemElement(item);
       inventoryList.appendChild(li);
     });
-
-    console.log("背包 UI 更新完成");
   }
 
   // 創建單個物品元素

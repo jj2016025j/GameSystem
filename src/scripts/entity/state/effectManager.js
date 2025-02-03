@@ -2,8 +2,8 @@ import { AttributeHandler } from "./attributeHandler.js";
 import { AvailableEffects } from "./availableEffects.js";
 
 class EffectManager {
-    constructor(states, activeEffects = []) {
-        this.states = states; // 玩家狀態
+    constructor(state, activeEffects = []) {
+        this.state = state; // 玩家狀態
         this.availableEffects = AvailableEffects; // 可用的效果列表
         // 將陣列轉換為 Map（`effectId` 作為鍵）
         this.activeEffects = new Map(
@@ -27,7 +27,7 @@ class EffectManager {
             console.log(`✅ 添加效果: ${effect.name}`);
         }
 
-        this.states.updateCombatStats(); // ✅ 確保影響戰鬥屬性
+        this.state.updateCombatStats(); // ✅ 確保影響戰鬥屬性
     }
 
     // 🔹 移除效果
@@ -35,7 +35,7 @@ class EffectManager {
         if (this.activeEffects.has(effectId)) {
             console.log(`❌ 移除效果: ${this.activeEffects.get(effectId).name}`);
             this.activeEffects.delete(effectId);
-            this.states.updateCombatStats(); // ✅ 確保屬性更新
+            this.state.updateCombatStats(); // ✅ 確保屬性更新
         } else {
             console.log(`⚠️ 效果 ${effectId} 不存在`);
         }
@@ -45,7 +45,7 @@ class EffectManager {
     removeAllEffects() {
         this.activeEffects.clear();
         console.log("🛑 所有效果已移除");
-        this.states.updateCombatStats(); // ✅ 確保戰鬥狀態重置
+        this.state.updateCombatStats(); // ✅ 確保戰鬥狀態重置
     }
 
     // 🔹 更新所有效果（每回合/每秒調用）
@@ -61,7 +61,7 @@ class EffectManager {
             }
         });
 
-        // this.states.updateCombatStats(); // ✅ 確保影響戰鬥屬性
+        // this.state.updateCombatStats(); // ✅ 確保影響戰鬥屬性
     }
 
     // 🔹 應用單個效果的影響
@@ -69,7 +69,7 @@ class EffectManager {
         if (effect.impact) {
             Object.entries(effect.impact).forEach(([key, value]) => {
                 if (AttributeHandler.handlers[key]) {
-                    AttributeHandler.handlers[key](value, this.states);
+                    AttributeHandler.handlers[key](value, this.state);
                 } else {
                     console.log(`⚠️ 未定義的屬性影響: ${key}`);
                 }

@@ -1,34 +1,41 @@
 import { defaultPlayerData } from "./playerData.js";
 import { Skill } from "../Skill/Skill.js";
 import { EventManager } from "../../../utils/eventManager.js";
-import { BehaviorManager } from "../behavior/behaviorManager.js"; // ✅ 確保 BehaviorManager 存在
+import { BehaviorManager } from "../../state/BehaviorManager.js";
 import { Creature } from "../Creature.js";
+import { CreatureState } from "../CreatureState.js";
 
+/**
+ * 玩家類別
+ * - 繼承 Creature
+ */
 export class Player extends Creature {
     constructor(gameManager, initPlayerData = {}) {
-        // ✅ 先調用 super()
         const playerData = { ...defaultPlayerData, ...initPlayerData };
+
+        // ✅ 先呼叫 super()，確保 state & inventory 正確初始化
         super({
             id: playerData.id || "fake_id",
             name: playerData.name,
-            location: playerData.location
+            state: playerData.state, // ✅ 修正傳遞 state
+            inventory: playerData.inventory,
         });
 
         this.gameManager = gameManager; // ✅ `super()` 之後再賦值
 
-        this.skill = new Skill(this, playerData.skillList);
+        // ✅ 使用 Skill
+        this.state = new CreatureState(this, this.state); // ✅ 使用 CreatureState
+        this.skillList = new Skill(this, playerData.skillList);
 
-        // ✅ 事件管理
+        // ✅ 初始化事件管理
         this.events = new EventManager();
-
-        // ✅ 行為管理
         this.behavior = new BehaviorManager(this, this.events);
 
-        // ✅ 初始化事件
+        // ✅ 初始化事件監聽
         this.initializeEvents();
     }
 
-    // ✅ 修正錯誤：事件應該使用 `this` 而非 `player`
+    // ✅ 修正事件監聽
     initializeEvents() {
         this.events.on("death", () => {
             console.log(`💀 [死亡] ${this.name} 已死亡`);
@@ -44,19 +51,18 @@ export class Player extends Creature {
         });
     }
 
-    // ✅ 修正 `getPlayerData()`，使用 `getSerializableData()`
+    // ✅ 取得玩家存檔資料
     getPlayerData() {
         return {
             name: this.name,
             id: this.id,
-            location: this.location,
-            states: this.states.getSerializableData(), // ✅ 確保與存檔格式一致
+            state: this.state.getSerializableData(), // ✅ 確保與存檔格式一致
             inventory: this.inventory.getSerializableData(),
-            skills: this.skill.getSerializableData(),
+            skillList: this.skillList.getSerializableData(),
         };
     }
 
-    // ✅ 確保存檔 JSON 不會丟失關鍵資料
+    // ✅ 確保存檔 JSON 正確
     toJSON() {
         try {
             return this.getPlayerData();

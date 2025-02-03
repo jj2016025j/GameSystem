@@ -8,15 +8,23 @@ import { Inventory } from "../../Inventory/Inventory.js";
  */
 export class Creature extends Entity {
   constructor({ id, name, state = {}, inventory = {} }) {
-    super({ id, name, state }); // ✅ 傳遞 `state` 給 `Entity`
-    this.state = new CreatureState(this, state); // ✅ 重新初始化 `CreatureState`
+    super({ id, name, state }); // ✅ 正確傳遞 state
+    this.state = new CreatureState(this, state); // ✅ 使用 CreatureState
     this.inventory = new Inventory(this, inventory);
   }
 
-  // 獲取生物資訊
+  // ✅ 獲取生物資訊
   getCreatureInfo() {
+    return this.getSerializableData();
+  }
+
+  // ✅ 獲取存檔格式的資料
+  getSerializableData() {
     return {
-      ...this.getInfo(),
+      id: this.id,
+      name: this.name,
+      state: this.state.getSerializableData(),
+      inventory: this.inventory.getSerializableData(),
     };
   }
 }

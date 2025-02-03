@@ -1,10 +1,13 @@
-class NPC {
+import { Entity } from "../../Entity.js";
+
+class NPC extends Entity {
     constructor({ id, name, dialogue = [], itemsForSale = [] }) {
-        super({ id, name });
+        super({ id, name }); // ✅ 繼承 Entity
         this.dialogue = dialogue;
-        this.itemsForSale = itemsForSale; // 商品列表
+        this.itemsForSale = new Map(itemsForSale.map(item => [item.id, item])); // ✅ 優化為 Map 方便查找
     }
 
+    // 🔹 NPC 說話
     speak() {
         if (this.dialogue.length > 0) {
             const randomDialogue = this.dialogue[Math.floor(Math.random() * this.dialogue.length)];
@@ -14,8 +17,9 @@ class NPC {
         }
     }
 
+    // 🔹 NPC 賣東西
     sellItem(itemId, buyer) {
-        const item = this.itemsForSale.find((i) => i.id === itemId);
+        const item = this.itemsForSale.get(itemId);
         if (!item) {
             console.log(`${this.name} 沒有出售此物品`);
             return false;
@@ -30,6 +34,16 @@ class NPC {
             console.log(`${buyer.name} 金幣不足`);
             return false;
         }
+    }
+
+    // 🔹 取得可序列化數據
+    getSerializableData() {
+        return {
+            id: this.id,
+            name: this.name,
+            dialogue: this.dialogue,
+            itemsForSale: Array.from(this.itemsForSale.values()),
+        };
     }
 }
 

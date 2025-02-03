@@ -1,5 +1,5 @@
 // 地圖數據
-export const mapData = [
+export const defaultMapData = [
   {
     id: "forest",
     name: "古林",

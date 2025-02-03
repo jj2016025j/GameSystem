@@ -1,55 +1,44 @@
 // playerData.js - 玩家初始化數據
-import { States } from "./state/states.js";
 
-// 玩家初始化數據
 export const defaultPlayerData = {
   name: "芙莉蓮",
-  states: initializePlayerStates(),
-  inventory: initializePlayerInventory(),
-  skillList: initializePlayerSkills(),
-  location: "古林", // 初始化位置
+  state: getDefaultPlayerState(),
+  inventory: getDefaultPlayerInventory(),
+  skillList: getDefaultPlayerSkills(),
+  location: "古林", // ✅ 初始地點
 };
 
-// 初始化玩家狀態
-function initializePlayerStates() {
+// ✅ 初始化玩家狀態
+function getDefaultPlayerState() {
   return {
     health: 100,
+    maxHealth: 100, 
     mana: 50,
+    maxMana: 50,
     level: 1,
     experience: 0,
-    state: States.ALIVE,
-    attackPower: 10, // 初始攻擊力
-    defensePower: 5, // 初始防禦力
+    maxExperience: 100, 
+    alive: true,
+    attackPower: 10,
+    defensePower: 5,
   };
 }
 
-// 初始化玩家背包
-function initializePlayerInventory() {
+// ✅ 初始化玩家背包
+function getDefaultPlayerInventory() {
   return {
-    items: [
-      { id: "Sword", name: "劍", quantity: 2 },
-      { id: "Shield", name: "盾牌", quantity: 1 },
-    ],
-    gold: 100, // 初始金幣
+    items: new Map([
+      ["Sword", { id: "Sword", quantity: 2 }],
+      ["Shield", { id: "Shield", quantity: 1 }],
+    ]), 
+    gold: 100,
   };
 }
 
-// 初始化玩家技能
-function initializePlayerSkills() {
-  return [
-    {
-      id: "Fireball",
-      name: "火球術",
-      description: "發射火焰球攻擊敵人。",
-      manaCost: 20,
-      cooldown: 5,
-    },
-    {
-      id: "Heal",
-      name: "治療術",
-      description: "回復生命值。",
-      manaCost: 15,
-      cooldown: 3,
-    },
-  ];
+// ✅ 初始化玩家技能
+function getDefaultPlayerSkills() {
+  return new Map([
+    ["Fireball", { id: "Fireball", level: 1, cooldown: 5, manaCost: 10, effects: { damage: 20 } }],
+    ["Heal", { id: "Heal", level: 1, cooldown: 3, manaCost: 5, effects: { heal: 15 } }],
+  ]); 
 }

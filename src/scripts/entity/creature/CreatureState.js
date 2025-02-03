@@ -1,4 +1,4 @@
-import { EntityState } from "./entityState.js";
+import { EntityState } from "../EntityState.js";
 
 export class CreatureState extends EntityState {
     constructor(entity, stateConfig = {}) {
@@ -11,6 +11,26 @@ export class CreatureState extends EntityState {
         this.defensePower = stateConfig.defensePower ?? 5;
         this.maxExperience = stateConfig.maxExperience ?? 100;
         this.maxLevel = stateConfig.maxLevel ?? 100;
+
+        // 🔹 初始化裝備與效果
+        this.equippedItems = {};
+    }
+
+    // 🔹 更新戰鬥屬性
+    updateCombatStats() {
+        let attackBonus = 0;
+        let defenseBonus = 0;
+
+        // 計算裝備加成
+        if (this.equippedItems["Weapon"]) {
+            attackBonus += this.equippedItems["Weapon"].damage ?? 0;
+        }
+        if (this.equippedItems["Armor"]) {
+            defenseBonus += this.equippedItems["Armor"].defense ?? 0;
+        }
+
+        this.attackPower += attackBonus;
+        this.defensePower += defenseBonus;
     }
 
     // 🔹 獲取經驗值
