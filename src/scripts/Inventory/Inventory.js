@@ -43,6 +43,15 @@ export class Inventory {
         });
     }
 
+    // ✅ 確保可以返回所有物品
+    getItems() {
+        return Array.from(this.items.values());
+    }
+
+    getItem(itemId) {
+        return this.items.get(itemId) || null;
+    }
+
     listAllItemIds() {
         return Array.from(this.items.keys()); // ✅ 只回傳 ID
     }

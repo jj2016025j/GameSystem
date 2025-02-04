@@ -5,8 +5,10 @@ import { PlayerUI } from "./PlayerUI.js";
 import { SkillUI } from "./SkillUI.js";
 import { InventoryUI } from "./InventoryUI.js";
 import { MapUI } from "./MapUI.js";
-// import { ShopUI } from "./ShopUI.js";
+import { ShopUI } from "./ShopUI.js";
 import { NPCUI } from "./NPCUI.js";
+import { ObjectUI } from "./ObjectUI.js";
+import { CreatureUI } from "./CreatureUI.js";
 
 export class UIManager {
   static initialize(gameSystem) {
@@ -21,10 +23,12 @@ export class UIManager {
       InventoryUI.initialize(gameSystem);
       MapUI.initialize(gameSystem);
       NPCUI.initialize(gameSystem);
-      // ShopUI.initialize(mapData.shops);
-      } catch (error) {
+      ShopUI.initialize(gameSystem);
+      ObjectUI.initialize(gameSystem);
+      CreatureUI.initialize(gameSystem);
+    } catch (error) {
       console.error("初始化 UI 時出錯：", error);
-    }    
+    }
     SystemLog.addMessage("[系統] UI 初始化完成 ✅");
   }
 
@@ -40,6 +44,8 @@ export class UIManager {
       MapUI.update();
       // ✅ 獲取當前地圖的 NPC 並更新 UI
       NPCUI.update();
+      ShopUI.update();
+      ObjectUI.update();
 
     } catch (error) {
       console.error("更新 UI 時出錯：", error);

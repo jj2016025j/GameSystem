@@ -4,8 +4,8 @@ import { ItemManager } from "./Inventory/ItemManager.js";
 import { SkillManager } from "./entity/creature/Skill/SkillManager.js";
 import { MapManager } from "./map/MapManager.js";
 import { NPCManager } from "./entity/creature/NPC/NPCManager.js";
-// import { ShopManager } from "./shop/ShopManager.js";
-// import { CreatureManager } from "./entity/creature/CreatureManager.js";
+import { ShopManager } from "./shop/ShopManager.js";
+import { CreatureManager } from "./entity/creature/CreatureManager.js";
 import { ObjectManager } from "./entity/Object/ObjectManager.js";
 import { UIManager } from "./UI/UIManager.js";
 import { SystemLog } from "./utils/SystemLog.js";
@@ -16,11 +16,11 @@ export class GameSystem {
     this.skillManager = new SkillManager();
     this.mapManager = new MapManager(); // 玩家資料
     this.npcManager = new NPCManager();
-    // this.shopManager = new ShopManager();
-    // this.creatureManager = new CreatureManager();
+    this.shopManager = new ShopManager(this);
+    this.creatureManager = new CreatureManager();
     this.objectManager = new ObjectManager();
     this.player = new Player(this); // 玩家資料
-    this.currentLocation = this.player.location || "forest"; // 設定當前位置
+    this.currentLocation = this.mapManager.getDefaultRegion();
     this.initializeGame();
   }
 
@@ -38,15 +38,15 @@ export class GameSystem {
   }
 
   // 切換地圖
-  switchMap(newLocation) {
-    const mapRegion = this.mapManager.getMapRegionById(newLocation);
-    if (!mapRegion) {
-      console.warn(`⚠️ 地點 ${newLocation} 不存在`);
+  switchMap(newLocationId) {
+    const newMapRegion = this.mapManager.getMapRegionById(newLocationId);
+    if (!newMapRegion) {
+      console.warn(`⚠️ 地點 ${newLocationId} 不存在`);
       return;
     }
 
-    this.currentLocation = mapRegion.id; // ✅ 確保 `currentLocation` 是 ID
-    SystemLog.addMessage(`🔄 切換到地點: ${mapRegion.name}`);
+    this.currentLocation = newMapRegion; // ✅ 確保 `currentLocation` 是 ID
+    SystemLog.addMessage(`🔄 切換到地點: ${newMapRegion.name}`);
     
     UIManager.updateAllUI(this); // ✅ 更新 UI
   }

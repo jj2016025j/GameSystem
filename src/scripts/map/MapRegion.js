@@ -1,8 +1,8 @@
 export class MapRegion {
   constructor({ id, name, description, npcIds = [], shopIds = [], creatureIds = [], objectIds = [] }) {
-      this.id = id; // 地圖區域 ID
-      this.name = name; // 地圖名稱
-      this.description = description; // 地圖描述
+      this.id = id; 
+      this.name = name; 
+      this.description = description; 
       this.npcIds = npcIds; // 此地圖的 NPC ID 列表
       this.shopIds = shopIds; // 此地圖的商店 ID 列表
       this.creatureIds = creatureIds; // 此地圖的生物 ID 列表
@@ -16,7 +16,9 @@ export class MapRegion {
 
   // 🔹 列出此區域的商店
   listShops(shopManager) {
-      return this.shopIds.map((id) => shopManager.getShopById(id));
+    return this.shopIds
+      .map((id) => shopManager.getShopById(id))
+      .filter(shop => shop !== null); // ✅ 確保回傳有效商店
   }
 
   // 🔹 列出此區域的生物
@@ -26,6 +28,6 @@ export class MapRegion {
 
   // 🔹 列出此區域的物件
   listObjects(objectManager) {
-      return this.objectIds.map((id) => objectManager.getObjectById(id));
+    return this.objectIds.map((id) => objectManager.getObjectById(id)).filter(object => object !== null);
   }
 }

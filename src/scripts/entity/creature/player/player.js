@@ -12,17 +12,18 @@ import { SystemLog } from "../../../utils/SystemLog.js";
  * - 繼承 Creature
  */
 export class Player extends Creature {
-    constructor(gameManager, initPlayerData = {}) {
+    constructor(gameSystem, initPlayerData = {}) {
         const playerData = { ...defaultPlayerData, ...initPlayerData };
 
-        super({
+        super(gameSystem, {
             id: playerData.id || "fake_id",
             name: playerData.name,
             state: playerData.state,
-            inventory: new Inventory(gameManager, playerData.inventory),
+            inventory: playerData.inventory,
         });
 
-        this.gameManager = gameManager;
+        this.inventory = new Inventory(gameSystem, playerData.inventory),
+            this.gameSystem = gameSystem;
         this.skillList = new Set(playerData.skillList); // ✅ 只存技能 ID
 
         this.events = new EventManager();
@@ -41,7 +42,7 @@ export class Player extends Creature {
         });
 
         this.events.on("skillUsed", ({ skillId, target }) => {
-            const skill = this.gameManager.skillManager.getSkillById(skillId);
+            const skill = this.gameSystem.skillManager.getSkillById(skillId);
             if (skill) {
                 SystemLog.addMessage(`✨ [技能] ${this.name} 使用 ${skill.name} 對 ${target?.name || "未知目標"}`);
             } else {

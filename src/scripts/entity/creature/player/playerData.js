@@ -1,6 +1,7 @@
 // playerData.js - 玩家初始化數據
 
 export const defaultPlayerData = {
+  id: 'furilen',
   name: "芙莉蓮",
   state: getDefaultPlayerState(),
   inventory: getDefaultPlayerInventory(),

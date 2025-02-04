@@ -1,48 +1,57 @@
 import { SystemLog } from "../utils/SystemLog.js";
 
 export class ShopUI {
-  static initialize() {
-    const shopList = document.querySelector("#shopsList");
-    shopList.innerHTML = "";
+    static initialize(gameSystem) {
+        SystemLog.addMessage("[商店UI] 開始初始化");
+        this.gameSystem = gameSystem;
+        this.update();
+        SystemLog.addMessage("[商店UI] 已初始化 ✅");
+    }
 
-    shops.forEach(shop => {
-      const li = document.createElement("li");
-      li.textContent = shop.name;
+    // ✅ 更新商店 UI（當玩家移動時自動更新）
+    static update() {
+        const mapRegion = this.gameSystem.currentLocation;
+        if (!mapRegion || typeof mapRegion.listShops !== "function") {
+            console.error("❌ 當前地圖數據異常，無法獲取商店");
+            return;
+        }
 
-      const buyButton = document.createElement("button");
-      buyButton.textContent = "購買";
-      buyButton.addEventListener("click", () => SystemLog.addMessage(`向 ${shop.name} 購買物品`));
+        this.shops = mapRegion.listShops(this.gameSystem.shopManager);
+        this.render();
+        SystemLog.addMessage(`[商店UI] 更新 ${this.shops.length} 間商店`);
+    }
 
-      const sellButton = document.createElement("button");
-      sellButton.textContent = "出售";
-      sellButton.addEventListener("click", () => SystemLog.addMessage(`向 ${shop.name} 出售物品`));
+    // ✅ 渲染商店 UI，直接列出所有商品
+    static render() {
+        const shopList = document.querySelector("#shopsList");
+        if (!shopList) {
+            console.error("❌ 無法找到 #shopsList，請確認 HTML 結構");
+            return;
+        }
 
-      li.appendChild(buyButton);
-      li.appendChild(sellButton);
-      shopList.appendChild(li);
-    });
-    SystemLog.addMessage("商店 UI 已初始化");
-  }
+        shopList.innerHTML = ""; // 清空列表
 
-  static update(shops) {
-    const shopList = document.querySelector("#shopsList");
-    shopList.innerHTML = "";
+        if (!this.shops || this.shops.length === 0) {
+            shopList.innerHTML = "<li>🛒 這個地點沒有商店</li>";
+            return;
+        }
 
-    shops.forEach(shop => {
-      const li = document.createElement("li");
-      li.textContent = shop.name;
+        this.shops.forEach(shop => {
+            const shopContainer = document.createElement("li");
+            shopContainer.textContent = `🏬 ${shop.name}`;
 
-      const buyButton = document.createElement("button");
-      buyButton.textContent = "購買";
-      buyButton.addEventListener("click", () => SystemLog.addMessage(`向 ${shop.name} 購買物品`));
+            const itemList = document.createElement("ul");
+            itemList.classList.add("shop-item-list"); // 添加 class 以便樣式調整
 
-      const sellButton = document.createElement("button");
-      sellButton.textContent = "出售";
-      sellButton.addEventListener("click", () => SystemLog.addMessage(`向 ${shop.name} 出售物品`));
+            // ✅ 取得商店內的物品列表
+            shop.inventory.getItems().forEach(item => {
+                const itemLi = document.createElement("li");
+                itemLi.textContent = `${item.name} - 💰 ${item.price} 金幣`;
+                itemList.appendChild(itemLi);
+            });
 
-      li.appendChild(buyButton);
-      li.appendChild(sellButton);
-      shopList.appendChild(li);
-    });
-  }
+            shopContainer.appendChild(itemList);
+            shopList.appendChild(shopContainer);
+        });
+    }
 }

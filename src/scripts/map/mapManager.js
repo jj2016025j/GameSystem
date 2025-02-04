@@ -12,17 +12,15 @@ export class MapManager {
     );
   }
 
+  getDefaultRegion() {
+    return this.mapRegions.values().next().value || null; // ✅ 預設回傳第一個地圖
+  }
+
   getMapRegionById(id) {
     return this.mapRegions.get(id) || null;
   }
 
   listAllRegions() {
     return [...this.mapRegions.values()]; // 確保回傳陣列
-  }
-
-  // ✅ 提取獲取當前地圖 NPC 的邏輯
-  getNPCsInLocation(currentLocation, npcManager) {
-    const currentMap = this.getMapRegionById(currentLocation);
-    return currentMap ? currentMap.listNPCs(npcManager) : [];
   }
 }

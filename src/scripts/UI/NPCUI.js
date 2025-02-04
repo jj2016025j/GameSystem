@@ -4,14 +4,18 @@ export class NPCUI {
   static initialize(gameSystem) {
     SystemLog.addMessage("[NPC UI] 開始初始化");
     this.gameSystem = gameSystem; 
-    this.mapManager = gameSystem.mapManager; 
-    this.npcs = this.mapManager.getNPCsInLocation(this.gameSystem.currentLocation, this.gameSystem.npcManager); 
-    this.render();
+    this.update();
     SystemLog.addMessage("[NPC UI] 已初始化 ✅");
   }
 
   static update() {
-    this.npcs = this.mapManager.getNPCsInLocation(this.gameSystem.currentLocation, this.gameSystem.npcManager); 
+    const mapRegion = this.gameSystem.currentLocation;
+    if (!mapRegion || typeof mapRegion.listShops !== "function") {
+        console.error("❌ 當前地圖數據異常，無法獲取商店");
+        return;
+    }
+
+    this.npcs = mapRegion.listNPCs(this.gameSystem.npcManager);
     this.render();
     SystemLog.addMessage(`[NPC UI] 更新 ${this.npcs.length} 位 NPC`);
   }

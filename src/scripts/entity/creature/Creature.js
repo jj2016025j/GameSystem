@@ -7,12 +7,10 @@ import { Inventory } from "../../Inventory/Inventory.js";
  * - 怪物、動物、野生生物皆可繼承此類
  */
 export class Creature extends BaseEntity {
-  constructor({ id, name, state = {}, inventory = {} }) {
+  constructor(gameSystem, { id, name, state = {}, inventory = {} }) {
     super({ id, name, state }); // ✅ 正確傳遞 state
     this.state = new CreatureState(this, state); // ✅ 使用 CreatureState
-    this.inventory = inventory instanceof Inventory 
-        ? inventory // ✅ 若已經是 Inventory，直接使用
-        : new Inventory(inventory); // ✅ 否則重新建立
+    this.inventory = new Inventory(gameSystem, { items: inventory.items, gold: inventory.gold }); 
   }
 
   // ✅ 獲取生物資訊
