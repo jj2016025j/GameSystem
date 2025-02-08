@@ -1,10 +1,10 @@
 :root {
+    --color-white: #FFFFFF;
     --color-white-gray: #E5E5E5;
+    --color-light-gray: #CBCCCC;
     --color-medium-gray: #3E3F40;
     --color-dark-gray: #1F2021;
     --color-black: #060606;
-    --color-white: #FFFFFF;
-    --color-light-gray: #CBCCCC;
 }
 
 html,
@@ -21,18 +21,16 @@ body {
 body {
     display: flex;
     font-family: Arial, sans-serif;
-    background-color: #1F2021;
+    background-color: #F6F6F6;
     color: white;
     margin: 0;
-    padding: 24px;
+    padding: 48px;
     align-items: flex-start;
     gap: 24px;
 }
 
 /* 地圖 */
 #map {
-    background-color: #3E3F40;
-    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -40,34 +38,33 @@ body {
 }
 
 #map-select {
-    background-color: #3E3F40;
+    background-color: #FFF;
     display: flex;
-    padding: 24px;
+    padding: 36px;
     flex-direction: column;
     align-items: center;
-    border-radius: 8px;
+    border-radius: 48px;
 }
 
 #map-list {
-    background-color: #3E3F40;
     display: flex;
-    width: 100px;
-    height: 100px;
-    padding: 24px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 24px;
-    border-radius: 8px;
 }
 
 .map-button {
-    background-color: #E5E5E5;
+    display: flex;
     width: 100px;
     height: 100px;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
+    padding: 12px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    border-radius: 24px;
+    background-color: #CBCCCC;
 }
 
 /* 主要內容 */
@@ -83,7 +80,7 @@ body {
 
 #player-chat {
     display: flex;
-    height: 309px;
+    height: 300px;
     align-items: flex-start;
     gap: 24px;
     align-self: stretch;
@@ -91,7 +88,7 @@ body {
 
 #player-skill {
     display: flex;
-    width: 634px;
+    width: 650px;
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
@@ -107,6 +104,8 @@ body {
     flex: 1 0 0;
     align-self: stretch;
     border-radius: 8px;
+    background-color: #FFF;
+    color: #060606;
 }
 
 #player-info {
@@ -207,22 +206,90 @@ body {
 }
 
 /* 聊天系統 */
+#chat-send {
+    display: flex;
+    padding: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    flex: 1 0 0;
+    align-self: stretch;
+    border-radius: 8px;
+}
+
 #chat {
-    background: #3E3F40;
-    padding: 10px;
+    display: flex;
+    padding: 16px;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 8px;
+    flex: 1 0 0;
+    align-self: stretch;
+    border-radius: 8px;
+    border: 1px solid var(--, #3E3F40);
 }
 
 #message {
     width: 80%;
 }
 
+#message-send {
+    display: flex;
+    height: 32px;
+    align-items: flex-start;
+    gap: 12px;
+    align-self: stretch;
+}
+
+#message {
+    display: flex;
+    padding: 24px;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    flex: 1 0 0;
+    align-self: stretch;
+    border-radius: 16px;
+    border: 1px solid var(--, #3E3F40);
+    background: var(--, #FFF);
+}
+
 #send {
-    background: #E5E5E5;
-    border: none;
-    padding: 5px 10px;
+    display: flex;
+    width: 40px;
+    padding: 36px;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    align-self: stretch;
+    border-radius: 16px;
+    border: 1px solid var(--, #3E3F40);
+    background: var(--, #FFF);
 }
 
 /* 背包 */
+#backpack-map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+#backpack-area {
+    display: flex;
+    width: 407px;
+    padding: 24px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 8px;
+    background: var(--, #FFF);
+}
+
 #backpack {
     background: #3E3F40;
     padding: 10px;
@@ -235,20 +302,155 @@ body {
 }
 
 /* 地圖區域 */
-#map-area-list div {
+#map-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+#map-area-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    align-self: stretch;
+}
+
+.monster {
+    display: flex;
+    padding: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 8px;
+    background: var(--, #FFF);
+}
+
+.monster-list {
+    display: flex;
+    height: 159px;
+    align-items: center;
+    gap: 24px;
+    align-self: stretch;
+}
+
+.monster-status-list {
+    display: flex;
+    height: 159px;
+    align-items: center;
+    gap: 24px;
+    align-self: stretch;
+}
+
+.monster-status-tag {
+    display: flex;
+    height: 159px;
+    align-items: center;
+    gap: 24px;
+    align-self: stretch;
+}
+
+.npc-area {
+    display: flex;
+    padding: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 8px;
+    background: var(--, #FFF);
+}
+
+.npc-list {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    align-self: stretch;
+}
+
+.npc {
+    display: flex;
+    padding: 12px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    background: var(--, #FFF);
+}
+
+.npc-button {
+    display: flex;
+    padding: 4px 16px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    background: var(--, #3E3F40);
+}
+
+.object-area {
+    display: flex;
+    padding: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 8px;
+    background: var(--, #FFF);
+}
+
+.object-list {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    align-self: stretch;
+}
+
+.object {
+    display: flex;
+    padding: 12px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    background: var(--, #E5E5E5);
+}
+
+.object-button {
+    display: flex;
+    padding: 4px 16px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    background: var(--, #3E3F40);
+}
+
+#shop-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    align-self: stretch;
+}
+
+.shop {
+    display: flex;
+    padding: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+    border-radius: 8px;
+    background: var(--, #FFF);
+}
+
+.commodity-list {
     margin-top: 10px;
 }
-
-.creature,
-.npc,
-.object,
-.shop {
-    background: #CBCCCC;
-    padding: 5px;
-    margin: 5px 0;
-}
-
-
 
 h1 {
     font-size: 32px;
@@ -276,4 +478,14 @@ h6 {
 
 p {
     font-size: 4px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
 }
