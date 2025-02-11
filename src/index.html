@@ -34,6 +34,12 @@
                             <div class="status-tag">
                                 <h6>中毒</h6>
                             </div>
+                            <div class="status-tag">
+                                <h6>中毒</h6>
+                            </div>
+                            <div class="status-tag">
+                                <h6>中毒</h6>
+                            </div>
                         </div>
                         <div id="player-name-level">
                             <h3 id="player-name">芙麗蓮</h3>
@@ -41,25 +47,25 @@
                         </div>
                     </div>
                     <div id="numeric">
-                        <div class="stat">
+                        <div class="state">
                             <label>
-                                <h5>血量</h5>
+                                <h5>HP</h5>
                             </label>
                             <div class="bar">
                                 <div class="player-hp" style="width:50%;"></div>
                             </div>
                         </div>
-                        <div class="stat">
+                        <div class="state">
                             <label>
-                                <h5>魔力</h5>
+                                <h5>MP</h5>
                             </label>
                             <div class="bar">
                                 <div class="player-mp" style="width:50%;"></div>
                             </div>
                         </div>
-                        <div class="stat">
+                        <div class="state">
                             <label>
-                                <h5>經驗值</h5>
+                                <h5>EXP</h5>
                             </label>
                             <div class="bar">
                                 <div class="player-exp" style="width:50%;"></div>
@@ -69,21 +75,31 @@
                 </div>
                 <div id="skill">
                     <div id="skill-list">
-                        <button class="skill-button">火焰術</button>
-                        <button class="skill-button">冰凍術</button>
-                        <button class="skill-button">雷擊</button>
-                        <button class="skill-button">治癒</button>
+                        <div class="skill-button">火焰術</div>
+                        <div class="skill-button">冰凍術</div>
+                        <div class="skill-button">雷擊</div>
+                        <div class="skill-button">治癒</div>
                     </div>
                 </div>
             </div>
-
             <div id="chat-send">
                 <div id="chat">
-                    <div id="messages"></div>
+                    <div class="messages">
+                        <div class="system-messages">
+                            <div class="messages">
+                                <h6>系統訊息</h6>
+                            </div>
+                        </div>
+                        <div class="player-messages">
+                            <div class="messages">
+                                <h6>玩家訊息</h6>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div id="message-send">
                     <input type="text" id="message" placeholder="輸入訊息...">
-                    <button id="send">發送</button>
+                    <div id="send">發送</div>
                 </div>
             </div>
         </div>
