@@ -1,215 +1,317 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text RPG Game</title>
-    <link rel="stylesheet" href="styles/gameSystem.css">
+    <title>文字RPG</title>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
-    <!-- 個人資訊列表 背包 裝備 技能-->
-    <div class="player-container">
-        <!-- Player Info -->
-        <div class="player-info">
-            <h2 class="title">個人檔案：</h2>
-            <ul class="list">
-                <li>暱稱: <span id="player-name">芙寧娜(預設)</span></li>
-                <li>血量: <span id="player-health">100(預設)</span></li>
-                <li>魔力: <span id="player-mana">100(預設)</span></li>
-                <li>經驗值: <span id="player-exp">0(預設)</span></li>
-                <li>等級: <span id="player-level">10(預設)</span></li>
-                <li>金錢: <span id="player-gold">500(預設)</span></li>
-                <li>位置: <span id="player-location">古林</span></li>
-                <li>狀態: <span id="player-states">存活(預設)</span></li>
-            </ul>
-            <button id="updateButton" class="log">更新狀態</button>
-            <button id="saveGameButton" class="log">儲存遊戲</button>
-            <button id="loadGameButton" class="log">載入遊戲</button>
-            <button id="randomHealthButton" class="log">隨機血量變動</button>
-            <button id="randomManaButton" class="log">隨機魔力變動</button>
-            <button id="randomExpButton" class="log">隨機經驗值變動</button>
-            <button id="addGoldButton">增加金幣</button>
-            <button id="removeGoldButton">消耗金幣</button>
-            <button id="levelUpButton" class="log">升級</button>
-            <button id="resetLevelButton" class="log">回到一等</button>
-            <button id="randomLocationButton" class="log">隨機位置變動</button>
-            <button id="poisonButton" class="log">中毒</button>
-            <button id="cleanseButton" class="log">淨化</button>
-        </div>
-
-        <!-- Skills -->
-        <div class="skills">
-            <h2 class="title">技能列表：</h2>
-            <ul class="list" id="skillsList">
-                <!-- 攻擊
-                治癒 -->
-                <!-- <li>火球術</li>
-                <li>治癒術</li>
-                <li>隱身術</li> -->
-            </ul>
-        </div>
-
-        <!-- Inventory -->
-        <div class="inventory">
-            <h2 class="title">物品列表：</h2>
-            <button id="SelectionButton" class="log">全部選取</button>
-            <button id="addItemButton" class="log">加入背包</button>
-            <button id="removeItemButton" class="log">移除物品</button>
-            <button id="useItemButton" class="log">使用物品</button>
-            <button id="purchaseItemButton" class="log">購買物品</button>
-            <button id="sellItemButton" class="log">售出物品</button>
-            <ul class="list" id="inventoryList">
-                <!-- <li data-item="劍">劍</li>
-                <li data-item="盾牌">盾牌</li>
-                <li data-item="藥水">藥水</li> -->
-            </ul>
-
+    <div id="map">
+        <div id="map-select">
+            <div id="map-list">
+                <div class="map-button">
+                    <h3>古林</h3>
+                    <h6>探索古老的森林</h6>
+                </div>
+                <div class="map-button">
+                    <h3>古林</h3>
+                    <h6>探索古老的森林</h6>
+                </div>
+                <div class="map-button">
+                    <h3>古林</h3>
+                    <h6>探索古老的森林</h6>
+                </div>
+                <div class="map-button">
+                    <h3>古林</h3>
+                    <h6>探索古老的森林</h6>
+                </div>
+                <div class="map-button">
+                    <h3>古林</h3>
+                    <h6>探索古老的森林</h6>
+                </div>
+                <div class="map-button">
+                    <h3>古林</h3>
+                    <h6>探索古老的森林</h6>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- 互動列表 儲值 製作 商店 銀行 地圖 市集 城市 公會 生物 物品 NPC 任務 -->
-    <div class="container">
-
-        <!-- 地圖列表 -->
-        <section id="maps" class="maps">
-            <h2 class="title">地圖列表：</h2>
-            <ul class="list">
-                <!-- <li data-description="探索古老的森林">古林
-                    <div>
-                        <button type="button" class="log">前往</button>
+    <div id="main">
+        <div id="player-chat">
+            <div id="player-skill">
+                <div id="player">
+                    <div id="player-info">
+                        <h6 id="player-id">#1248794123</h6>
+                        <div id="status-list">
+                            <div class="status-tag">
+                                <h6>中毒</h6>
+                            </div>
+                            <div class="status-tag">
+                                <h6>中毒</h6>
+                            </div>
+                            <div class="status-tag">
+                                <h6>中毒</h6>
+                            </div>
+                        </div>
+                        <div id="player-name-level">
+                            <h3 id="player-name">芙麗蓮</h3>
+                            <h4 id="player-level">LV.1</h4>
+                        </div>
                     </div>
-                </li>
-                <li data-description="在繁華的城市中購物">城市
-                    <div>
-                        <button type="button" class="log">前往</button>
+                    <div id="numeric">
+                        <div class="state">
+                            <label>
+                                <h5>HP</h5>
+                            </label>
+                            <div class="bar">
+                                <div class="player-hp" style="width:50%;"></div>
+                            </div>
+                        </div>
+                        <div class="state">
+                            <label>
+                                <h5>MP</h5>
+                            </label>
+                            <div class="bar">
+                                <div class="player-mp" style="width:50%;"></div>
+                            </div>
+                        </div>
+                        <div class="state">
+                            <label>
+                                <h5>EXP</h5>
+                            </label>
+                            <div class="bar">
+                                <div class="player-exp" style="width:50%;"></div>
+                            </div>
+                        </div>
                     </div>
-                </li>
-                <li data-description="在冰冷的極地中生存">極地
-                    <div>
-                        <button type="button" class="log">前往</button>
+                </div>
+                <div id="skill">
+                    <div id="skill-list">
+                        <div class="skill-button">火焰術</div>
+                        <div class="skill-button">冰凍術</div>
+                        <div class="skill-button">雷擊</div>
+                        <div class="skill-button">治癒</div>
+                        <div class="skill-button">火焰術</div>
+                        <div class="skill-button">冰凍術</div>
+                        <div class="skill-button">雷擊</div>
+                        <div class="skill-button">治癒</div>
                     </div>
-                </li>
-                <li data-description="在熱帶雨林中尋找寶藏">雨林
-                    <div>
-                        <button type="button" class="log">前往</button>
+                </div>
+            </div>
+            <div id="chat-send">
+                <div id="chat">
+                    <div class="messages">
+                        <div class="system-message">
+                            <div class="message">
+                                <h6>系統訊息</h6>
+                            </div>
+                        </div>
+                        <div class="player-message">
+                            <div class="message">
+                                <h6>玩家訊息</h6>
+                            </div>
+                        </div>
+                        <div class="system-message">
+                            <div class="message">
+                                <h6>系統訊息</h6>
+                            </div>
+                        </div>
+                        <div class="player-message">
+                            <div class="message">
+                                <h6>玩家訊息</h6>
+                            </div>
+                        </div>
+                        <div class="system-message">
+                            <div class="message">
+                                <h6>系統訊息</h6>
+                            </div>
+                        </div>
+                        <div class="player-message">
+                            <div class="message">
+                                <h6>玩家訊息</h6>
+                            </div>
+                        </div>
+                        <div class="system-message">
+                            <div class="message">
+                                <h6>系統訊息</h6>
+                            </div>
+                        </div>
+                        <div class="player-message">
+                            <div class="message">
+                                <h6>玩家訊息</h6>
+                            </div>
+                        </div>
                     </div>
-                </li>
-                <li data-description="在神秘的洞穴中探險">洞穴
-                    <div>
-                        <button type="button" class="log">前往</button>
+                </div>
+                <div id="message-send">
+                    <input type="text" id="message-input" placeholder="輸入訊息...">
+                    <div id="send">
+                        <h6></h6>
                     </div>
-                </li>
-                <li data-description="在廣闊的草原上馳騁">草原
-                    <div>
-                        <button type="button" class="log">前往</button>
-                    </div>
-                </li>
-                <li data-description="在蔚藍的海水中暢遊">珊瑚海
-                    <div>
-                        <button type="button" class="log">前往</button>
-                    </div>
-                </li>
-                <li data-description="尋找失落的財寶和神話">遺忘島嶼
-                    <div>
-                        <button type="button" class="log">前往</button>
-                    </div>
-                </li>
-                <li data-description="與傳說中的生物相遇">龍谷
-                    <div>
-                        <button type="button" class="log">前往</button>
-                    </div>
-                </li>
-                <li data-description="在黑暗中尋找生機">黑暗荒原
-                    <div>
-                        <button type="button" class="log">前往</button>
-                    </div>
-                </li>
-                <li data-description="在迷霧中探索未知">迷霧森林
-                    <div>
-                        <button type="button" class="log">前往</button>
-                    </div>
-                </li> -->
-            </ul>
-        </section>
-
-        <!-- 物件列表 -->
-        <section id="objects" class="objects">
-            <h2 class="title">可互動物件列表：</h2>
-            <ul class="list" id="objectsList">
-                <!-- <li data-description="可能包含金幣、武器、藥水等">寶箱</li>
-                <li data-description="可以取水或許願">井</li>
-                <li data-description="獲取故事資訊或學習新技能">書架</li>
-                <li data-description="閱讀歷史或獲得任務">石碑</li>
-                <li data-description="需要鑰匙或解謎才能打開">門</li>
-                <li data-description="製作藥水或魔法物品">炼金桌</li>
-                <li data-description="獲取或更換武器">武器架</li>
-                <li data-description="快速移動到其他地點">傳送門</li> -->
-            </ul>
-        </section>
-
-        <!-- 互動生物列表 -->
-        <section id="creature" class="creature">
-            <h2 class="title">可互動生物列表：</h2>
-            <ul class="list" id="creaturesList">
-                <!-- <li data-description="給予魔法能量或資訊">森林精靈</li>
-                <li data-description="例如鹿、兔子，可以狩獵或馴養">野生動物</li>
-                <li data-description="例如魚，可以釣魚">水中生物</li>
-                <li data-description="可能是敵人或盟友，或是坐騎">龍</li> -->
-            </ul>
-        </section>
-
-        <!-- NPC列表 -->
-        <section id="npcs" class="npcs">
-            <h2 class="title">NPC列表：</h2>
-            <ul class="list" id="npcList">
-                <!-- <li data-description="提供資訊或任務">村莊長老</li>
-                <li data-description="提供住宿和補給">旅館老闆</li>
-                <li data-description="教授新技能或升級技能">教練</li>
-                <li data-description="有時提供小任務或秘密資訊">孩子</li>
-                <li data-description="在某些情境中可能是友好的，或可能是阻礙">治安官或騎士</li>
-                <li data-description="提供魔法物品或任務">巫師或魔法師</li> -->
-            </ul>
-        </section>
-
-        <!-- 商店列表 -->
-        <section id="shops" class="shops">
-            <h2 class="title">商店列表：</h2>
-            <ul class="list" id="shopsList">
-                <!-- <li data-description="買賣武器">武器店</li>
-                <li data-description="買賣藥水、藥草">藥草店</li>
-                <li data-description="購買魔法書或書籍">書店</li>
-                <li data-description="購買或賣出寵物">寵物店</li>
-                <li data-description="租房休息，恢復生命值和魔法值">旅館</li>
-                <li data-description="買賣各種遊戲道具">道具店</li> -->
-            </ul>
-        </section>
-        <!-- Repeat sections like above for each category -->
-    </div>
-
-    <!-- Chat 公會 信箱 通知 -->
-    <div class="chat">
-        <div class="chatRoom">
-            <h2 class="title">系統提示</h2>
-            <textarea rows="30" id="chatLog" readonly></textarea>
-            <!-- <div id="chatLog" readonly></div> -->
-            <br><br>
-            <input type="text" placeholder="輸入內容...">
-            <button id="sendButton">送出</button>
+                </div>
+            </div>
         </div>
 
-        <audio loop id="background-music" preload="auto">
-            <source src="SaveTube.App - KING _ Furina (AI Cover) (128 kbps).mp3" type="audio/mp3">
-        </audio>
-        <button id="playMusicButton" class="log">撥放音樂</button>
-    </div>
+        <div id="backpack-map">
+            <div id="backpack">
+                <div class="title">
+                    <h4>背包</h4>
+                    <div id="backpack-buttons">
+                        <div class="backpack-button">全選</div>
+                        <div class="backpack-button">使用</div>
+                        <div class="backpack-button">丟棄</div>
+                        <div class="backpack-button">售出</div>
+                    </div>
+                </div>
+                <div id="backpack-list">
+                    <div class="item">
+                        <h5>精靈弓</h5>
+                        <div class="item-tag-list">
+                            <div class="item-tag">
+                                <h6>攻擊力 +20</h6>
+                            </div>
+                            <div class="item-tag">
+                                <h6>防禦力 +20</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- 
-        其他功能列 浮動在畫面中
-    -->
-    <!-- <script src="scripts/test/test.js" type="module"></script> -->
-    <script src="scripts/main.js" type="module"></script>
+            <div id="map-area">
+                <div id="map-area-list">
+                    <div id="monster-area">
+                        <div id="monster-list">
+                            <div class="monster">
+                                <div class="monster-name-level">
+                                    <h3 class="monster-name">野狼</h3>
+                                    <h4 class="monster-level">LV1</h4>
+                                </div>
+                                <div class="status-list">
+                                    <div class="status-tag">
+                                        <h6>中毒</h6>
+                                    </div>
+                                </div>
+                                <div class="monster-numeric">
+                                    <div class="stat">
+                                        <label>
+                                            <h5>血量</h5>
+                                        </label>
+                                        <div class="bar">
+                                            <div class="monster-hp" style="width:50%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="stat">
+                                        <label>
+                                            <h5>魔力</h5>
+                                        </label>
+                                        <div class="bar">
+                                            <div class="monster-mp" style="width:50%;"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="npc-area">
+                        <div id="npc-list">
+                            <div class="npc">
+                                <h3>旅人</h3>
+                                <div class="npc-button">
+                                    <h3>對話</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="object-area">
+                        <div id="object-list">
+                            <div class="object">
+                                <h3>寶箱</h3>
+                                <div class="object-button">
+                                    <h3>打開</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="shop-list">
+                        <div class="shop">
+                            <div class="shop-title">
+                                <h4>旅店</h4>
+                                <div class="shop-button">
+                                    <button>全選</button>
+                                    <button>購買</button>
+                                </div>
+                            </div>
+                            <div class="commodity-list">
+                                <div class="commodity">
+                                    <h5>精靈弓</h5>
+                                    <div class="commodity-tag-list">
+                                        <div class="commodity-tag">
+                                            <h6>攻擊力 +20</h6>
+                                        </div>
+                                        <div class="commodity-tag">
+                                            <h6>防禦力 +20</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="commodity">
+                                    <h5>精靈弓</h5>
+                                    <div class="commodity-tag-list">
+                                        <div class="commodity-tag">
+                                            <h6>攻擊力 +20</h6>
+                                        </div>
+                                        <div class="commodity-tag">
+                                            <h6>防禦力 +20</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="shop">
+                            <div class="shop-title">
+                                <h4>商店</h4>
+                                <div class="shop-button">
+                                    <button>全選</button>
+                                    <button>購買</button>
+                                </div>
+                            </div>
+                            <div class="commodity-list">
+                                <div class="commodity">
+                                    <h5>精靈弓</h5>
+                                    <div class="commodity-tag-list">
+                                        <div class="commodity-tag">
+                                            <h6>攻擊力 +20</h6>
+                                        </div>
+                                        <div class="commodity-tag">
+                                            <h6>防禦力 +20</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="commodity">
+                                    <h5>精靈弓</h5>
+                                    <div class="commodity-tag-list">
+                                        <div class="commodity-tag">
+                                            <h6>攻擊力 +20</h6>
+                                        </div>
+                                        <div class="commodity-tag">
+                                            <h6>防禦力 +20</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="scripts/script.js"></script>
 </body>
 
 </html>

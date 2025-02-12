@@ -1,17 +1,33 @@
 import { CookieManager } from "./utils/cookieManager.js";
-import { Player } from "./player/player.js";
-// import { InventorySystem } from "./inventory/inventorySystem.js";
-import { UIManager } from "./uiManager.js";
+import { Player } from "./entity/creature/player/player.js";
+import { ItemManager } from "./Inventory/ItemManager.js";
+import { SkillManager } from "./entity/creature/Skill/SkillManager.js";
+import { MapManager } from "./map/MapManager.js";
+import { NPCManager } from "./entity/creature/NPC/NPCManager.js";
+import { ShopManager } from "./shop/ShopManager.js";
+import { CreatureManager } from "./entity/creature/CreatureManager.js";
+import { ObjectManager } from "./entity/Object/ObjectManager.js";
+import { UIManager } from "./UI/UIManager.js";
+import { SystemLog } from "./utils/SystemLog.js";
 
 export class GameSystem {
   constructor() {
+    this.itemManager = new ItemManager();
+    this.skillManager = new SkillManager();
+    this.mapManager = new MapManager(); // 玩家資料
+    this.npcManager = new NPCManager();
+    this.shopManager = new ShopManager(this);
+    this.creatureManager = new CreatureManager();
+    this.objectManager = new ObjectManager();
     this.player = new Player(this); // 玩家資料
-    // this.inventorySystem = new InventorySystem(this.player); // 背包系統
+    this.currentLocation = this.mapManager.getDefaultRegion();
+    this.initializeGame();
   }
 
   // 初始化遊戲
   initializeGame() {
     // this.loadGameFromCookie();
+    SystemLog.addMessage("[系統] 初始化中...");
     UIManager.initialize(this); // 初始化 UI
     
     // // 定期保存遊戲進度
@@ -21,6 +37,20 @@ export class GameSystem {
     // window.addEventListener("beforeunload", () => this.saveGameToCookie());
   }
 
+  // 切換地圖
+  switchMap(newLocationId) {
+    const newMapRegion = this.mapManager.getMapRegionById(newLocationId);
+    if (!newMapRegion) {
+      console.warn(`⚠️ 地點 ${newLocationId} 不存在`);
+      return;
+    }
+
+    this.currentLocation = newMapRegion; // ✅ 確保 `currentLocation` 是 ID
+    SystemLog.addMessage(`🔄 切換到地點: ${newMapRegion.name}`);
+    
+    UIManager.updateAllUI(this); // ✅ 更新 UI
+  }
+
   // 保存遊戲進度到 Cookie
   saveGameToCookie() {
     const gameData = {
@@ -28,7 +58,7 @@ export class GameSystem {
       time: new Date().toISOString(),
     };
     CookieManager.setCookie("gameData", JSON.stringify(gameData));
-    console.log("遊戲進度已保存到 Cookie。");
+    SystemLog.addMessage("遊戲進度已保存到 Cookie。");
   }
 
   // 從 Cookie 加載遊戲進度
@@ -37,9 +67,9 @@ export class GameSystem {
     if (savedData) {
       const parsedData = JSON.parse(savedData);
       this.player = Object.assign(new Player(), parsedData.player);
-      console.log("遊戲進度從 Cookie 加載成功。");
+      SystemLog.addMessage("遊戲進度從 Cookie 加載成功。");
     } else {
-      console.log("未找到存檔，使用默認遊戲數據初始化。");
+      SystemLog.addMessage("未找到存檔，使用默認遊戲數據初始化。");
     }
   }
 }

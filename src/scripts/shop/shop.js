@@ -1,94 +1,69 @@
-// 商店類別
-class Shop {
-    constructor(name) {
+import { SystemLog } from "../utils/SystemLog.js";
+import { Inventory } from "../Inventory/Inventory.js";
+
+export class Shop {
+    constructor(gameSystem, { id, name, itemsForSale = [] }) {
+        this.gameSystem = gameSystem; 
+        this.id = id;
         this.name = name;
-        this.inventory = new Inventory(this);
+        this.inventory = new Inventory(gameSystem, { items: itemsForSale, gold: 0 }); // 使用 InventoryManager 管理商品
     }
 
-    buyItems(seller, inputItems, priceMap) {
-        const itemsToBuy = Array.isArray(inputItems)
-            ? inputItems
-            : Object.entries(inputItems).map(([name, quantity]) => ({ name, quantity }));
+    // ✅ 列出商店內所有商品
+    listItems() {
+        SystemLog.addMessage(`🛒 商店: ${this.name}`);
+        this.inventory.getItems().forEach(item => {
+            SystemLog.addMessage(`${item.name} - 價格: ${item.price} 金幣`);
+        });
+    }
 
-        const totalPrice = this.inventory.calculateTotalPrice(itemsToBuy, priceMap);
-        if (!this.inventory.hasMoney(totalPrice)) {
-            console.log("購買失敗：金額不足。");
+    listItems() {
+        return this.inventory.getItems(); // ✅ 確保可用
+    }
+
+    // ✅ 購買物品
+    buyItem(buyer, itemId, quantity = 1) {
+        const item = this.inventory.getItem(itemId);
+        if (!item) {
+            SystemLog.addMessage(`❌ ${this.name} 沒有物品 ${itemId}`);
             return false;
         }
 
-        const allAvailable = itemsToBuy.every(({ name, quantity }) => seller.inventory.hasItem(name, quantity));
-        if (!allAvailable) {
-            console.log("購買失敗：賣家物品不足。");
+        const totalPrice = item.price * quantity;
+        if (!buyer.inventory.hasMoney(totalPrice)) {
+            SystemLog.addMessage(`❌ ${buyer.name} 金幣不足，無法購買 ${item.name}`);
             return false;
         }
 
-        this.inventory.transferItems(seller.inventory, this.inventory, itemsToBuy);
-        this.inventory.gold -= totalPrice;
-        seller.inventory.gold += totalPrice;
+        // ✅ 交易成功
+        buyer.inventory.gold -= totalPrice;
+        this.inventory.gold += totalPrice;
+        buyer.inventory.addItem({ ...item, quantity });
 
-        console.log(`${this.name} 成功購買物品。`);
+        SystemLog.addMessage(`✅ ${buyer.name} 購買了 ${quantity} 個 ${item.name}`);
         return true;
     }
 
-    sellItems(buyer, inputItems, priceMap) {
-        const itemsToSell = Array.isArray(inputItems)
-            ? inputItems
-            : Object.entries(inputItems).map(([name, quantity]) => ({ name, quantity }));
-
-        const totalPrice = this.inventory.calculateTotalPrice(itemsToSell, priceMap);
-        if (!buyer.inventory.hasMoney(totalPrice)) {
-            console.log("出售失敗：買家金額不足。");
+    // ✅ 出售物品
+    sellItem(seller, itemId, quantity = 1) {
+        const item = seller.inventory.getItem(itemId);
+        if (!item || item.quantity < quantity) {
+            SystemLog.addMessage(`❌ ${seller.name} 沒有足夠的 ${itemId}`);
             return false;
         }
 
-        const allAvailable = itemsToSell.every(({ name, quantity }) => this.inventory.hasItem(name, quantity));
-        if (!allAvailable) {
-            console.log("出售失敗：商店物品不足。");
+        const totalPrice = item.price * quantity;
+        if (!this.inventory.hasMoney(totalPrice)) {
+            SystemLog.addMessage(`❌ ${this.name} 金幣不足，無法購買 ${item.name}`);
             return false;
         }
 
-        this.inventory.transferItems(this.inventory, buyer.inventory, itemsToSell);
-        this.inventory.gold += totalPrice;
-        buyer.inventory.gold -= totalPrice;
+        // ✅ 交易成功
+        seller.inventory.gold += totalPrice;
+        this.inventory.gold -= totalPrice;
+        seller.inventory.removeItem(itemId, quantity);
 
-        console.log(`${this.name} 成功出售物品。`);
+        SystemLog.addMessage(`✅ ${seller.name} 出售了 ${quantity} 個 ${item.name}`);
         return true;
     }
 }
-
-
-class Shop {
-    constructor({ id, name, itemsForSale = [] }) {
-      this.id = id;
-      this.name = name;
-      this.itemsForSale = itemsForSale; // 商店商品列表
-    }
-  
-    listItems() {
-      console.log(`商店: ${this.name}`);
-      this.itemsForSale.forEach((item) => {
-        console.log(`${item.name} - 價格: ${item.price}`);
-      });
-    }
-  
-    purchaseItem(itemId, buyer) {
-      const item = this.itemsForSale.find((i) => i.id === itemId);
-      if (!item) {
-        console.log(`商店 ${this.name} 中沒有此物品`);
-        return false;
-      }
-  
-      if (buyer.gold >= item.price) {
-        buyer.gold -= item.price;
-        buyer.inventory.addItem(item);
-        console.log(`${buyer.name} 購買了 ${item.name}`);
-        return true;
-      } else {
-        console.log(`${buyer.name} 金幣不足`);
-        return false;
-      }
-    }
-  }
-  
-  export { Shop };
-  

@@ -1,7 +1,10 @@
-import { GameSystem } from "./gameSystem.js";
+import { GameSystem } from "./GameSystem.js";
+import { SystemLog } from "./utils/SystemLog.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Main開始初始化");
-  const gameSystem = new GameSystem(); // 初始化遊戲系統
-  gameSystem.initializeGame(); // 開始遊戲
+  SystemLog.initialize(); // 初始化系統提示 UI
+  SystemLog.addMessage("遊戲開始！歡迎來到這個世界。", "info");
+  SystemLog.addMessage("[系統] 開始初始化");
+  new GameSystem(); // 初始化遊戲系統
+
 });
